@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Astronomy catalog data
+# Keep downloaded source catalogues local; retain directory placeholders.
+/data/raw/**
+!/data/raw/**/
+!/data/raw/**/.gitkeep
