@@ -1,0 +1,4 @@
+089a6a990f867addedb56a3a2ae169a12d133a702607554a31f9037e063c3ccc  data/raw/fds/fds_ngc1399_1deg.csv
+57f396460a0dc233133512ba3bcd701c20c23f65bb66f38833ce94648950942e  data/raw/fds/mastergc.dat
+3dbbba22daeaa33511cd8072a1b08d648dc5216cc53ed90c55b9a3bcd307982d  data/raw/chaturvedi/catalog.dat
+906b3225b198b10e5657d67a3332392e2e8d58d4bce41cb63b746fce4c3dc355  data/raw/des/des_dr2_ngc1399_1deg.csv

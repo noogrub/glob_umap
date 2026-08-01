@@ -1,0 +1,231 @@
+table_name,column_name,datatype,unit,description
+des_dr2.main,alphawin_j2000,adql:DOUBLE,degrees,"right ascension for the object, j2000 in icrs system (full precision but not indexed) [degrees]"
+des_dr2.main,awin_image_g,adql:REAL,pixels,"g-band major axis size, from 2nd order windowed moment measurements [pixels]"
+des_dr2.main,awin_image_i,adql:REAL,pixels,"i-band major axis size, from 2nd order windowed moment measurements [pixels]"
+des_dr2.main,awin_image_r,adql:REAL,pixels,"r-band major axis size, from 2nd order windowed moment measurements [pixels]"
+des_dr2.main,awin_image_y,adql:REAL,pixels,"y-band major axis size, from 2nd order windowed moment measurements [pixels]"
+des_dr2.main,awin_image_z,adql:REAL,pixels,"z-band major axis size, from 2nd order windowed moment measurements [pixels]"
+des_dr2.main,a_image,adql:REAL,pixel,major axis size based on an isophotal model [pixel]
+des_dr2.main,background_g,adql:REAL,mag,"g-band background level, by ccd-amplifier [mag]"
+des_dr2.main,background_i,adql:REAL,mag,"i-band background level, by ccd-amplifier [mag]"
+des_dr2.main,background_r,adql:REAL,mag,"r-band background level, by ccd-amplifier [mag]"
+des_dr2.main,background_y,adql:REAL,mag,"y-band background level, by ccd-amplifier [mag]"
+des_dr2.main,background_z,adql:REAL,mag,"z-band background level, by ccd-amplifier [mag]"
+des_dr2.main,bwin_image_g,adql:REAL,pixels,"g-band minor axis size, from 2nd order windowed moment measurements [pixels]"
+des_dr2.main,bwin_image_i,adql:REAL,pixels,"i-band minor axis size, from 2nd order windowed moment measurements [pixels]"
+des_dr2.main,bwin_image_r,adql:REAL,pixels,"r-band minor axis size, from 2nd order windowed moment measurements [pixels]"
+des_dr2.main,bwin_image_y,adql:REAL,pixels,"y-band minor axis size, from 2nd order windowed moment measurements [pixels]"
+des_dr2.main,bwin_image_z,adql:REAL,pixels,"z-band minor axis size, from 2nd order windowed moment measurements [pixels]"
+des_dr2.main,b_image,adql:REAL,pixel,minor axis size based on an isophotal model [pixel]
+des_dr2.main,class_star_g,adql:REAL,,g-band simple morphological extended source classifier. values between 0 (galaxies) and 1 (stars). spread_model exhibits better performance for morphological classification.
+des_dr2.main,class_star_i,adql:REAL,,i-band simple morphological extended source classifier. values between 0 (galaxies) and 1 (stars). spread_model exhibits better performance for morphological classification.
+des_dr2.main,class_star_r,adql:REAL,,r-band simple morphological extended source classifier. values between 0 (galaxies) and 1 (stars). spread_model exhibits better performance for morphological classification.
+des_dr2.main,class_star_y,adql:REAL,,y-band simple morphological extended source classifier. values between 0 (galaxies) and 1 (stars). spread_model exhibits better performance for morphological classification.
+des_dr2.main,class_star_z,adql:REAL,,z-band simple morphological extended source classifier. values between 0 (galaxies) and 1 (stars). spread_model exhibits better performance for morphological classification.
+des_dr2.main,coadd_object_id,adql:BIGINT,,unique identifier for the coadded objects
+des_dr2.main,dec,adql:DOUBLE,degrees,"declination, with quantized precision for indexing (deltawin_j2000 has full precision but not indexed) [degrees]"
+des_dr2.main,deltawin_j2000,adql:DOUBLE,degrees,"declination for the object, j2000 in icrs system (full precision but not indexed) [degrees]"
+des_dr2.main,ebv_sfd98,adql:DOUBLE,mag,"e(b-v) reddening coefficient from schlegel, finkbeiner & davis, 1998 [mag]"
+des_dr2.main,errawin_image_g,adql:REAL,pixel,"g-band uncertainty in major axis size, from converged windowed measurement, assuming uncorrelated noise [pixel]"
+des_dr2.main,errawin_image_i,adql:REAL,pixel,"i-band uncertainty in major axis size, from converged windowed measurement, assuming uncorrelated noise [pixel]"
+des_dr2.main,errawin_image_r,adql:REAL,pixel,"r-band uncertainty in major axis size, from converged windowed measurement, assuming uncorrelated noise [pixel]"
+des_dr2.main,errawin_image_y,adql:REAL,pixel,"y-band uncertainty in major axis size, from converged windowed measurement, assuming uncorrelated noise [pixel]"
+des_dr2.main,errawin_image_z,adql:REAL,pixel,"z-band uncertainty in major axis size, from converged windowed measurement, assuming uncorrelated noise [pixel]"
+des_dr2.main,erra_image,adql:REAL,pixel,"uncertainty in major axis size, from isophotal model [pixel]"
+des_dr2.main,errbwin_image_g,adql:REAL,pixel,"g-band uncertainty in minor axis size, from converged windowed measurement, assuming uncorrelated noise [pixel]"
+des_dr2.main,errbwin_image_i,adql:REAL,pixel,"i-band uncertainty in minor axis size, from converged windowed measurement, assuming uncorrelated noise [pixel]"
+des_dr2.main,errbwin_image_r,adql:REAL,pixel,"r-band uncertainty in minor axis size, from converged windowed measurement, assuming uncorrelated noise [pixel]"
+des_dr2.main,errbwin_image_y,adql:REAL,pixel,"y-band uncertainty in minor axis size, from converged windowed measurement, assuming uncorrelated noise [pixel]"
+des_dr2.main,errbwin_image_z,adql:REAL,pixel,"z-band uncertainty in minor axis size, from converged windowed measurement, assuming uncorrelated noise [pixel]"
+des_dr2.main,errb_image,adql:REAL,pixel,"uncertainty in minor axis size, from isophotal model [pixel]"
+des_dr2.main,errthetawin_image_g,adql:REAL,degrees,"g-band uncertainty in source position angle, from converged windowed measurement [degrees]"
+des_dr2.main,errthetawin_image_i,adql:REAL,degrees,"i-band uncertainty in source position angle, from converged windowed measurement [degrees]"
+des_dr2.main,errthetawin_image_r,adql:REAL,degrees,"r-band uncertainty in source position angle, from converged windowed measurement [degrees]"
+des_dr2.main,errthetawin_image_y,adql:REAL,degrees,"y-band uncertainty in source position angle, from converged windowed measurement [degrees]"
+des_dr2.main,errthetawin_image_z,adql:REAL,degrees,"z-band uncertainty in source position angle, from converged windowed measurement [degrees]"
+des_dr2.main,errtheta_image,adql:REAL,degrees,"uncertainty in source position, from isophotal model [degrees]"
+des_dr2.main,errx2win_image_g,adql:DOUBLE,pixel2,"g-band uncertainty in second moment of x-distribution centroid, from converged windowed measurements [pixel2]"
+des_dr2.main,errx2win_image_i,adql:DOUBLE,pixel2,"i-band uncertainty in second moment of x-distribution centroid, from converged windowed measurements [pixel2]"
+des_dr2.main,errx2win_image_r,adql:DOUBLE,pixel2,"r-band uncertainty in second moment of x-distribution centroid, from converged windowed measurements [pixel2]"
+des_dr2.main,errx2win_image_y,adql:DOUBLE,pixel2,"y-band uncertainty in second moment of x-distribution centroid, from converged windowed measurements [pixel2]"
+des_dr2.main,errx2win_image_z,adql:DOUBLE,pixel2,"z-band uncertainty in second moment of x-distribution centroid, from converged windowed measurements [pixel2]"
+des_dr2.main,errxywin_image_g,adql:DOUBLE,pixel2,"g-band uncertainty in second moment of xy-distribution, from converged windowed measurements [pixel2]"
+des_dr2.main,errxywin_image_i,adql:DOUBLE,pixel2,"i-band uncertainty in second moment of xy-distribution, from converged windowed measurements [pixel2]"
+des_dr2.main,errxywin_image_r,adql:DOUBLE,pixel2,"r-band uncertainty in second moment of xy-distribution, from converged windowed measurements [pixel2]"
+des_dr2.main,errxywin_image_y,adql:DOUBLE,pixel2,"y-band uncertainty in second moment of xy-distribution, from converged windowed measurements [pixel2]"
+des_dr2.main,errxywin_image_z,adql:DOUBLE,pixel2,"z-band uncertainty in second moment of xy-distribution, from converged windowed measurements [pixel2]"
+des_dr2.main,erry2win_image_g,adql:DOUBLE,pixel2,"g-band uncertainty in second moment of y-distribution centroid, from converged windowed measurements [pixel2]"
+des_dr2.main,erry2win_image_i,adql:DOUBLE,pixel2,"i-band uncertainty in second moment of y-distribution centroid, from converged windowed measurements [pixel2]"
+des_dr2.main,erry2win_image_r,adql:DOUBLE,pixel2,"r-band uncertainty in second moment of y-distribution centroid, from converged windowed measurements [pixel2]"
+des_dr2.main,erry2win_image_y,adql:DOUBLE,pixel2,"y-band uncertainty in second moment of y-distribution centroid, from converged windowed measurements [pixel2]"
+des_dr2.main,erry2win_image_z,adql:DOUBLE,pixel2,"z-band uncertainty in second moment of y-distribution centroid, from converged windowed measurements [pixel2]"
+des_dr2.main,extended_class_coadd,adql:SMALLINT,,0: high confidence stars; 1: candidate stars; 2: mostly galaxies; 3: high confidence galaxies; -9: no data; using sextractor photometry
+des_dr2.main,extended_class_wavg,adql:SMALLINT,,0: high confidence stars; 1: candidate stars; 2: mostly galaxies; 3: high confidence galaxies; -9: no data; using wavg photometry
+des_dr2.main,flags_g,adql:SMALLINT,,g-band additive flag describing cautionary advice about source extraction process. use less than 4 for well behaved objects
+des_dr2.main,flags_i,adql:SMALLINT,,i-band additive flag describing cautionary advice about source extraction process. use less than 4 for well behaved objects
+des_dr2.main,flags_r,adql:SMALLINT,,r-band additive flag describing cautionary advice about source extraction process. use less than 4 for well behaved objects
+des_dr2.main,flags_y,adql:SMALLINT,,y-band additive flag describing cautionary advice about source extraction process. use less than 4 for well behaved objects
+des_dr2.main,flags_z,adql:SMALLINT,,z-band additive flag describing cautionary advice about source extraction process. use less than 4 for well behaved objects
+des_dr2.main,fluxerr_auto_g,adql:REAL,adu,"g-band uncertainty in aperture-flux measurement, elliptical model based on the kron radius [adu]"
+des_dr2.main,fluxerr_auto_i,adql:REAL,adu,"i-band uncertainty in aperture-flux measurement, elliptical model based on the kron radius [adu]"
+des_dr2.main,fluxerr_auto_r,adql:REAL,adu,"r-band uncertainty in aperture-flux measurement, elliptical model based on the kron radius [adu]"
+des_dr2.main,fluxerr_auto_y,adql:REAL,adu,"y-band uncertainty in aperture-flux measurement, elliptical model based on the kron radius [adu]"
+des_dr2.main,fluxerr_auto_z,adql:REAL,adu,"z-band uncertainty in aperture-flux measurement, elliptical model based on the kron radius [adu]"
+des_dr2.main,flux_auto_g,adql:REAL,adu,"g-band aperture-flux measurement, elliptical model based on the kron radius [adu]"
+des_dr2.main,flux_auto_i,adql:REAL,adu,"i-band aperture-flux measurement, elliptical model based on the kron radius [adu]"
+des_dr2.main,flux_auto_r,adql:REAL,adu,"r-band aperture-flux measurement, elliptical model based on the kron radius [adu]"
+des_dr2.main,flux_auto_y,adql:REAL,adu,"y-band aperture-flux measurement, elliptical model based on the kron radius [adu]"
+des_dr2.main,flux_auto_z,adql:REAL,adu,"z-band aperture-flux measurement, elliptical model based on the kron radius [adu]"
+des_dr2.main,flux_radius_g,adql:REAL,pixel,"g-band half-light radius for the object, from elliptical growth-curve, modeled in 2 dimensions [pixel]"
+des_dr2.main,flux_radius_i,adql:REAL,pixel,"i-band half-light radius for the object, from elliptical growth-curve, modeled in 2 dimensions [pixel]"
+des_dr2.main,flux_radius_r,adql:REAL,pixel,"r-band half-light radius for the object, from elliptical growth-curve, modeled in 2 dimensions [pixel]"
+des_dr2.main,flux_radius_y,adql:REAL,pixel,"y-band half-light radius for the object, from elliptical growth-curve, modeled in 2 dimensions [pixel]"
+des_dr2.main,flux_radius_z,adql:REAL,pixel,"z-band half-light radius for the object, from elliptical growth-curve, modeled in 2 dimensions [pixel]"
+des_dr2.main,fwhm_image_g,adql:REAL,pixel,"g-band fwhm measured from the isophotal area, from elliptical growth-curve, modeled in 2 dimensions [pixel]"
+des_dr2.main,fwhm_image_i,adql:REAL,pixel,"i-band fwhm measured from the isophotal area, from elliptical growth-curve, modeled in 2 dimensions [pixel]"
+des_dr2.main,fwhm_image_r,adql:REAL,pixel,"r-band fwhm measured from the isophotal area, from elliptical growth-curve, modeled in 2 dimensions [pixel]"
+des_dr2.main,fwhm_image_y,adql:REAL,pixel,"y-band fwhm measured from the isophotal area, from elliptical growth-curve, modeled in 2 dimensions [pixel]"
+des_dr2.main,fwhm_image_z,adql:REAL,pixel,"z-band fwhm measured from the isophotal area, from elliptical growth-curve, modeled in 2 dimensions [pixel]"
+des_dr2.main,galactic_b,adql:REAL,degrees,galactic latitude [degrees]
+des_dr2.main,galactic_l,adql:REAL,degrees,galactic longitude [degrees]
+des_dr2.main,hpix_1024,adql:BIGINT,,"healpix identifier for nside=1024 grid size, in a nested schema"
+des_dr2.main,hpix_16384,adql:BIGINT,,"healpix identifier for nside=16384 grid size, in a nested schema"
+des_dr2.main,hpix_32,adql:BIGINT,,"healpix identifier for nside=32 grid size, in a nested schema"
+des_dr2.main,hpix_4096,adql:BIGINT,,"healpix identifier for nside=4096 grid size, in a nested schema"
+des_dr2.main,hpix_64,adql:BIGINT,,"healpix identifier for nside=64 grid size, in a nested schema"
+des_dr2.main,imaflags_iso_g,adql:INTEGER,,"g-band flag identifying sources with missing/flagged pixels, considering all single epoch images"
+des_dr2.main,imaflags_iso_i,adql:INTEGER,,"i-band flag identifying sources with missing/flagged pixels, considering all single epoch images"
+des_dr2.main,imaflags_iso_r,adql:INTEGER,,"r-band flag identifying sources with missing/flagged pixels, considering all single epoch images"
+des_dr2.main,imaflags_iso_y,adql:INTEGER,,"y-band flag identifying sources with missing/flagged pixels, considering all single epoch images"
+des_dr2.main,imaflags_iso_z,adql:INTEGER,,"z-band flag identifying sources with missing/flagged pixels, considering all single epoch images"
+des_dr2.main,isoarea_image_g,adql:INTEGER,pixel2,g-band isophotal area of the coadded source [pixel2]
+des_dr2.main,isoarea_image_i,adql:INTEGER,pixel2,i-band isophotal area of the coadded source [pixel2]
+des_dr2.main,isoarea_image_r,adql:INTEGER,pixel2,r-band isophotal area of the coadded source [pixel2]
+des_dr2.main,isoarea_image_y,adql:INTEGER,pixel2,y-band isophotal area of the coadded source [pixel2]
+des_dr2.main,isoarea_image_z,adql:INTEGER,pixel2,z-band isophotal area of the coadded source [pixel2]
+des_dr2.main,kron_radius,adql:REAL,pixel,kron radius measured from detection image [pixel]
+des_dr2.main,kron_radius_g,adql:REAL,pixel,g-band kron radius measured from coadded image [pixel]
+des_dr2.main,kron_radius_i,adql:REAL,pixel,i-band kron radius measured from coadded image [pixel]
+des_dr2.main,kron_radius_r,adql:REAL,pixel,r-band kron radius measured from coadded image [pixel]
+des_dr2.main,kron_radius_y,adql:REAL,pixel,y-band kron radius measured from coadded image [pixel]
+des_dr2.main,kron_radius_z,adql:REAL,pixel,z-band kron radius measured from coadded image [pixel]
+des_dr2.main,magerr_auto_g,adql:REAL,mag,"g-band uncertainty in magnitude estimation, for an elliptical model based on the kron radius [mag]"
+des_dr2.main,magerr_auto_i,adql:REAL,mag,"i-band uncertainty in magnitude estimation, for an elliptical model based on the kron radius [mag]"
+des_dr2.main,magerr_auto_r,adql:REAL,mag,"r-band uncertainty in magnitude estimation, for an elliptical model based on the kron radius [mag]"
+des_dr2.main,magerr_auto_y,adql:REAL,mag,"y-band uncertainty in magnitude estimation, for an elliptical model based on the kron radius [mag]"
+des_dr2.main,magerr_auto_z,adql:REAL,mag,"z-band uncertainty in magnitude estimation, for an elliptical model based on the kron radius [mag]"
+des_dr2.main,mag_auto_g,adql:REAL,mag,"g-band magnitude estimation, for an elliptical model based on the kron radius [mag]"
+des_dr2.main,mag_auto_g_dered,adql:REAL,mag,"g-band dereddened magnitude estimation (using sfd98), for an elliptical model based on the kron radius [mag]"
+des_dr2.main,mag_auto_i,adql:REAL,mag,"i-band magnitude estimation, for an elliptical model based on the kron radius [mag]"
+des_dr2.main,mag_auto_i_dered,adql:REAL,mag,"i-band dereddened magnitude estimation (using sfd98), for an elliptical model based on the kron radius [mag]"
+des_dr2.main,mag_auto_r,adql:REAL,mag,"r-band magnitude estimation, for an elliptical model based on the kron radius [mag]"
+des_dr2.main,mag_auto_r_dered,adql:REAL,mag,"r-band dereddened magnitude estimation (using sfd98), for an elliptical model based on the kron radius [mag]"
+des_dr2.main,mag_auto_y,adql:REAL,mag,"y-band magnitude estimation, for an elliptical model based on the kron radius [mag]"
+des_dr2.main,mag_auto_y_dered,adql:REAL,mag,"y-band dereddened magnitude estimation (using sfd98), for an elliptical model based on the kron radius [mag]"
+des_dr2.main,mag_auto_z,adql:REAL,mag,"z-band magnitude estimation, for an elliptical model based on the kron radius [mag]"
+des_dr2.main,mag_auto_z_dered,adql:REAL,mag,"z-band dereddened magnitude estimation (using sfd98), for an elliptical model based on the kron radius [mag]"
+des_dr2.main,nepochs_g,adql:INTEGER,,g-band number of epochs the source is detected in single epoch images
+des_dr2.main,nepochs_i,adql:INTEGER,,i-band number of epochs the source is detected in single epoch images
+des_dr2.main,nepochs_r,adql:INTEGER,,r-band number of epochs the source is detected in single epoch images
+des_dr2.main,nepochs_y,adql:INTEGER,,y-band number of epochs the source is detected in single epoch images
+des_dr2.main,nepochs_z,adql:INTEGER,,z-band number of epochs the source is detected in single epoch images
+des_dr2.main,niter_model_g,adql:INTEGER,,g-band number of iterations in model fitting photometric measurements
+des_dr2.main,niter_model_i,adql:INTEGER,,i-band number of iterations in model fitting photometric measurements
+des_dr2.main,niter_model_r,adql:INTEGER,,r-band number of iterations in model fitting photometric measurements
+des_dr2.main,niter_model_y,adql:INTEGER,,y-band number of iterations in model fitting photometric measurements
+des_dr2.main,niter_model_z,adql:INTEGER,,z-band number of iterations in model fitting photometric measurements
+des_dr2.main,ra,adql:DOUBLE,degrees,"right ascension, with quantized precision for indexing (alphawin_j2000 has full precision but not indexed) [degrees]"
+des_dr2.main,spreaderr_model_g,adql:REAL,,g-band uncertainty in morphology based classifier based on comparison between psf versus exponential-psf model.
+des_dr2.main,spreaderr_model_i,adql:REAL,,i-band uncertainty in morphology based classifier based on comparison between psf versus exponential-psf model.
+des_dr2.main,spreaderr_model_r,adql:REAL,,r-band uncertainty in morphology based classifier based on comparison between psf versus exponential-psf model.
+des_dr2.main,spreaderr_model_y,adql:REAL,,y-band uncertainty in morphology based classifier based on comparison between psf versus exponential-psf model.
+des_dr2.main,spreaderr_model_z,adql:REAL,,z-band uncertainty in morphology based classifier based on comparison between psf versus exponential-psf model.
+des_dr2.main,spread_model_g,adql:REAL,,"g-band morphology based classifier based on comparison between a psf versus exponential-psf model. values closer to 0 correspond to stars, larger values correspond to galaxies"
+des_dr2.main,spread_model_i,adql:REAL,,"i-band morphology based classifier based on comparison between a psf versus exponential-psf model. values closer to 0 correspond to stars, larger values correspond to galaxies"
+des_dr2.main,spread_model_r,adql:REAL,,"r-band morphology based classifier based on comparison between a psf versus exponential-psf model. values closer to 0 correspond to stars, larger values correspond to galaxies"
+des_dr2.main,spread_model_y,adql:REAL,,"y-band morphology based classifier based on comparison between a psf versus exponential-psf model. values closer to 0 correspond to stars, larger values correspond to galaxies"
+des_dr2.main,spread_model_z,adql:REAL,,"z-band morphology based classifier based on comparison between a psf versus exponential-psf model. values closer to 0 correspond to stars, larger values correspond to galaxies"
+des_dr2.main,thetawin_image_g,adql:REAL,degrees,"g-band position angle of source, for converged windowed measurement grow from x to y [degrees]"
+des_dr2.main,thetawin_image_i,adql:REAL,degrees,"i-band position angle of source, for converged windowed measurement grow from x to y [degrees]"
+des_dr2.main,thetawin_image_r,adql:REAL,degrees,"r-band position angle of source, for converged windowed measurement grow from x to y [degrees]"
+des_dr2.main,thetawin_image_y,adql:REAL,degrees,"y-band position angle of source, for converged windowed measurement grow from x to y [degrees]"
+des_dr2.main,thetawin_image_z,adql:REAL,degrees,"z-band position angle of source, for converged windowed measurement grow from x to y [degrees]"
+des_dr2.main,theta_j2000,adql:REAL,degrees,"position angle of source in j2000 coordinates, from non-windowed measurement [degrees]"
+des_dr2.main,tilename,adql:CHAR,,identifier of each one of the tiles on which the survey is gridded
+des_dr2.main,wavg_fluxerr_psf_g,adql:REAL,adu,g-band uncertainty of weighted averaged flux measurement of psf fit single epoch detections [adu]
+des_dr2.main,wavg_fluxerr_psf_i,adql:REAL,adu,i-band uncertainty of weighted averaged flux measurement of psf fit single epoch detections [adu]
+des_dr2.main,wavg_fluxerr_psf_r,adql:REAL,adu,r-band uncertainty of weighted averaged flux measurement of psf fit single epoch detections [adu]
+des_dr2.main,wavg_fluxerr_psf_y,adql:REAL,adu,y-band uncertainty of weighted averaged flux measurement of psf fit single epoch detections [adu]
+des_dr2.main,wavg_fluxerr_psf_z,adql:REAL,adu,z-band uncertainty of weighted averaged flux measurement of psf fit single epoch detections [adu]
+des_dr2.main,wavg_flux_psf_g,adql:REAL,adu,g-band weighted average flux measurement of psf fit single epoch detections [adu]
+des_dr2.main,wavg_flux_psf_i,adql:REAL,adu,i-band weighted average flux measurement of psf fit single epoch detections [adu]
+des_dr2.main,wavg_flux_psf_r,adql:REAL,adu,r-band weighted average flux measurement of psf fit single epoch detections [adu]
+des_dr2.main,wavg_flux_psf_y,adql:REAL,adu,y-band weighted average flux measurement of psf fit single epoch detections [adu]
+des_dr2.main,wavg_flux_psf_z,adql:REAL,adu,z-band weighted average flux measurement of psf fit single epoch detections [adu]
+des_dr2.main,wavg_magerr_psf_g,adql:REAL,mag,"g-band uncertainty of weighted averaged magnitude, of psf fit single epoch detections [mag]"
+des_dr2.main,wavg_magerr_psf_i,adql:REAL,mag,"i-band uncertainty of weighted averaged magnitude, of psf fit single epoch detections [mag]"
+des_dr2.main,wavg_magerr_psf_r,adql:REAL,mag,"r-band uncertainty of weighted averaged magnitude, of psf fit single epoch detections [mag]"
+des_dr2.main,wavg_magerr_psf_y,adql:REAL,mag,"y-band uncertainty of weighted averaged magnitude, of psf fit single epoch detections [mag]"
+des_dr2.main,wavg_magerr_psf_z,adql:REAL,mag,"z-band uncertainty of weighted averaged magnitude, of psf fit single epoch detections [mag]"
+des_dr2.main,wavg_mag_psf_g,adql:REAL,mag,"g-band weighted average magnitude, of psf fit single epoch detections [mag]"
+des_dr2.main,wavg_mag_psf_g_dered,adql:REAL,mag,g-band dereddened weighted average magnitude (using sfd98)  from psf fit single epoch detections [mag]
+des_dr2.main,wavg_mag_psf_i,adql:REAL,mag,"i-band weighted average magnitude, of psf fit single epoch detections [mag]"
+des_dr2.main,wavg_mag_psf_i_dered,adql:REAL,mag,i-band dereddened weighted average magnitude (using sfd98)  from psf fit single epoch detections [mag]
+des_dr2.main,wavg_mag_psf_r,adql:REAL,mag,"r-band weighted average magnitude, of psf fit single epoch detections [mag]"
+des_dr2.main,wavg_mag_psf_r_dered,adql:REAL,mag,r-band dereddened weighted average magnitude (using sfd98)  from psf fit single epoch detections [mag]
+des_dr2.main,wavg_mag_psf_y,adql:REAL,mag,"y-band weighted average magnitude, of psf fit single epoch detections [mag]"
+des_dr2.main,wavg_mag_psf_y_dered,adql:REAL,mag,y-band dereddened weighted average magnitude (using sfd98)  from psf fit single epoch detections [mag]
+des_dr2.main,wavg_mag_psf_z,adql:REAL,mag,"z-band weighted average magnitude, of psf fit single epoch detections [mag]"
+des_dr2.main,wavg_mag_psf_z_dered,adql:REAL,mag,z-band dereddened weighted average magnitude (using sfd98)  from psf fit single epoch detections [mag]
+des_dr2.main,wavg_spreaderr_model_g,adql:REAL,,g-band uncertainty in spread model using the weighted averaged values from single epoch detections
+des_dr2.main,wavg_spreaderr_model_i,adql:REAL,,i-band uncertainty in spread model using the weighted averaged values from single epoch detections
+des_dr2.main,wavg_spreaderr_model_r,adql:REAL,,r-band uncertainty in spread model using the weighted averaged values from single epoch detections
+des_dr2.main,wavg_spreaderr_model_y,adql:REAL,,y-band uncertainty in spread model using the weighted averaged values from single epoch detections
+des_dr2.main,wavg_spreaderr_model_z,adql:REAL,,z-band uncertainty in spread model using the weighted averaged values from single epoch detections
+des_dr2.main,wavg_spread_model_g,adql:REAL,,g-band spread model using the weighted averaged values from single epoch detections
+des_dr2.main,wavg_spread_model_i,adql:REAL,,i-band spread model using the weighted averaged values from single epoch detections
+des_dr2.main,wavg_spread_model_r,adql:REAL,,r-band spread model using the weighted averaged values from single epoch detections
+des_dr2.main,wavg_spread_model_y,adql:REAL,,y-band spread model using the weighted averaged values from single epoch detections
+des_dr2.main,wavg_spread_model_z,adql:REAL,,z-band spread model using the weighted averaged values from single epoch detections
+des_dr2.main,x2win_image_g,adql:DOUBLE,pixel2,"g-band second moment in x-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,x2win_image_i,adql:DOUBLE,pixel2,"i-band second moment in x-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,x2win_image_r,adql:DOUBLE,pixel2,"r-band second moment in x-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,x2win_image_y,adql:DOUBLE,pixel2,"y-band second moment in x-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,x2win_image_z,adql:DOUBLE,pixel2,"z-band second moment in x-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,xwin_image,adql:DOUBLE,pixel,x-centroid from windowed measurements on coadded image [pixel]
+des_dr2.main,xwin_image_g,adql:DOUBLE,pixel,g-band x-centroid from windowed measurements on coadded band image [pixel]
+des_dr2.main,xwin_image_i,adql:DOUBLE,pixel,i-band x-centroid from windowed measurements on coadded band image [pixel]
+des_dr2.main,xwin_image_r,adql:DOUBLE,pixel,r-band x-centroid from windowed measurements on coadded band image [pixel]
+des_dr2.main,xwin_image_y,adql:DOUBLE,pixel,y-band x-centroid from windowed measurements on coadded band image [pixel]
+des_dr2.main,xwin_image_z,adql:DOUBLE,pixel,z-band x-centroid from windowed measurements on coadded band image [pixel]
+des_dr2.main,xywin_image_g,adql:DOUBLE,pixel2,"g-band second moment in xy-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,xywin_image_i,adql:DOUBLE,pixel2,"i-band second moment in xy-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,xywin_image_r,adql:DOUBLE,pixel2,"r-band second moment in xy-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,xywin_image_y,adql:DOUBLE,pixel2,"y-band second moment in xy-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,xywin_image_z,adql:DOUBLE,pixel2,"z-band second moment in xy-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,y2win_image_g,adql:DOUBLE,pixel2,"g-band second moment in y-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,y2win_image_i,adql:DOUBLE,pixel2,"i-band second moment in y-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,y2win_image_r,adql:DOUBLE,pixel2,"r-band second moment in y-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,y2win_image_y,adql:DOUBLE,pixel2,"y-band second moment in y-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,y2win_image_z,adql:DOUBLE,pixel2,"z-band second moment in y-direction, from converged windowed measurements [pixel2]"
+des_dr2.main,ywin_image,adql:DOUBLE,pixel,y-centroid from windowed measurements on coadded image [pixel]
+des_dr2.main,ywin_image_g,adql:DOUBLE,pixel,g-band y-centroid from windowed measurements on coadded band images [pixel]
+des_dr2.main,ywin_image_i,adql:DOUBLE,pixel,i-band y-centroid from windowed measurements on coadded band images [pixel]
+des_dr2.main,ywin_image_r,adql:DOUBLE,pixel,r-band y-centroid from windowed measurements on coadded band images [pixel]
+des_dr2.main,ywin_image_y,adql:DOUBLE,pixel,y-band y-centroid from windowed measurements on coadded band images [pixel]
+des_dr2.main,ywin_image_z,adql:DOUBLE,pixel,z-band y-centroid from windowed measurements on coadded band images [pixel]
+des_dr2.main,htm9,adql:INTEGER,,Ninth level (~10 arcmin resolution) Hierarchical Triangular Mesh index (Szalay et al. 2007)
+des_dr2.main,nest4096,adql:INTEGER,,Nested-scheme HEALPix (Gorski et al. 2005) index with NSIDE=4096 (~1 arcmin resolution)
+des_dr2.main,ring256,adql:INTEGER,,Ring-scheme HEALPix (Gorski et al. 2005) index with NSIDE=256 (~14 arcmin resolution)
+des_dr2.main,g_r,adql:REAL,mag,G-R color
+des_dr2.main,r_i,adql:REAL,mag,R-I color
+des_dr2.main,i_z,adql:REAL,mag,I-Z color
+des_dr2.main,z_y,adql:REAL,mag,Z-Y color
+des_dr2.main,snr_g,adql:REAL,mag,S/N in g-band
+des_dr2.main,snr_r,adql:REAL,mag,S/N in r-band
+des_dr2.main,snr_i,adql:REAL,mag,S/N in i-band
+des_dr2.main,snr_y,adql:REAL,mag,S/N in Y-band
+des_dr2.main,snr_z,adql:REAL,mag,S/N in z-band
+des_dr2.main,ecliptic_lat,adql:DOUBLE,degrees,Ecliptic Latitude
+des_dr2.main,ecliptic_lon,adql:DOUBLE,degrees,Ecliptic Longitude
+des_dr2.main,random_id,adql:REAL,,Random ID in the range 0.0 => 100.0
