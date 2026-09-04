@@ -265,3 +265,7 @@ Development should proceed in this order:
 6. expand only when earlier stages are stable.
 
 This order ensures that the project remains publishable even if Rubin access, image-level calibration products, or group collaboration arrive later than hoped.
+
+## References
+
+1. Schweder-Souza, N., Chies-Santos, A. L., de Souza, R. S., et al. (2026). “The contribution of the color space in LSST-like photometry for the selection of extragalactic globular cluster candidates.” *The Astrophysical Journal*, **1005**(1), 96. [https://doi.org/10.3847/1538-4357/ae7321](https://doi.org/10.3847/1538-4357/ae7321). [arXiv:2512.17644v2](https://arxiv.org/abs/2512.17644v2).
