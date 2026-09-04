@@ -1,0 +1,11 @@
+CREATE SCHEMA IF NOT EXISTS raw AUTHORIZATION gc;
+CREATE SCHEMA IF NOT EXISTS core AUTHORIZATION gc;
+CREATE SCHEMA IF NOT EXISTS ml AUTHORIZATION gc;
+
+REVOKE ALL ON SCHEMA raw FROM PUBLIC;
+REVOKE ALL ON SCHEMA core FROM PUBLIC;
+REVOKE ALL ON SCHEMA ml FROM PUBLIC;
+
+COMMENT ON SCHEMA raw IS 'Source-faithful catalogue imports';
+COMMENT ON SCHEMA core IS 'Normalized astronomical records and evidence';
+COMMENT ON SCHEMA ml IS 'Samples, experiment runs, embeddings, and results';
