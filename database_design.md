@@ -76,3 +76,61 @@ Crossmatching must be a first-class stage rather than an incidental join. Each m
 - matching run identifier.
 
 We should never silently discard one-to-many or ambiguous matches. Those cases may become especially interesting near the classification boundary.
+
+## Implemented catalogue-level schema
+
+The initial schema is implemented in `sql/`.
+
+### Raw catalogue tables
+
+| Table | Source |
+|---|---|
+| `raw.fds` | FDS one-degree source catalogue |
+| `raw.des` | DES DR2 one-degree source catalogue |
+| `raw.gc_master` | Cantiello et al. master globular-cluster catalogue |
+| `raw.spec` | Chaturvedi et al. spectroscopic catalogue |
+
+Raw tables retain source values, including published missing-value sentinels.
+The ingestion layer will map original column names to SQL-safe names and record
+the source file and source row. Sentinel interpretation belongs in the
+normalized ingestion stage, not in raw storage.
+
+### Core tables
+
+| Table | Purpose |
+|---|---|
+| `core.catalog` | Source, release, file, checksum, and import provenance |
+| `core.object` | Canonical astronomical identity and adopted position |
+| `core.record` | One source-catalogue record |
+| `core.match_run` | Resolved configuration for a crossmatch operation |
+| `core.match` | Ranked record-to-object match candidates and selection |
+| `core.phot` | Normalized per-band magnitude measurements |
+| `core.shape` | Normalized morphology measurements |
+| `core.label` | Classification evidence with provenance and confidence |
+
+`core.match` preserves every candidate considered by a matching run. A partial
+unique index permits at most one selected object for each source record while
+retaining ambiguous alternatives.
+
+### Machine-learning tables
+
+| Table | Purpose |
+|---|---|
+| `ml.sample` | Versioned population definition |
+| `ml.member` | Object membership, split, target, and explicit weight |
+| `ml.run` | Resolved experiment configuration and Git provenance |
+| `ml.embed` | Normalized embedding coordinates of arbitrary dimension |
+| `ml.metric` | Evaluation values, thresholds, intervals, and scope |
+| `ml.stage_count` | Required row-count ledger for every filtering stage |
+| `ml.artifact` | Generated figure, manifest, and export provenance |
+
+The Rubin temporal and detector-reliability extension is deliberately absent
+from this first migration. It will extend the schema after the real Rubin data
+products and their fields have been inspected.
+
+## Schema application
+
+`sql/00_database.sql` creates database `gc_ml` for existing login role `gc`.
+`sql/apply.sql` creates all catalogue-level schemas and tables in one
+transaction, then verifies the result. Exact commands and prerequisites are in
+`sql/README.md`.
