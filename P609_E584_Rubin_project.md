@@ -34,6 +34,19 @@ The protected scientific core is intentionally narrower than the complete visual
 
 The paper core proceeds regardless of group membership. The reliability and visualization layers may strengthen it, but they must not redefine or delay it.
 
+## Repository and collaboration boundary
+
+The individual P609 research remains in the private `glob_umap` repository.
+If an E584 group forms, collaborative ParaView work will reside in a separate
+repository on `github.iu.edu`.
+
+The interface between the projects will be a versioned, documented export
+rather than shared internal code or database access. The P609 project produces
+ParaView-ready datasets and manifests. The E584 project consumes those exports
+and owns collaborative visualization code, state files, and presentation
+materials. This boundary permits independent progress and protects the paper
+core from group-driven scope changes.
+
 ## Existing data foundation
 
 The verified source bundle contains:
