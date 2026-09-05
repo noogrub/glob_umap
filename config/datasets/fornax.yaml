@@ -1,0 +1,12 @@
+dataset:
+  name: fornax_fds_des
+
+ingest:
+  on_existing: fail
+  manifest_path: data/interim/ingest_manifest.json
+
+sources:
+  - config/sources/fds.yaml
+  - config/sources/des.yaml
+  - config/sources/gc_master.yaml
+  - config/sources/spec.yaml
