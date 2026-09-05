@@ -1,0 +1,63 @@
+name: fds
+table: raw.fds
+path: data/raw/fds/fds_ngc1399_1deg.csv
+format: csv
+expected_rows: 239158
+sha256: 089a6a990f867addedb56a3a2ae169a12d133a702607554a31f9037e063c3ccc
+catalog:
+  code: fds_aa_639_a136
+  title: Fornax Deep Survey source catalogue
+  release: Cantiello et al. 2020
+  source_url: https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J/A+A/639/A136
+columns:
+  - [recno, recno]
+  - [ID, source_id]
+  - [RAJ2000, ra_j2000]
+  - [DEJ2000, dec_j2000]
+  - [umag, u_mag]
+  - [e_umag, u_mag_err]
+  - [gmag, g_mag]
+  - [e_gmag, g_mag_err]
+  - [rmag, r_mag]
+  - [e_rmag, r_mag_err]
+  - [imag, i_mag]
+  - [e_imag, i_mag_err]
+  - [CS, class_star]
+  - [CIn, concentration]
+  - [FR, flux_radius_arcsec]
+  - [FWHM, fwhm_arcsec]
+  - [Aw, major_rms_deg]
+  - [Bw, minor_rms_deg]
+  - [Elo, elongation]
+  - [Flags, flags]
+  - [Sharp, sharpness]
+  - [CSu, u_class_star]
+  - [CIun, u_concentration]
+  - [Sharpu, u_sharpness]
+  - [umagex8, u_mag_ap8]
+  - [e_umagex8, u_mag_ap8_err]
+  - [umagauto, u_mag_auto]
+  - [e_umagauto, u_mag_auto_err]
+  - [CSg, g_class_star]
+  - [CIgn, g_concentration]
+  - [Sharpg, g_sharpness]
+  - [gmagex8, g_mag_ap8]
+  - [e_gmagex8, g_mag_ap8_err]
+  - [gmagauto, g_mag_auto]
+  - [e_gmagauto, g_mag_auto_err]
+  - [CSr, r_class_star]
+  - [CIrn, r_concentration]
+  - [Sharpr, r_sharpness]
+  - [rmagex8, r_mag_ap8]
+  - [e_rmagex8, r_mag_ap8_err]
+  - [rmagauto, r_mag_auto]
+  - [e_rmagauto, r_mag_auto_err]
+  - [CSi, i_class_star]
+  - [CIin, i_concentration]
+  - [Sharpi, i_sharpness]
+  - [imagex8, i_mag_ap8]
+  - [e_imagex8, i_mag_ap8_err]
+  - [imagauto, i_mag_auto]
+  - [e_imagauto, i_mag_auto_err]
+  - [E(B-V), ebv]
+  - [Field, field_id]
