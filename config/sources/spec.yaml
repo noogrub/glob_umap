@@ -1,0 +1,31 @@
+name: spec
+table: raw.spec
+path: data/raw/chaturvedi/catalog.dat
+format: fixed_width
+expected_rows: 851
+sha256: 3dbbba22daeaa33511cd8072a1b08d648dc5216cc53ed90c55b9a3bcd307982d
+catalog:
+  code: chaturvedi_aa_657_a93
+  title: Fornax spectroscopic globular-cluster catalogue
+  release: Chaturvedi et al. 2022
+  source_url: https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J/A+A/657/A93
+fields:
+  - [point_name, 1, 26]
+  - [fvss_gc, 28, 56]
+  - [ra_deg, 58, 75]
+  - [dec_deg, 77, 95]
+  - [radial_velocity, 97, 103]
+  - [radial_velocity_err, 105, 110]
+  - [signal_to_noise, 112, 130]
+  - [source_class, 132, 132]
+  - [fds_id, 134, 156]
+  - [fiber_ra_deg, 158, 167]
+  - [fiber_dec_deg, 169, 178]
+  - [g_mag, 180, 185]
+  - [g_mag_err, 187, 192]
+  - [r_mag, 194, 199]
+  - [r_mag_err, 201, 206]
+  - [i_mag, 208, 213]
+  - [i_mag_err, 215, 220]
+  - [u_mag, 222, 227]
+  - [u_mag_err, 229, 234]
