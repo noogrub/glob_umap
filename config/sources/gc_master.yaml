@@ -1,0 +1,36 @@
+name: gc_master
+table: raw.gc_master
+path: data/raw/fds/mastergc.dat
+format: fixed_width
+expected_rows: 3263
+sha256: 57f396460a0dc233133512ba3bcd701c20c23f65bb66f38833ce94648950942e
+catalog:
+  code: fds_gc_master
+  title: FDS master globular-cluster catalogue
+  release: Cantiello et al. 2020
+  source_url: https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J/A+A/639/A136
+fields:
+  - [source_id, 1, 23]
+  - [ra_deg, 25, 33]
+  - [dec_deg, 35, 44]
+  - [u_mag, 46, 51]
+  - [u_mag_err, 53, 57]
+  - [g_mag, 59, 64]
+  - [g_mag_err, 66, 70]
+  - [r_mag, 72, 77]
+  - [r_mag_err, 79, 83]
+  - [i_mag, 85, 90]
+  - [i_mag_err, 92, 96]
+  - [class_star, 98, 102]
+  - [concentration, 104, 109]
+  - [flux_radius_arcsec, 111, 117]
+  - [fwhm_arcsec, 119, 123]
+  - [elongation, 125, 128]
+  - [sharpness, 130, 135]
+  - [ebv, 137, 141]
+  - [field_id, 143, 144]
+  - [fcc, 146, 148]
+  - [p_gc, 150, 153]
+  - [half_light_radius, 155, 159]
+  - [photometric_flag, 161, 163]
+  - [spectroscopic_flag, 165, 167]
