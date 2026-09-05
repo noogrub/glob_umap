@@ -1,0 +1,39 @@
+name: des
+table: raw.des
+path: data/raw/des/des_dr2_ngc1399_1deg.csv
+format: csv
+expected_rows: 395813
+sha256: 906b3225b198b10e5657d67a3332392e2e8d58d4bce41cb63b746fce4c3dc355
+catalog:
+  code: des_dr2_fornax
+  title: DES DR2 one-degree Fornax extract
+  release: DES DR2
+  source_url: https://datalab.noirlab.edu/query.php?name=des_dr2
+columns:
+  - [coadd_object_id, coadd_object_id]
+  - [ra, ra]
+  - [dec, dec]
+  - [alphawin_j2000, ra_window]
+  - [deltawin_j2000, dec_window]
+  - [extended_class_coadd, extended_class_coadd]
+  - [extended_class_wavg, extended_class_wavg]
+  - [ebv_sfd98, ebv_sfd98]
+  - [mag_auto_i, i_mag_auto]
+  - [mag_auto_i_dered, i_mag_auto_dered]
+  - [spread_model_i, i_spread_model]
+  - [spreaderr_model_i, i_spread_model_err]
+  - [class_star_i, i_class_star]
+  - [flux_radius_i, i_flux_radius]
+  - [fwhm_image_i, i_fwhm_image]
+  - [flags_i, i_flags]
+  - [imaflags_iso_i, i_image_flags_iso]
+  - [mag_aper_5_g, g_mag_ap5]
+  - [magerr_aper_5_g, g_mag_ap5_err]
+  - [mag_aper_5_r, r_mag_ap5]
+  - [magerr_aper_5_r, r_mag_ap5_err]
+  - [mag_aper_5_i, i_mag_ap5]
+  - [magerr_aper_5_i, i_mag_ap5_err]
+  - [mag_aper_5_z, z_mag_ap5]
+  - [magerr_aper_5_z, z_mag_ap5_err]
+  - [mag_aper_5_y, y_mag_ap5]
+  - [magerr_aper_5_y, y_mag_ap5_err]
