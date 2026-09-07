@@ -32,6 +32,6 @@ def main(argv: Sequence[str] | None = None) -> None:
         elif args.command == "ingest":
             from glob_umap.ingest import ingest
 
-            ingest(args.config)
+            ingest(args.config, report=print)
     except (OSError, RuntimeError, ValueError) as error:
         raise SystemExit(f"glob-umap: error: {error}") from None
