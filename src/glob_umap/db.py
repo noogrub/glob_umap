@@ -1,5 +1,6 @@
 from pathlib import Path
-from typing import Any, Iterable
+from time import monotonic
+from typing import Any, Callable, Iterable
 
 import psycopg
 from psycopg import sql
@@ -51,17 +52,38 @@ def copy_rows(
     source_file: Path,
     columns: list[str],
     source_rows: Iterable[tuple[int, list[str | None]]],
+    progress_interval_seconds: float,
+    progress: Callable[[int], None],
 ) -> int:
     table = _table_identifier(table_name)
     all_columns = ["source_file", "source_row", *columns]
     identifiers = sql.SQL(", ").join(map(sql.Identifier, all_columns))
     statement = sql.SQL("COPY {} ({}) FROM STDIN").format(table, identifiers)
     loaded = 0
+    next_progress = monotonic() + progress_interval_seconds
     with connection.cursor().copy(statement) as copy:
         for source_row, values in source_rows:
             copy.write_row([str(source_file), source_row, *values])
             loaded += 1
+            now = monotonic()
+            if now >= next_progress:
+                progress(loaded)
+                next_progress = now + progress_interval_seconds
     return loaded
+
+
+def ensure_catalog_codes_available(
+    connection: psycopg.Connection[Any], sources: Iterable[dict[str, Any]]
+) -> None:
+    codes = [source["catalog"]["code"] for source in sources]
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT code FROM core.catalog WHERE code = ANY(%s)",
+            (codes,),
+        )
+        existing = sorted(row[0] for row in cursor.fetchall())
+    if existing:
+        raise ValueError(f"Catalogue codes already registered: {existing}")
 
 
 def register_catalog(
