@@ -2,6 +2,7 @@ name: gc_master
 table: raw.gc_master
 path: data/raw/fds/mastergc.dat
 format: fixed_width
+null_values: ["", "---"]
 expected_rows: 3263
 sha256: 57f396460a0dc233133512ba3bcd701c20c23f65bb66f38833ce94648950942e
 catalog:
