@@ -2,6 +2,7 @@ name: spec
 table: raw.spec
 path: data/raw/chaturvedi/catalog.dat
 format: fixed_width
+null_values: ["", "---"]
 expected_rows: 851
 sha256: 3dbbba22daeaa33511cd8072a1b08d648dc5216cc53ed90c55b9a3bcd307982d
 catalog:
