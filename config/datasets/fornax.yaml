@@ -4,6 +4,7 @@ dataset:
 ingest:
   on_existing: fail
   manifest_path: data/interim/ingest_manifest.json
+  progress_interval_seconds: 10
 
 sources:
   - config/sources/fds.yaml
