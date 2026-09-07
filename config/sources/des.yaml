@@ -2,6 +2,7 @@ name: des
 table: raw.des
 path: data/raw/des/des_dr2_ngc1399_1deg.csv
 format: csv
+null_values: [""]
 expected_rows: 395813
 sha256: 906b3225b198b10e5657d67a3332392e2e8d58d4bce41cb63b746fce4c3dc355
 catalog:
