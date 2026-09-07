@@ -2,6 +2,7 @@ name: fds
 table: raw.fds
 path: data/raw/fds/fds_ngc1399_1deg.csv
 format: csv
+null_values: [""]
 expected_rows: 239158
 sha256: 089a6a990f867addedb56a3a2ae169a12d133a702607554a31f9037e063c3ccc
 catalog:
