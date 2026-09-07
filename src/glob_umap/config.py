@@ -9,8 +9,11 @@ import yaml
 class DatasetConfig:
     name: str
     project_root: Path
+    config_path: Path
     on_existing: str
     manifest_path: Path
+    progress_interval_seconds: float
+    source_config_paths: tuple[Path, ...]
     sources: tuple[dict[str, Any], ...]
 
 
@@ -44,19 +47,29 @@ def load_dataset_config(path: str | Path) -> DatasetConfig:
     if on_existing != "fail":
         raise ValueError("ingest.on_existing must be fail")
 
+    progress_interval = ingest.get("progress_interval_seconds")
+    if not isinstance(progress_interval, (int, float)) or progress_interval <= 0:
+        raise ValueError("ingest.progress_interval_seconds must be positive")
+
     sources = []
+    resolved_source_paths = []
     for source_path in source_paths:
         if not isinstance(source_path, str):
             raise ValueError("Every source config path must be a string")
-        source = _read_yaml(root / source_path)
-        _validate_source(source, root / source_path)
+        resolved_source_path = root / source_path
+        source = _read_yaml(resolved_source_path)
+        _validate_source(source, resolved_source_path)
+        resolved_source_paths.append(resolved_source_path)
         sources.append(source)
 
     return DatasetConfig(
         name=_required_text(dataset, "name", config_path),
         project_root=root,
+        config_path=config_path,
         on_existing=on_existing,
         manifest_path=root / _required_text(ingest, "manifest_path", config_path),
+        progress_interval_seconds=float(progress_interval),
+        source_config_paths=tuple(resolved_source_paths),
         sources=tuple(sources),
     )
 
