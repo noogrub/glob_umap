@@ -55,7 +55,13 @@ The loader reads PostgreSQL connection settings from the standard `PG*`
 environment variables. It refuses to load into a nonempty raw table, preserves
 numeric sentinel values, maps only empty fields to SQL `NULL`, registers each
 source in `core.catalog`, and writes the configured provenance manifest after a
-successful commit.
+successful commit. During loading it reports progress at the YAML-configured
+interval, currently every 10 seconds, as well as at the start and completion of
+each catalogue.
+
+The manifest includes the resolved ingestion configuration, hashes of every
+YAML configuration file, hashes and row counts for every source catalogue, the
+Git commit, and relevant software versions.
 
 Run the unit tests with:
 
