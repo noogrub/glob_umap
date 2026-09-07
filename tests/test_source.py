@@ -16,6 +16,7 @@ class SourceTest(unittest.TestCase):
                 "name": "test",
                 "path": "source.csv",
                 "format": "csv",
+                "null_values": [""],
                 "columns": [["id", "source_id"], ["value", "value"]],
             }
             self.assertEqual(
@@ -32,6 +33,7 @@ class SourceTest(unittest.TestCase):
                 "name": "test",
                 "path": "source.dat",
                 "format": "fixed_width",
+                "null_values": ["", "---"],
                 "fields": [["name", 1, 3], ["value", 5, 6], ["empty", 8, 9]],
             }
             self.assertEqual(list(rows(root, source)), [(1, ["ABC", "12", None])])
@@ -46,12 +48,27 @@ class SourceTest(unittest.TestCase):
                 "name": "test",
                 "path": "source.csv",
                 "format": "csv",
+                "null_values": [""],
                 "columns": [["id", "source_id"]],
                 "expected_rows": 2,
                 "sha256": hashlib.sha256(content).hexdigest(),
             }
             result = preflight(root, source)
             self.assertEqual(result.row_count, 2)
+
+    def test_fixed_width_maps_configured_marker_to_none(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "source.dat"
+            path.write_text("---\n", encoding="ascii")
+            source = {
+                "name": "test",
+                "path": "source.dat",
+                "format": "fixed_width",
+                "null_values": ["", "---"],
+                "fields": [["value", 1, 3]],
+            }
+            self.assertEqual(list(rows(root, source)), [(1, [None])])
 
 
 if __name__ == "__main__":
