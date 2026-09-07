@@ -102,4 +102,9 @@ def _validate_source(source: dict[str, Any], path: Path) -> None:
         raise ValueError(f"Fixed-width source requires fields: {path}")
     if source["format"] not in {"csv", "fixed_width"}:
         raise ValueError(f"Unsupported source format: {source['format']}")
+    null_values = source.get("null_values")
+    if not isinstance(null_values, list) or not all(
+        isinstance(value, str) for value in null_values
+    ):
+        raise ValueError(f"null_values must be a list of strings: {path}")
     _required_mapping(source, "catalog", path)
