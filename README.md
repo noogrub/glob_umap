@@ -53,9 +53,10 @@ glob-umap ingest --config config/datasets/fornax.yaml
 
 The loader reads PostgreSQL connection settings from the standard `PG*`
 environment variables. It refuses to load into a nonempty raw table, preserves
-numeric sentinel values, maps only empty fields to SQL `NULL`, registers each
-source in `core.catalog`, and writes the configured provenance manifest after a
-successful commit. During loading it reports progress at the YAML-configured
+numeric sentinel values, maps only YAML-configured catalogue null markers to
+SQL `NULL`, registers each source in `core.catalog`, and writes the configured
+provenance manifest after a successful commit. During loading it reports
+progress at the YAML-configured
 interval, currently every 10 seconds, as well as at the start and completion of
 each catalogue.
 
