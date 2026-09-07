@@ -44,14 +44,17 @@ def rows(
     root: Path, source: dict[str, Any]
 ) -> Iterator[tuple[int, list[str | None]]]:
     path = root / source["path"]
+    null_values = set(source["null_values"])
     if source["format"] == "csv":
-        yield from _csv_rows(path, source["columns"])
+        yield from _csv_rows(path, source["columns"], null_values)
     else:
-        yield from _fixed_width_rows(path, source["fields"])
+        yield from _fixed_width_rows(path, source["fields"], null_values)
 
 
 def _csv_rows(
-    path: Path, columns: list[list[Any]]
+    path: Path,
+    columns: list[list[Any]],
+    null_values: set[str],
 ) -> Iterator[tuple[int, list[str | None]]]:
     expected_header = [pair[0] for pair in columns]
     with path.open(newline="", encoding="utf-8") as handle:
@@ -62,12 +65,16 @@ def _csv_rows(
                 f"expected {expected_header}, found {reader.fieldnames}"
             )
         for row_number, row in enumerate(reader, start=1):
-            values = [_empty_to_none(row[name]) for name in expected_header]
+            values = [
+                _null_to_none(row[name], null_values) for name in expected_header
+            ]
             yield row_number, values
 
 
 def _fixed_width_rows(
-    path: Path, fields: list[list[Any]]
+    path: Path,
+    fields: list[list[Any]],
+    null_values: set[str],
 ) -> Iterator[tuple[int, list[str | None]]]:
     with path.open(encoding="ascii") as handle:
         for row_number, raw_line in enumerate(handle, start=1):
@@ -75,12 +82,14 @@ def _fixed_width_rows(
             values = []
             for _, first, last in fields:
                 value = line[first - 1 : last].strip()
-                values.append(_empty_to_none(value))
+                values.append(_null_to_none(value, null_values))
             yield row_number, values
 
 
-def _empty_to_none(value: str) -> str | None:
-    return value if value != "" else None
+def _null_to_none(value: str | None, null_values: set[str]) -> str | None:
+    if value is None or value in null_values:
+        return None
+    return value
 
 
 def file_sha256(path: Path) -> str:
