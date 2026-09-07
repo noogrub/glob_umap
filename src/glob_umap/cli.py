@@ -31,7 +31,11 @@ def main(argv: Sequence[str] | None = None) -> None:
                 )
         elif args.command == "ingest":
             from glob_umap.ingest import ingest
+            from psycopg import Error as DatabaseError
 
-            ingest(args.config, report=print)
+            try:
+                ingest(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(f"PostgreSQL load failed: {error}") from error
     except (OSError, RuntimeError, ValueError) as error:
         raise SystemExit(f"glob-umap: error: {error}") from None
