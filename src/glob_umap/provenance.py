@@ -7,18 +7,39 @@ from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
-from glob_umap.source import PreflightResult
+from glob_umap.config import DatasetConfig
+from glob_umap.source import PreflightResult, file_sha256
 
 
 def build_manifest(
-    dataset_name: str,
-    project_root: Path,
+    config: DatasetConfig,
     results: list[PreflightResult],
 ) -> dict[str, Any]:
+    project_root = config.project_root
     return {
-        "dataset": dataset_name,
+        "dataset": config.name,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "git_commit": _git_commit(project_root),
+        "configuration": {
+            "dataset": _config_file(config.config_path, project_root),
+            "sources": [
+                _config_file(path, project_root)
+                for path in config.source_config_paths
+            ],
+            "resolved": {
+                "dataset": {"name": config.name},
+                "ingest": {
+                    "on_existing": config.on_existing,
+                    "manifest_path": str(
+                        config.manifest_path.relative_to(project_root)
+                    ),
+                    "progress_interval_seconds": (
+                        config.progress_interval_seconds
+                    ),
+                },
+                "sources": list(config.sources),
+            },
+        },
         "software": {
             "python": platform.python_version(),
             "psycopg": version("psycopg"),
@@ -32,6 +53,13 @@ def build_manifest(
             }
             for result in results
         ],
+    }
+
+
+def _config_file(path: Path, project_root: Path) -> dict[str, str]:
+    return {
+        "path": str(path.relative_to(project_root)),
+        "sha256": file_sha256(path),
     }
 
 
