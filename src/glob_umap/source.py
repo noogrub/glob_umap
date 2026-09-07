@@ -18,7 +18,7 @@ class PreflightResult:
 
 def preflight(root: Path, source: dict[str, Any]) -> PreflightResult:
     path = root / source["path"]
-    actual_hash = _sha256(path)
+    actual_hash = file_sha256(path)
     if actual_hash != source["sha256"]:
         raise ValueError(
             f"Checksum mismatch for {source['name']}: "
@@ -83,7 +83,7 @@ def _empty_to_none(value: str) -> str | None:
     return value if value != "" else None
 
 
-def _sha256(path: Path) -> str:
+def file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for block in iter(lambda: handle.read(_HASH_BLOCK_BYTES), b""):
