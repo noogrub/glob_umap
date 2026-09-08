@@ -72,6 +72,17 @@ def write_manifest(path: Path, manifest: dict[str, Any]) -> None:
     temporary.replace(path)
 
 
+def git_commit(project_root: Path) -> str:
+    return _git_commit(project_root)
+
+
+def software_versions(*packages: str) -> dict[str, str]:
+    return {
+        "python": platform.python_version(),
+        **{package: version(package) for package in packages},
+    }
+
+
 def _git_commit(project_root: Path) -> str:
     result = subprocess.run(
         ["git", "rev-parse", "HEAD"],

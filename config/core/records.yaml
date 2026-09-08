@@ -1,0 +1,30 @@
+records:
+  name: fornax_catalogue_records
+  on_existing: fail
+  manifest_path: data/interim/record_manifest.json
+
+sources:
+  - catalog_code: fds_aa_639_a136
+    raw_table: raw.fds
+    raw_ingest_column: ingest_id
+    key_columns: [source_file, source_row]
+    ra_column: ra_j2000
+    dec_column: dec_j2000
+  - catalog_code: des_dr2_fornax
+    raw_table: raw.des
+    raw_ingest_column: ingest_id
+    key_columns: [source_file, source_row]
+    ra_column: ra_window
+    dec_column: dec_window
+  - catalog_code: fds_gc_master
+    raw_table: raw.gc_master
+    raw_ingest_column: ingest_id
+    key_columns: [source_file, source_row]
+    ra_column: ra_deg
+    dec_column: dec_deg
+  - catalog_code: chaturvedi_aa_657_a93
+    raw_table: raw.spec
+    raw_ingest_column: ingest_id
+    key_columns: [source_file, source_row]
+    ra_column: ra_deg
+    dec_column: dec_deg

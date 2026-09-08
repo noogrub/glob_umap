@@ -121,6 +121,18 @@ unchanged.
 unique index permits at most one selected object for each source record while
 retaining ambiguous alternatives.
 
+An object's `origin_record_id` identifies the catalogue record from which its
+initial identity and adopted position were created. For the first Fornax
+crossmatch, each FDS source seeds one canonical object. This origin is explicit
+provenance rather than an assertion that FDS coordinates are permanently
+preferred over every later measurement.
+
+The initial FDS-DES match reproduces the paper's 1 arcsecond search radius with
+a unit-sphere k-d tree. It stores every DES candidate, its exact spherical
+separation, candidate count, and deterministic rank. No DES candidate is
+selected during candidate generation. Unmatched, unique-candidate, and
+multiple-candidate cases are counted before a resolution policy is chosen.
+
 ### Machine-learning tables
 
 | Table | Purpose |
@@ -143,6 +155,10 @@ products and their fields have been inspected.
 `sql/apply.sql` creates all catalogue-level schemas and tables in one
 transaction, then verifies the result. Exact commands and prerequisites are in
 `sql/README.md`.
+
+`sql/31_object_origin.sql` adds explicit source-record provenance to canonical
+objects. Existing databases created before this migration must apply it once
+before running the crossmatch.
 
 
 ## Raw catalogue immutability

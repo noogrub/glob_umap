@@ -1,0 +1,12 @@
+match:
+  name: fds_des_1arcsec
+  method: unit_sphere_ckdtree
+  reference_catalog: fds_aa_639_a136
+  target_catalog: des_dr2_fornax
+  search_radius_arcsec: 1.0
+  selection: none
+  on_existing: fail
+  chunk_rows: 50000
+  workers: -1
+  progress_interval_seconds: 10
+  report_path: data/interim/fds_des_match.json

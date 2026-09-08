@@ -16,6 +16,16 @@ def _parser() -> argparse.ArgumentParser:
 
     audit_parser = commands.add_parser("audit", help="audit loaded raw catalogues")
     audit_parser.add_argument("--config", required=True)
+
+    records_parser = commands.add_parser(
+        "records", help="populate normalized catalogue records"
+    )
+    records_parser.add_argument("--config", required=True)
+
+    match_parser = commands.add_parser(
+        "match", help="generate all configured sky-match candidates"
+    )
+    match_parser.add_argument("--config", required=True)
     return parser
 
 
@@ -48,5 +58,23 @@ def main(argv: Sequence[str] | None = None) -> None:
                 audit_raw(args.config, report=print)
             except DatabaseError as error:
                 raise RuntimeError(f"PostgreSQL audit failed: {error}") from error
+        elif args.command == "records":
+            from glob_umap.record import populate_records
+            from psycopg import Error as DatabaseError
+
+            try:
+                populate_records(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(
+                    f"PostgreSQL record normalization failed: {error}"
+                ) from error
+        elif args.command == "match":
+            from glob_umap.match import match_catalogues
+            from psycopg import Error as DatabaseError
+
+            try:
+                match_catalogues(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(f"PostgreSQL crossmatch failed: {error}") from error
     except (OSError, RuntimeError, ValueError) as error:
         raise SystemExit(f"glob-umap: error: {error}") from None

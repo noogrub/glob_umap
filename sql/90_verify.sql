@@ -34,6 +34,20 @@ BEGIN
 END
 $$;
 
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM information_schema.columns
+        WHERE table_schema = 'core'
+          AND table_name = 'object'
+          AND column_name = 'origin_record_id'
+    ) THEN
+        RAISE EXCEPTION 'Missing column: core.object.origin_record_id';
+    END IF;
+END
+$$;
+
 SELECT schemaname, tablename
 FROM pg_tables
 WHERE schemaname IN ('raw', 'core', 'ml')

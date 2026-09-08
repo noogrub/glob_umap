@@ -90,3 +90,35 @@ psql --file=sql/91_audit_raw.sql
 
 The `gc` project login then retains read access but cannot modify the raw
 schema or its catalogue tables.
+
+## Normalize catalogue records
+
+Apply the object-origin migration once to an existing database:
+
+```bash
+psql --file=sql/31_object_origin.sql
+```
+
+Then create one normalized `core.record` row for every immutable raw row:
+
+```bash
+glob-umap records --config config/core/records.yaml
+```
+
+The YAML file defines each source table, coordinate columns, and composite
+source key. The command refuses to overwrite existing core records and writes
+`data/interim/record_manifest.json`.
+
+## Generate FDS-DES match candidates
+
+Generate every DES-to-FDS candidate within the paper's 1 arcsecond radius:
+
+```bash
+glob-umap match --config config/matches/fds_des.yaml
+```
+
+FDS records seed the canonical objects. Their zero-separation identity links
+are selected, but every DES candidate remains unselected until ambiguity has
+been inspected. The command records candidate ranks, separations, multiplicity,
+the resolved YAML configuration, and summary counts in
+`data/interim/fds_des_match.json`.

@@ -72,6 +72,18 @@ COMMIT;
 
 After rebuilding and auditing the raw layer, run `50_lock_raw.sql` again.
 
+## Add canonical-object provenance
+
+Existing databases require this migration before the first crossmatch:
+
+```bash
+psql --file=sql/31_object_origin.sql
+```
+
+It adds `core.object.origin_record_id`, its foreign key to `core.record`, and a
+unique index. The migration is idempotent and does not alter the locked raw
+catalogues.
+
 ## Audit the source contract
 
 First verify the source files themselves:
@@ -98,6 +110,7 @@ be true. `gc_can_create` and every `gc_raw_owner` capability should be false.
 | `10_schemas.sql` | Create and protect the three schemas |
 | `20_raw.sql` | Create source-faithful catalogue staging tables |
 | `30_core.sql` | Create normalized astronomical tables |
+| `31_object_origin.sql` | Link each canonical object to its originating record |
 | `40_ml.sql` | Create samples, runs, embeddings, metrics, and artifacts |
 | `50_lock_raw.sql` | Transfer raw ownership and grant `gc` read-only access |
 | `90_verify.sql` | Verify the expected tables and list them |
