@@ -15,6 +15,8 @@ class AuditConfigTest(unittest.TestCase):
         for table in config.tables:
             self.assertTrue(table.key_columns)
             self.assertEqual(len(table.coordinate_columns), 2)
+        spec = next(table for table in config.tables if table.table == "raw.spec")
+        self.assertEqual(spec.key_columns, ("source_file", "source_row"))
 
 
 if __name__ == "__main__":
