@@ -57,6 +57,21 @@ Normal project sessions can then read raw data but cannot insert, update,
 delete, truncate, or alter it. A PostgreSQL administrator can deliberately
 reverse the ownership and grants if the raw layer must be rebuilt.
 
+To unlock the raw layer deliberately, run these commands as the PostgreSQL
+administrator:
+
+```sql
+BEGIN;
+ALTER SCHEMA raw OWNER TO gc;
+ALTER TABLE raw.fds OWNER TO gc;
+ALTER TABLE raw.des OWNER TO gc;
+ALTER TABLE raw.gc_master OWNER TO gc;
+ALTER TABLE raw.spec OWNER TO gc;
+COMMIT;
+```
+
+After rebuilding and auditing the raw layer, run `50_lock_raw.sql` again.
+
 ## Audit the source contract
 
 First verify the source files themselves:
