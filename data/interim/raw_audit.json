@@ -1,0 +1,681 @@
+{
+  "audit": "raw_catalogues",
+  "configuration": {
+    "audit": {
+      "path": "config/audits/raw.yaml",
+      "sha256": "a86e14e14359f761f04874bdbf0e6ffe5d9d99871d0cc58f39c3ba330b10d2e2"
+    },
+    "dataset": {
+      "path": "config/datasets/fornax.yaml",
+      "sha256": "de4a8ac2b067a67d638cc89faa5255cbd4c94fb86b11a260d0fdbaa343919bef"
+    },
+    "sources": [
+      {
+        "path": "config/sources/fds.yaml",
+        "sha256": "9efbb068561bfe714b722264e0b2d0e5ffb87bd6910cc19df3b8d2ac04da65b1"
+      },
+      {
+        "path": "config/sources/des.yaml",
+        "sha256": "339ac4abdfedd70f5445a5130ac3a36c8d3fd2ba9b09eb873b92786b4e7661ae"
+      },
+      {
+        "path": "config/sources/gc_master.yaml",
+        "sha256": "d29ab4f3ab55da87812f98981cbbd897efac423b09a90ac45409e88d384df093"
+      },
+      {
+        "path": "config/sources/spec.yaml",
+        "sha256": "78ddc79ff17eb6ce5182e3f28b9418e8e4033d7aecc00f70a882838174ac4abe"
+      }
+    ]
+  },
+  "created_at": "2026-09-08T14:23:16.145298+00:00",
+  "dataset": "fornax_fds_des",
+  "git_commit": "5f8c1c398f14fb300109dbc8a437b375f3aa9aa0",
+  "tables": [
+    {
+      "coordinates": {
+        "invalid_rows": 0,
+        "null_rows": 0
+      },
+      "expected_rows": 239158,
+      "key": {
+        "duplicate_groups": 0,
+        "duplicate_rows": 0,
+        "null_rows": 0
+      },
+      "null_counts": {
+        "class_star": 0,
+        "concentration": 0,
+        "dec_j2000": 0,
+        "ebv": 0,
+        "elongation": 0,
+        "field_id": 0,
+        "flags": 0,
+        "flux_radius_arcsec": 0,
+        "fwhm_arcsec": 0,
+        "g_class_star": 22553,
+        "g_concentration": 0,
+        "g_mag": 0,
+        "g_mag_ap8": 22553,
+        "g_mag_ap8_err": 22553,
+        "g_mag_auto": 22553,
+        "g_mag_auto_err": 22553,
+        "g_mag_err": 0,
+        "g_sharpness": 0,
+        "i_class_star": 95734,
+        "i_concentration": 0,
+        "i_mag": 0,
+        "i_mag_ap8": 95734,
+        "i_mag_ap8_err": 95734,
+        "i_mag_auto": 95734,
+        "i_mag_auto_err": 95734,
+        "i_mag_err": 0,
+        "i_sharpness": 0,
+        "major_rms_deg": 0,
+        "minor_rms_deg": 0,
+        "r_class_star": 45221,
+        "r_concentration": 0,
+        "r_mag": 0,
+        "r_mag_ap8": 45221,
+        "r_mag_ap8_err": 45221,
+        "r_mag_auto": 45221,
+        "r_mag_auto_err": 45221,
+        "r_mag_err": 0,
+        "r_sharpness": 0,
+        "ra_j2000": 0,
+        "recno": 0,
+        "sharpness": 0,
+        "source_id": 0,
+        "u_class_star": 185986,
+        "u_concentration": 0,
+        "u_mag": 0,
+        "u_mag_ap8": 185986,
+        "u_mag_ap8_err": 185986,
+        "u_mag_auto": 185986,
+        "u_mag_auto_err": 185986,
+        "u_mag_err": 0,
+        "u_sharpness": 0
+      },
+      "numeric_ranges": {
+        "class_star": {
+          "max": 1.0,
+          "min": 0.0
+        },
+        "concentration": {
+          "max": 3.255,
+          "min": -0.858
+        },
+        "dec_j2000": {
+          "max": -34.450119,
+          "min": -36.449471
+        },
+        "ebv": {
+          "max": 0.016,
+          "min": 0.007
+        },
+        "elongation": {
+          "max": 8.47,
+          "min": 1.0
+        },
+        "field_id": {
+          "max": 17,
+          "min": 5
+        },
+        "flags": {
+          "max": 35,
+          "min": 0
+        },
+        "flux_radius_arcsec": {
+          "max": 39.42,
+          "min": -88.85
+        },
+        "fwhm_arcsec": {
+          "max": 32.06,
+          "min": -4.66
+        },
+        "g_class_star": {
+          "max": 1.0,
+          "min": 0.0
+        },
+        "g_concentration": {
+          "max": 1.726,
+          "min": 0.0
+        },
+        "g_mag": {
+          "max": 27.105,
+          "min": 13.844
+        },
+        "g_mag_ap8": {
+          "max": 27.32,
+          "min": 14.75
+        },
+        "g_mag_ap8_err": {
+          "max": 0.49,
+          "min": 0.0
+        },
+        "g_mag_auto": {
+          "max": 99.0,
+          "min": 13.72
+        },
+        "g_mag_auto_err": {
+          "max": 99.0,
+          "min": 0.0
+        },
+        "g_mag_err": {
+          "max": 0.543,
+          "min": 0.002
+        },
+        "g_sharpness": {
+          "max": 15.793,
+          "min": -26.442
+        },
+        "i_class_star": {
+          "max": 1.0,
+          "min": 0.0
+        },
+        "i_concentration": {
+          "max": 3.202,
+          "min": 0.0
+        },
+        "i_mag": {
+          "max": 25.484,
+          "min": 12.972
+        },
+        "i_mag_ap8": {
+          "max": 25.46,
+          "min": 14.12
+        },
+        "i_mag_ap8_err": {
+          "max": 0.4,
+          "min": 0.0
+        },
+        "i_mag_auto": {
+          "max": 99.0,
+          "min": 12.98
+        },
+        "i_mag_auto_err": {
+          "max": 99.0,
+          "min": 0.0
+        },
+        "i_mag_err": {
+          "max": 0.543,
+          "min": 0.002
+        },
+        "i_sharpness": {
+          "max": 20.723,
+          "min": -42.425
+        },
+        "major_rms_deg": {
+          "max": 0.00342,
+          "min": 2.78e-05
+        },
+        "minor_rms_deg": {
+          "max": 0.00149,
+          "min": 1.03e-05
+        },
+        "r_class_star": {
+          "max": 1.0,
+          "min": 0.0
+        },
+        "r_concentration": {
+          "max": 1.615,
+          "min": -0.009
+        },
+        "r_mag": {
+          "max": 26.513,
+          "min": 13.541
+        },
+        "r_mag_ap8": {
+          "max": 99.0,
+          "min": 14.74
+        },
+        "r_mag_ap8_err": {
+          "max": 99.0,
+          "min": 0.0
+        },
+        "r_mag_auto": {
+          "max": 99.0,
+          "min": 13.21
+        },
+        "r_mag_auto_err": {
+          "max": 99.0,
+          "min": 0.0
+        },
+        "r_mag_err": {
+          "max": 0.543,
+          "min": 0.003
+        },
+        "r_sharpness": {
+          "max": 13.321,
+          "min": -23.843
+        },
+        "ra_j2000": {
+          "max": 55.847832,
+          "min": 53.393063
+        },
+        "recno": {
+          "max": 1554032,
+          "min": 1
+        },
+        "sharpness": {
+          "max": 7.939,
+          "min": -10.906
+        },
+        "u_class_star": {
+          "max": 1.0,
+          "min": 0.0
+        },
+        "u_concentration": {
+          "max": 1.676,
+          "min": 0.0
+        },
+        "u_mag": {
+          "max": 25.884,
+          "min": 14.479
+        },
+        "u_mag_ap8": {
+          "max": 25.49,
+          "min": 15.67
+        },
+        "u_mag_ap8_err": {
+          "max": 0.26,
+          "min": 0.0
+        },
+        "u_mag_auto": {
+          "max": 99.0,
+          "min": 14.72
+        },
+        "u_mag_auto_err": {
+          "max": 99.0,
+          "min": 0.0
+        },
+        "u_mag_err": {
+          "max": 0.543,
+          "min": 0.002
+        },
+        "u_sharpness": {
+          "max": 20.899,
+          "min": -40.435
+        }
+      },
+      "row_count": 239158,
+      "row_count_matches": true,
+      "table": "raw.fds"
+    },
+    {
+      "coordinates": {
+        "invalid_rows": 0,
+        "null_rows": 0
+      },
+      "expected_rows": 395813,
+      "key": {
+        "duplicate_groups": 0,
+        "duplicate_rows": 0,
+        "null_rows": 0
+      },
+      "null_counts": {
+        "coadd_object_id": 0,
+        "dec": 0,
+        "dec_window": 0,
+        "ebv_sfd98": 0,
+        "extended_class_coadd": 0,
+        "extended_class_wavg": 0,
+        "g_mag_ap5": 0,
+        "g_mag_ap5_err": 0,
+        "i_class_star": 0,
+        "i_flags": 0,
+        "i_flux_radius": 0,
+        "i_fwhm_image": 0,
+        "i_image_flags_iso": 0,
+        "i_mag_ap5": 0,
+        "i_mag_ap5_err": 0,
+        "i_mag_auto": 0,
+        "i_mag_auto_dered": 0,
+        "i_spread_model": 0,
+        "i_spread_model_err": 0,
+        "r_mag_ap5": 0,
+        "r_mag_ap5_err": 0,
+        "ra": 0,
+        "ra_window": 0,
+        "y_mag_ap5": 0,
+        "y_mag_ap5_err": 0,
+        "z_mag_ap5": 0,
+        "z_mag_ap5_err": 0
+      },
+      "numeric_ranges": {
+        "coadd_object_id": {
+          "max": 1412251251,
+          "min": 1393614623
+        },
+        "dec": {
+          "max": -34.450712,
+          "min": -36.449644
+        },
+        "dec_window": {
+          "max": -34.4507119141758,
+          "min": -36.4496444843161
+        },
+        "ebv_sfd98": {
+          "max": 0.01814,
+          "min": 0.00828
+        },
+        "extended_class_coadd": {
+          "max": 3,
+          "min": -9
+        },
+        "extended_class_wavg": {
+          "max": 3,
+          "min": -9
+        },
+        "g_mag_ap5": {
+          "max": 99.0,
+          "min": 14.346498
+        },
+        "g_mag_ap5_err": {
+          "max": 84608.945,
+          "min": 0.00012434587
+        },
+        "i_class_star": {
+          "max": 0.9999067,
+          "min": 0.0001342596
+        },
+        "i_flags": {
+          "max": 28,
+          "min": 0
+        },
+        "i_flux_radius": {
+          "max": 221.84912,
+          "min": -1342.3002
+        },
+        "i_fwhm_image": {
+          "max": 572.28906,
+          "min": -15.668134
+        },
+        "i_image_flags_iso": {
+          "max": 1,
+          "min": 0
+        },
+        "i_mag_ap5": {
+          "max": 99.0,
+          "min": 14.02166
+        },
+        "i_mag_ap5_err": {
+          "max": 1620.2233,
+          "min": 0.00012109626
+        },
+        "i_mag_auto": {
+          "max": 99.0,
+          "min": 9.425664
+        },
+        "i_mag_auto_dered": {
+          "max": 99.0,
+          "min": 9.405801
+        },
+        "i_spread_model": {
+          "max": 369.76355,
+          "min": -13.19108
+        },
+        "i_spread_model_err": {
+          "max": 1731.698,
+          "min": 3.0679269e-07
+        },
+        "r_mag_ap5": {
+          "max": 99.0,
+          "min": 13.844036
+        },
+        "r_mag_ap5_err": {
+          "max": 77603.9,
+          "min": 0.000104222665
+        },
+        "ra": {
+          "max": 55.84767,
+          "min": 53.393861
+        },
+        "ra_window": {
+          "max": 55.8476702092368,
+          "min": 53.3938613046161
+        },
+        "y_mag_ap5": {
+          "max": 99.0,
+          "min": 12.812115
+        },
+        "y_mag_ap5_err": {
+          "max": 101255.18,
+          "min": 0.00014646965
+        },
+        "z_mag_ap5": {
+          "max": 99.0,
+          "min": 13.891682
+        },
+        "z_mag_ap5_err": {
+          "max": 14707.061,
+          "min": 0.0001226869
+        }
+      },
+      "row_count": 395813,
+      "row_count_matches": true,
+      "table": "raw.des"
+    },
+    {
+      "coordinates": {
+        "invalid_rows": 0,
+        "null_rows": 0
+      },
+      "expected_rows": 3263,
+      "key": {
+        "duplicate_groups": 0,
+        "duplicate_rows": 0,
+        "null_rows": 0
+      },
+      "null_counts": {
+        "class_star": 0,
+        "concentration": 0,
+        "dec_deg": 0,
+        "ebv": 0,
+        "elongation": 0,
+        "fcc": 1159,
+        "field_id": 0,
+        "flux_radius_arcsec": 0,
+        "fwhm_arcsec": 0,
+        "g_mag": 0,
+        "g_mag_err": 0,
+        "half_light_radius": 1159,
+        "i_mag": 0,
+        "i_mag_err": 0,
+        "p_gc": 1159,
+        "photometric_flag": 0,
+        "r_mag": 0,
+        "r_mag_err": 0,
+        "ra_deg": 0,
+        "sharpness": 0,
+        "source_id": 0,
+        "spectroscopic_flag": 0,
+        "u_mag": 0,
+        "u_mag_err": 0
+      },
+      "numeric_ranges": {
+        "class_star": {
+          "max": 0.996,
+          "min": 0.008
+        },
+        "concentration": {
+          "max": 3.205,
+          "min": -0.858
+        },
+        "dec_deg": {
+          "max": -33.121273,
+          "min": -37.536331
+        },
+        "ebv": {
+          "max": 0.015,
+          "min": 0.005
+        },
+        "elongation": {
+          "max": 5.24,
+          "min": 1.0
+        },
+        "field_id": {
+          "max": 20,
+          "min": 2
+        },
+        "flux_radius_arcsec": {
+          "max": 8.88,
+          "min": -176.41
+        },
+        "fwhm_arcsec": {
+          "max": 19.81,
+          "min": 0.44
+        },
+        "g_mag": {
+          "max": 25.907,
+          "min": 18.641
+        },
+        "g_mag_err": {
+          "max": 0.472,
+          "min": 0.005
+        },
+        "half_light_radius": {
+          "max": 1.067,
+          "min": 0.103
+        },
+        "i_mag": {
+          "max": 24.734,
+          "min": 17.32
+        },
+        "i_mag_err": {
+          "max": 0.542,
+          "min": 0.005
+        },
+        "p_gc": {
+          "max": 1.0,
+          "min": 0.75
+        },
+        "r_mag": {
+          "max": 25.155,
+          "min": 17.723
+        },
+        "r_mag_err": {
+          "max": 0.477,
+          "min": 0.005
+        },
+        "ra_deg": {
+          "max": 57.667034,
+          "min": 51.606079
+        },
+        "sharpness": {
+          "max": 7.595,
+          "min": -8.92
+        },
+        "u_mag": {
+          "max": 25.629,
+          "min": 20.48
+        },
+        "u_mag_err": {
+          "max": 0.542,
+          "min": 0.01
+        }
+      },
+      "row_count": 3263,
+      "row_count_matches": true,
+      "table": "raw.gc_master"
+    },
+    {
+      "coordinates": {
+        "invalid_rows": 0,
+        "null_rows": 0
+      },
+      "expected_rows": 851,
+      "key": {
+        "duplicate_groups": 0,
+        "duplicate_rows": 0,
+        "null_rows": 0
+      },
+      "null_counts": {
+        "dec_deg": 0,
+        "fds_id": 9,
+        "fiber_dec_deg": 9,
+        "fiber_ra_deg": 9,
+        "fvss_gc": 0,
+        "g_mag": 9,
+        "g_mag_err": 9,
+        "i_mag": 9,
+        "i_mag_err": 9,
+        "point_name": 0,
+        "r_mag": 9,
+        "r_mag_err": 9,
+        "ra_deg": 0,
+        "radial_velocity": 0,
+        "radial_velocity_err": 0,
+        "signal_to_noise": 0,
+        "source_class": 0,
+        "u_mag": 64,
+        "u_mag_err": 64
+      },
+      "numeric_ranges": {
+        "dec_deg": {
+          "max": -34.92223,
+          "min": -35.9678
+        },
+        "fiber_dec_deg": {
+          "max": -34.922195,
+          "min": -35.939644
+        },
+        "fiber_ra_deg": {
+          "max": 55.143112,
+          "min": 54.01284
+        },
+        "g_mag": {
+          "max": 24.372,
+          "min": 18.959
+        },
+        "g_mag_err": {
+          "max": 0.107,
+          "min": 0.006
+        },
+        "i_mag": {
+          "max": 23.672,
+          "min": 17.508
+        },
+        "i_mag_err": {
+          "max": 0.2019,
+          "min": 0.0069
+        },
+        "r_mag": {
+          "max": 24.16,
+          "min": 18.014
+        },
+        "r_mag_err": {
+          "max": 0.153,
+          "min": 0.006
+        },
+        "ra_deg": {
+          "max": 55.14314,
+          "min": 54.01282
+        },
+        "radial_velocity": {
+          "max": 3372.82,
+          "min": 455.56
+        },
+        "radial_velocity_err": {
+          "max": 216.03,
+          "min": 7.37
+        },
+        "signal_to_noise": {
+          "max": 51.892,
+          "min": 0.261
+        },
+        "u_mag": {
+          "max": 25.518,
+          "min": 20.701
+        },
+        "u_mag_err": {
+          "max": 0.542,
+          "min": 0.015
+        }
+      },
+      "row_count": 851,
+      "row_count_matches": true,
+      "table": "raw.spec"
+    }
+  ]
+}
