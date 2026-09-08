@@ -1,0 +1,681 @@
+{
+  "configuration": {
+    "dataset": {
+      "path": "config/datasets/fornax.yaml",
+      "sha256": "de4a8ac2b067a67d638cc89faa5255cbd4c94fb86b11a260d0fdbaa343919bef"
+    },
+    "resolved": {
+      "dataset": {
+        "name": "fornax_fds_des"
+      },
+      "ingest": {
+        "manifest_path": "data/interim/ingest_manifest.json",
+        "on_existing": "fail",
+        "progress_interval_seconds": 10.0
+      },
+      "sources": [
+        {
+          "catalog": {
+            "code": "fds_aa_639_a136",
+            "release": "Cantiello et al. 2020",
+            "source_url": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J/A+A/639/A136",
+            "title": "Fornax Deep Survey source catalogue"
+          },
+          "columns": [
+            [
+              "recno",
+              "recno"
+            ],
+            [
+              "ID",
+              "source_id"
+            ],
+            [
+              "RAJ2000",
+              "ra_j2000"
+            ],
+            [
+              "DEJ2000",
+              "dec_j2000"
+            ],
+            [
+              "umag",
+              "u_mag"
+            ],
+            [
+              "e_umag",
+              "u_mag_err"
+            ],
+            [
+              "gmag",
+              "g_mag"
+            ],
+            [
+              "e_gmag",
+              "g_mag_err"
+            ],
+            [
+              "rmag",
+              "r_mag"
+            ],
+            [
+              "e_rmag",
+              "r_mag_err"
+            ],
+            [
+              "imag",
+              "i_mag"
+            ],
+            [
+              "e_imag",
+              "i_mag_err"
+            ],
+            [
+              "CS",
+              "class_star"
+            ],
+            [
+              "CIn",
+              "concentration"
+            ],
+            [
+              "FR",
+              "flux_radius_arcsec"
+            ],
+            [
+              "FWHM",
+              "fwhm_arcsec"
+            ],
+            [
+              "Aw",
+              "major_rms_deg"
+            ],
+            [
+              "Bw",
+              "minor_rms_deg"
+            ],
+            [
+              "Elo",
+              "elongation"
+            ],
+            [
+              "Flags",
+              "flags"
+            ],
+            [
+              "Sharp",
+              "sharpness"
+            ],
+            [
+              "CSu",
+              "u_class_star"
+            ],
+            [
+              "CIun",
+              "u_concentration"
+            ],
+            [
+              "Sharpu",
+              "u_sharpness"
+            ],
+            [
+              "umagex8",
+              "u_mag_ap8"
+            ],
+            [
+              "e_umagex8",
+              "u_mag_ap8_err"
+            ],
+            [
+              "umagauto",
+              "u_mag_auto"
+            ],
+            [
+              "e_umagauto",
+              "u_mag_auto_err"
+            ],
+            [
+              "CSg",
+              "g_class_star"
+            ],
+            [
+              "CIgn",
+              "g_concentration"
+            ],
+            [
+              "Sharpg",
+              "g_sharpness"
+            ],
+            [
+              "gmagex8",
+              "g_mag_ap8"
+            ],
+            [
+              "e_gmagex8",
+              "g_mag_ap8_err"
+            ],
+            [
+              "gmagauto",
+              "g_mag_auto"
+            ],
+            [
+              "e_gmagauto",
+              "g_mag_auto_err"
+            ],
+            [
+              "CSr",
+              "r_class_star"
+            ],
+            [
+              "CIrn",
+              "r_concentration"
+            ],
+            [
+              "Sharpr",
+              "r_sharpness"
+            ],
+            [
+              "rmagex8",
+              "r_mag_ap8"
+            ],
+            [
+              "e_rmagex8",
+              "r_mag_ap8_err"
+            ],
+            [
+              "rmagauto",
+              "r_mag_auto"
+            ],
+            [
+              "e_rmagauto",
+              "r_mag_auto_err"
+            ],
+            [
+              "CSi",
+              "i_class_star"
+            ],
+            [
+              "CIin",
+              "i_concentration"
+            ],
+            [
+              "Sharpi",
+              "i_sharpness"
+            ],
+            [
+              "imagex8",
+              "i_mag_ap8"
+            ],
+            [
+              "e_imagex8",
+              "i_mag_ap8_err"
+            ],
+            [
+              "imagauto",
+              "i_mag_auto"
+            ],
+            [
+              "e_imagauto",
+              "i_mag_auto_err"
+            ],
+            [
+              "E(B-V)",
+              "ebv"
+            ],
+            [
+              "Field",
+              "field_id"
+            ]
+          ],
+          "expected_rows": 239158,
+          "format": "csv",
+          "name": "fds",
+          "null_values": [
+            ""
+          ],
+          "path": "data/raw/fds/fds_ngc1399_1deg.csv",
+          "sha256": "089a6a990f867addedb56a3a2ae169a12d133a702607554a31f9037e063c3ccc",
+          "table": "raw.fds"
+        },
+        {
+          "catalog": {
+            "code": "des_dr2_fornax",
+            "release": "DES DR2",
+            "source_url": "https://datalab.noirlab.edu/query.php?name=des_dr2",
+            "title": "DES DR2 one-degree Fornax extract"
+          },
+          "columns": [
+            [
+              "coadd_object_id",
+              "coadd_object_id"
+            ],
+            [
+              "ra",
+              "ra"
+            ],
+            [
+              "dec",
+              "dec"
+            ],
+            [
+              "alphawin_j2000",
+              "ra_window"
+            ],
+            [
+              "deltawin_j2000",
+              "dec_window"
+            ],
+            [
+              "extended_class_coadd",
+              "extended_class_coadd"
+            ],
+            [
+              "extended_class_wavg",
+              "extended_class_wavg"
+            ],
+            [
+              "ebv_sfd98",
+              "ebv_sfd98"
+            ],
+            [
+              "mag_auto_i",
+              "i_mag_auto"
+            ],
+            [
+              "mag_auto_i_dered",
+              "i_mag_auto_dered"
+            ],
+            [
+              "spread_model_i",
+              "i_spread_model"
+            ],
+            [
+              "spreaderr_model_i",
+              "i_spread_model_err"
+            ],
+            [
+              "class_star_i",
+              "i_class_star"
+            ],
+            [
+              "flux_radius_i",
+              "i_flux_radius"
+            ],
+            [
+              "fwhm_image_i",
+              "i_fwhm_image"
+            ],
+            [
+              "flags_i",
+              "i_flags"
+            ],
+            [
+              "imaflags_iso_i",
+              "i_image_flags_iso"
+            ],
+            [
+              "mag_aper_5_g",
+              "g_mag_ap5"
+            ],
+            [
+              "magerr_aper_5_g",
+              "g_mag_ap5_err"
+            ],
+            [
+              "mag_aper_5_r",
+              "r_mag_ap5"
+            ],
+            [
+              "magerr_aper_5_r",
+              "r_mag_ap5_err"
+            ],
+            [
+              "mag_aper_5_i",
+              "i_mag_ap5"
+            ],
+            [
+              "magerr_aper_5_i",
+              "i_mag_ap5_err"
+            ],
+            [
+              "mag_aper_5_z",
+              "z_mag_ap5"
+            ],
+            [
+              "magerr_aper_5_z",
+              "z_mag_ap5_err"
+            ],
+            [
+              "mag_aper_5_y",
+              "y_mag_ap5"
+            ],
+            [
+              "magerr_aper_5_y",
+              "y_mag_ap5_err"
+            ]
+          ],
+          "expected_rows": 395813,
+          "format": "csv",
+          "name": "des",
+          "null_values": [
+            ""
+          ],
+          "path": "data/raw/des/des_dr2_ngc1399_1deg.csv",
+          "sha256": "906b3225b198b10e5657d67a3332392e2e8d58d4bce41cb63b746fce4c3dc355",
+          "table": "raw.des"
+        },
+        {
+          "catalog": {
+            "code": "fds_gc_master",
+            "release": "Cantiello et al. 2020",
+            "source_url": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J/A+A/639/A136",
+            "title": "FDS master globular-cluster catalogue"
+          },
+          "expected_rows": 3263,
+          "fields": [
+            [
+              "source_id",
+              1,
+              23
+            ],
+            [
+              "ra_deg",
+              25,
+              33
+            ],
+            [
+              "dec_deg",
+              35,
+              44
+            ],
+            [
+              "u_mag",
+              46,
+              51
+            ],
+            [
+              "u_mag_err",
+              53,
+              57
+            ],
+            [
+              "g_mag",
+              59,
+              64
+            ],
+            [
+              "g_mag_err",
+              66,
+              70
+            ],
+            [
+              "r_mag",
+              72,
+              77
+            ],
+            [
+              "r_mag_err",
+              79,
+              83
+            ],
+            [
+              "i_mag",
+              85,
+              90
+            ],
+            [
+              "i_mag_err",
+              92,
+              96
+            ],
+            [
+              "class_star",
+              98,
+              102
+            ],
+            [
+              "concentration",
+              104,
+              109
+            ],
+            [
+              "flux_radius_arcsec",
+              111,
+              117
+            ],
+            [
+              "fwhm_arcsec",
+              119,
+              123
+            ],
+            [
+              "elongation",
+              125,
+              128
+            ],
+            [
+              "sharpness",
+              130,
+              135
+            ],
+            [
+              "ebv",
+              137,
+              141
+            ],
+            [
+              "field_id",
+              143,
+              144
+            ],
+            [
+              "fcc",
+              146,
+              148
+            ],
+            [
+              "p_gc",
+              150,
+              153
+            ],
+            [
+              "half_light_radius",
+              155,
+              159
+            ],
+            [
+              "photometric_flag",
+              161,
+              163
+            ],
+            [
+              "spectroscopic_flag",
+              165,
+              167
+            ]
+          ],
+          "format": "fixed_width",
+          "name": "gc_master",
+          "null_values": [
+            "",
+            "---"
+          ],
+          "path": "data/raw/fds/mastergc.dat",
+          "sha256": "57f396460a0dc233133512ba3bcd701c20c23f65bb66f38833ce94648950942e",
+          "table": "raw.gc_master"
+        },
+        {
+          "catalog": {
+            "code": "chaturvedi_aa_657_a93",
+            "release": "Chaturvedi et al. 2022",
+            "source_url": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J/A+A/657/A93",
+            "title": "Fornax spectroscopic globular-cluster catalogue"
+          },
+          "expected_rows": 851,
+          "fields": [
+            [
+              "point_name",
+              1,
+              26
+            ],
+            [
+              "fvss_gc",
+              28,
+              56
+            ],
+            [
+              "ra_deg",
+              58,
+              75
+            ],
+            [
+              "dec_deg",
+              77,
+              95
+            ],
+            [
+              "radial_velocity",
+              97,
+              103
+            ],
+            [
+              "radial_velocity_err",
+              105,
+              110
+            ],
+            [
+              "signal_to_noise",
+              112,
+              130
+            ],
+            [
+              "source_class",
+              132,
+              132
+            ],
+            [
+              "fds_id",
+              134,
+              156
+            ],
+            [
+              "fiber_ra_deg",
+              158,
+              167
+            ],
+            [
+              "fiber_dec_deg",
+              169,
+              178
+            ],
+            [
+              "g_mag",
+              180,
+              185
+            ],
+            [
+              "g_mag_err",
+              187,
+              192
+            ],
+            [
+              "r_mag",
+              194,
+              199
+            ],
+            [
+              "r_mag_err",
+              201,
+              206
+            ],
+            [
+              "i_mag",
+              208,
+              213
+            ],
+            [
+              "i_mag_err",
+              215,
+              220
+            ],
+            [
+              "u_mag",
+              222,
+              227
+            ],
+            [
+              "u_mag_err",
+              229,
+              234
+            ]
+          ],
+          "format": "fixed_width",
+          "name": "spec",
+          "null_values": [
+            "",
+            "---"
+          ],
+          "path": "data/raw/chaturvedi/catalog.dat",
+          "sha256": "3dbbba22daeaa33511cd8072a1b08d648dc5216cc53ed90c55b9a3bcd307982d",
+          "table": "raw.spec"
+        }
+      ]
+    },
+    "sources": [
+      {
+        "path": "config/sources/fds.yaml",
+        "sha256": "9efbb068561bfe714b722264e0b2d0e5ffb87bd6910cc19df3b8d2ac04da65b1"
+      },
+      {
+        "path": "config/sources/des.yaml",
+        "sha256": "339ac4abdfedd70f5445a5130ac3a36c8d3fd2ba9b09eb873b92786b4e7661ae"
+      },
+      {
+        "path": "config/sources/gc_master.yaml",
+        "sha256": "d29ab4f3ab55da87812f98981cbbd897efac423b09a90ac45409e88d384df093"
+      },
+      {
+        "path": "config/sources/spec.yaml",
+        "sha256": "78ddc79ff17eb6ce5182e3f28b9418e8e4033d7aecc00f70a882838174ac4abe"
+      }
+    ]
+  },
+  "created_at": "2026-09-07T01:45:26.472807+00:00",
+  "dataset": "fornax_fds_des",
+  "git_commit": "4e5c5a252069bfdda9f49d834d6acc97d49545b8",
+  "software": {
+    "PyYAML": "6.0.3",
+    "psycopg": "3.3.5",
+    "python": "3.10.12"
+  },
+  "sources": [
+    {
+      "name": "fds",
+      "path": "data/raw/fds/fds_ngc1399_1deg.csv",
+      "rejected_rows": 0,
+      "row_count": 239158,
+      "sha256": "089a6a990f867addedb56a3a2ae169a12d133a702607554a31f9037e063c3ccc"
+    },
+    {
+      "name": "des",
+      "path": "data/raw/des/des_dr2_ngc1399_1deg.csv",
+      "rejected_rows": 0,
+      "row_count": 395813,
+      "sha256": "906b3225b198b10e5657d67a3332392e2e8d58d4bce41cb63b746fce4c3dc355"
+    },
+    {
+      "name": "gc_master",
+      "path": "data/raw/fds/mastergc.dat",
+      "rejected_rows": 0,
+      "row_count": 3263,
+      "sha256": "57f396460a0dc233133512ba3bcd701c20c23f65bb66f38833ce94648950942e"
+    },
+    {
+      "name": "spec",
+      "path": "data/raw/chaturvedi/catalog.dat",
+      "rejected_rows": 0,
+      "row_count": 851,
+      "sha256": "3dbbba22daeaa33511cd8072a1b08d648dc5216cc53ed90c55b9a3bcd307982d"
+    }
+  ]
+}
