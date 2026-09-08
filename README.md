@@ -79,3 +79,14 @@ glob-umap audit --config config/audits/raw.yaml
 The audit verifies source counts, stable-key uniqueness, coordinate bounds,
 per-column null counts, and numeric ranges. Its configuration and output paths
 are defined in YAML.
+
+After a successful initial audit, lock the raw catalogue layer as the
+PostgreSQL administrator and verify its source contract and permissions:
+
+```bash
+sudo -u postgres psql --dbname=gc_ml < sql/50_lock_raw.sql
+psql --file=sql/91_audit_raw.sql
+```
+
+The `gc` project login then retains read access but cannot modify the raw
+schema or its catalogue tables.
