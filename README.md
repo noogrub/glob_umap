@@ -69,3 +69,13 @@ Run the unit tests with:
 ```bash
 python -m unittest discover -s tests -v
 ```
+
+Audit the loaded raw tables without modifying them:
+
+```bash
+glob-umap audit --config config/audits/raw.yaml
+```
+
+The audit verifies source counts, stable-key uniqueness, coordinate bounds,
+per-column null counts, and numeric ranges. Its configuration and output paths
+are defined in YAML.
