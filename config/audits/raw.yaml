@@ -20,5 +20,5 @@ tables:
     key_columns: [source_id]
     coordinate_columns: [ra_deg, dec_deg]
   - table: raw.spec
-    key_columns: [point_name]
+    key_columns: [source_file, source_row]
     coordinate_columns: [ra_deg, dec_deg]
