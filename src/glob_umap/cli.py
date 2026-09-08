@@ -13,6 +13,9 @@ def _parser() -> argparse.ArgumentParser:
 
     ingest_parser = commands.add_parser("ingest", help="load raw catalogues")
     ingest_parser.add_argument("--config", required=True)
+
+    audit_parser = commands.add_parser("audit", help="audit loaded raw catalogues")
+    audit_parser.add_argument("--config", required=True)
     return parser
 
 
@@ -37,5 +40,13 @@ def main(argv: Sequence[str] | None = None) -> None:
                 ingest(args.config, report=print)
             except DatabaseError as error:
                 raise RuntimeError(f"PostgreSQL load failed: {error}") from error
+        elif args.command == "audit":
+            from glob_umap.audit import audit_raw
+            from psycopg import Error as DatabaseError
+
+            try:
+                audit_raw(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(f"PostgreSQL audit failed: {error}") from error
     except (OSError, RuntimeError, ValueError) as error:
         raise SystemExit(f"glob-umap: error: {error}") from None
