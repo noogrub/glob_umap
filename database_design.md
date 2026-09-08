@@ -90,10 +90,11 @@ The initial schema is implemented in `sql/`.
 | `raw.gc_master` | Cantiello et al. master globular-cluster catalogue |
 | `raw.spec` | Chaturvedi et al. spectroscopic catalogue |
 
-Raw tables retain source values, including published missing-value sentinels.
-The ingestion layer will map original column names to SQL-safe names and record
-the source file and source row. Sentinel interpretation belongs in the
-normalized ingestion stage, not in raw storage.
+Raw tables retain source values without scientific filtering. The ingestion
+layer maps original column names to SQL-safe names and records the source file
+and source row. Catalogue-specific textual null markers such as `---` are
+mapped to SQL `NULL` according to YAML; numeric sentinel values remain
+unchanged.
 
 ### Core tables
 
@@ -134,3 +135,23 @@ products and their fields have been inspected.
 `sql/apply.sql` creates all catalogue-level schemas and tables in one
 transaction, then verifies the result. Exact commands and prerequisites are in
 `sql/README.md`.
+
+
+## Raw catalogue immutability
+
+After ingestion and audit, the `raw` schema and its four catalogue tables are
+owned by the `NOLOGIN` role `gc_raw_owner`. The project login `gc` has
+`USAGE` on the schema and `SELECT` on the tables, but no write or schema
+creation privileges. Normal analysis therefore cannot insert, update, delete,
+truncate, or alter raw catalogue data.
+
+The source identity of a raw record is `(source_file, source_row)` within the
+registered, checksummed catalogue release. Published catalogue identifiers
+remain data attributes used later for matching; they are not assumed to be
+unique record keys.
+
+Apply the post-ingestion lock with `sql/50_lock_raw.sql`. Verify the database
+source contract, row-key continuity, ownership, and privileges with
+`sql/91_audit_raw.sql`. The file checksum is independently verified by the
+`glob-umap preflight` command. Administrator-only recovery instructions are
+maintained in `sql/README.md`.
