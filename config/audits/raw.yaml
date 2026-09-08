@@ -1,0 +1,24 @@
+audit:
+  name: raw_catalogues
+  dataset_config: config/datasets/fornax.yaml
+  output_path: data/interim/raw_audit.json
+
+coordinate_bounds:
+  ra_min_deg: 0
+  ra_max_deg: 360
+  dec_min_deg: -90
+  dec_max_deg: 90
+
+tables:
+  - table: raw.fds
+    key_columns: [source_id]
+    coordinate_columns: [ra_j2000, dec_j2000]
+  - table: raw.des
+    key_columns: [coadd_object_id]
+    coordinate_columns: [ra_window, dec_window]
+  - table: raw.gc_master
+    key_columns: [source_id]
+    coordinate_columns: [ra_deg, dec_deg]
+  - table: raw.spec
+    key_columns: [point_name]
+    coordinate_columns: [ra_deg, dec_deg]
