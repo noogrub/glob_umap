@@ -100,6 +100,27 @@ This resolves the apparent `2,104` photometric flags: `183` objects have both
 photometric and spectroscopic confirmation, leaving exactly `1,921`
 photometric-only objects as stated in the paper.
 
+#### ACSFCS field scope and verified missingness
+
+The catalogue ReadMe defines `pGC` as the ACSFCS globular-cluster likelihood
+and `rh2` as the mean ACSFCS g/z half-light radius. The `Phot` and `Spect`
+columns separately record photometric and spectroscopic identification. These
+are source definitions; they do not make the two evidence types interchangeable.
+
+A post-ingestion cross-tab of the immutable `raw.gc_master` table produced:
+
+| Phot | Spect | Rows | Missing pGC | Missing rh2 |
+|---|---|---:|---:|---:|
+| No | Yes | 1,159 | 1,159 | 1,159 |
+| Yes | No | 1,921 | 0 | 0 |
+| Yes | Yes | 183 | 0 | 0 |
+
+Thus all and only the spectroscopic-only objects lack both ACSFCS-derived
+fields in this catalogue release. The missingness is structural rather than an
+ingestion failure. Normalization must preserve those values as SQL `NULL`;
+they must not be imputed. Photometric and spectroscopic identification must
+remain separate provenance-bearing label evidence.
+
 ### Chaturvedi et al. (2022) spectroscopic catalog
 
 - Catalog: `J/A+A/657/A93/catalog.dat`
