@@ -46,6 +46,14 @@ A preliminary normalized model would include:
 
 The `label` table should hold evidence, not pretend to contain unquestionable ground truth. A spectroscopic classification, photometric selection, literature classification, and our own inferred classification are different evidence types with different strengths.
 
+For the Cantiello master catalogue, `p_gc` and half-light radius are
+ACSFCS-derived measurements. The verified source release contains neither
+value for its 1,159 spectroscopic-only objects, while both are present for all
+2,104 objects with photometric identification. The normalized layer must
+preserve this structural absence as SQL `NULL`, without imputation.
+Photometric and spectroscopic identification remain separate
+provenance-bearing rows in `core.label`.
+
 ## Normalization versus analysis speed
 
 Normalized tables should be authoritative. ML code should consume deliberately denormalized database views or materialized views.
