@@ -478,6 +478,35 @@ sample membership and target class. Normalization of measurements and label
 evidence into `core.phot` and `core.label` remains required before feature
 extraction; downstream modeling will not read raw catalogue tables directly.
 
+### Completed materialization
+
+The clean population was materialized successfully on 2026-09-09 at
+13:20:47 UTC using code commit `44e3b31`. PostgreSQL assigned `sample_id = 1`.
+The materialization configuration SHA-256 was
+`9ba5071c6f7135fdefadab19e489ee8d4d3ac5a3351dad3d037427c34c2ef507`;
+the unchanged clean-sample selection configuration SHA-256 was
+`e5dddd85201666d5eecddc9245b521beff5b90a13753bd7dd8fa22ebf96c45ad`.
+
+An independent database query verified the stored population:
+
+```sql
+SELECT s.name, m.split, m.target_class, count(*) AS members
+FROM ml.sample AS s
+JOIN ml.member AS m USING (sample_id)
+WHERE s.name = 'clean_reciprocal'
+GROUP BY s.name, m.split, m.target_class
+ORDER BY m.target_class;
+```
+
+| Sample | Split | Target class | Members |
+|---|---|---|---:|
+| `clean_reciprocal` | `unassigned` | galaxy | 49,667 |
+| `clean_reciprocal` | `unassigned` | globular cluster | 1,402 |
+| `clean_reciprocal` | `unassigned` | star | 3,730 |
+
+The verified total is 54,799 members. The complete run manifest is
+`data/interim/clean_sample.json`, committed in `126c238`.
+
 ## Decisions and remaining uncertainty
 
 Confirmed decisions:
