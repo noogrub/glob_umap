@@ -143,3 +143,17 @@ These commands are read-only. They report matched, complete, error-qualified,
 and labeled populations, compare available stages with the paper's counts,
 and write provenance manifests beneath `data/interim/`. The evidence and
 decision trail are maintained in `data_preparation.md`.
+
+## Materialize the clean sample
+
+After reviewing both funnel reports, create the conservative population:
+
+```bash
+glob-umap sample --config config/materialize/clean.yaml
+```
+
+The operation creates one `ml.sample` definition and its `ml.member` rows in a
+single transaction. It refuses to overwrite an existing named sample, verifies
+the materialized count against a freshly evaluated funnel, leaves all data
+splits explicitly `unassigned`, and writes
+`data/interim/clean_sample.json`.

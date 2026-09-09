@@ -1,0 +1,9 @@
+materialization:
+  sample_config: config/samples/clean.yaml
+  initial_split: unassigned
+  member_weight: 1.0
+  report_path: data/interim/clean_sample.json
+  target_classes:
+    globular_cluster: globular_cluster
+    galaxy: galaxy
+    star: star

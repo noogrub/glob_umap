@@ -31,6 +31,11 @@ def _parser() -> argparse.ArgumentParser:
         "funnel", help="count each configured sample-preparation stage"
     )
     funnel_parser.add_argument("--config", required=True)
+
+    sample_parser = commands.add_parser(
+        "sample", help="materialize a configured machine-learning population"
+    )
+    sample_parser.add_argument("--config", required=True)
     return parser
 
 
@@ -89,5 +94,15 @@ def main(argv: Sequence[str] | None = None) -> None:
                 build_funnel(args.config, report=print)
             except DatabaseError as error:
                 raise RuntimeError(f"PostgreSQL sample funnel failed: {error}") from error
+        elif args.command == "sample":
+            from glob_umap.sample import materialize_sample
+            from psycopg import Error as DatabaseError
+
+            try:
+                materialize_sample(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(
+                    f"PostgreSQL sample materialization failed: {error}"
+                ) from error
     except (OSError, RuntimeError, ValueError) as error:
         raise SystemExit(f"glob-umap: error: {error}") from None

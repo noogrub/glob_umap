@@ -13,7 +13,7 @@ from glob_umap.source import file_sha256
 def build_funnel(config_path: str | Path, report: Callable[[str], None]) -> None:
     config = load_sample_config(config_path)
     with connect() as connection:
-        counts = _query_counts(connection, config)
+        counts = query_counts(connection, config)
 
     comparison = {
         stage: {
@@ -45,7 +45,7 @@ def build_funnel(config_path: str | Path, report: Callable[[str], None]) -> None
     report(f"Report: {config.report_path.relative_to(config.project_root)}")
 
 
-def _query_counts(connection: Any, config: SampleConfig) -> dict[str, int]:
+def query_counts(connection: Any, config: SampleConfig) -> dict[str, int]:
     query, parameters = _count_query(config)
     with connection.cursor() as cursor:
         cursor.execute(query, parameters)
@@ -69,6 +69,33 @@ def _query_counts(connection: Any, config: SampleConfig) -> dict[str, int]:
 
 
 def _count_query(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
+    population, parameters = population_ctes(config)
+    query = sql.SQL(
+        """
+        WITH {}
+        SELECT count(*) AS matched,
+               count(*) FILTER (WHERE magnitude_complete) AS complete_photometry,
+               count(*) FILTER (WHERE error_qualified) AS error_qualified,
+               count(*) FILTER (WHERE error_qualified AND is_gc) AS globular_clusters,
+               count(*) FILTER (
+                   WHERE error_qualified AND NOT is_gc AND is_galaxy_candidate
+               ) AS galaxies,
+               count(*) FILTER (
+                   WHERE error_qualified AND NOT is_gc AND is_star_candidate
+               ) AS stars,
+               count(*) FILTER (
+                   WHERE error_qualified AND (
+                       is_gc OR (NOT is_gc AND is_galaxy_candidate)
+                       OR (NOT is_gc AND is_star_candidate)
+                   )
+               ) AS labeled
+        FROM population
+        """
+    ).format(population)
+    return query, parameters
+
+
+def population_ctes(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
     magnitude_clauses = []
     magnitude_parameters = []
     for item in config.measurements:
@@ -102,7 +129,7 @@ def _count_query(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
 
     query = sql.SQL(
         """
-        WITH candidates AS (
+        candidates AS (
             SELECT m.object_id,
                    m.record_id AS target_record_id,
                    m.angular_sep_arcsec,
@@ -142,23 +169,6 @@ def _count_query(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
                    magnitude_complete AND errors_within_limit AS error_qualified
             FROM measured
         )
-        SELECT count(*) AS matched,
-               count(*) FILTER (WHERE magnitude_complete) AS complete_photometry,
-               count(*) FILTER (WHERE error_qualified) AS error_qualified,
-               count(*) FILTER (WHERE error_qualified AND is_gc) AS globular_clusters,
-               count(*) FILTER (
-                   WHERE error_qualified AND NOT is_gc AND is_galaxy_candidate
-               ) AS galaxies,
-               count(*) FILTER (
-                   WHERE error_qualified AND NOT is_gc AND is_star_candidate
-               ) AS stars,
-               count(*) FILTER (
-                   WHERE error_qualified AND (
-                       is_gc OR (NOT is_gc AND is_galaxy_candidate)
-                       OR (NOT is_gc AND is_star_candidate)
-                   )
-               ) AS labeled
-        FROM population
         """
     ).format(
         policy,

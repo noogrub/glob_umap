@@ -373,6 +373,24 @@ ORDER BY policy;
 Neither reasonable policy reproduces the paper exactly. We will report that
 difference rather than tune an undocumented choice until a count agrees.
 
+The completed configured funnels produced:
+
+| Stage | Reciprocal nearest | Nearest DES per FDS | Policy difference | Paper |
+|---|---:|---:|---:|---:|
+| Matched | 212,621 | 212,802 | +181 | not reported |
+| Complete `ugrizY` | 191,123 | 191,297 | +174 | 190,281 |
+| Errors at most 0.5 mag | 106,008 | 106,121 | +113 | 105,318 |
+| Globular clusters | 1,402 | 1,402 | 0 | 1,440 |
+| Galaxies | 49,667 | 49,722 | +55 | 49,579 |
+| Stars | 3,730 | 3,730 | 0 | 3,726 |
+| Final labeled sample | 54,799 | 54,854 | +55 | 54,745 |
+
+The ambiguity policy changes only 55 final galaxy assignments. It changes no
+globular-cluster or star assignments. The reciprocal-nearest population is
+both one-to-one and closer to the published final count, but closeness to the
+published count is supporting evidence rather than the reason for choosing
+the conservative policy.
+
 ### Numeric-sentinel correction
 
 The raw DES export uses `99` as a missing-magnitude sentinel, as recorded in
@@ -438,8 +456,27 @@ Each command writes its resolved YAML, YAML checksum, Git commit, software
 versions, observed stage counts, and differences from available published
 counts to a JSON report in `data/interim/`.
 
-These commands measure the population. They do not yet populate `core.phot`,
-`core.label`, `ml.sample`, or `ml.member` and do not alter the database.
+These commands measure the population and do not alter the database.
+
+After both funnels have been inspected, materialize the conservative
+population with:
+
+```bash
+glob-umap sample --config config/materialize/clean.yaml
+```
+
+The command inserts one provenance-bearing `ml.sample` row and its 54,799
+`ml.member` rows in a single transaction. Every member initially has the
+YAML-configured `unassigned` split and weight `1.0`; train, validation, and test
+assignment is a later design-frozen stage. The command refuses to replace a
+sample with the same name, reruns the funnel as an integrity check, and rolls
+back unless its inserted class total agrees exactly. It writes
+`data/interim/clean_sample.json` after the database commit.
+
+The materializer reuses the funnel's exact population query. It records only
+sample membership and target class. Normalization of measurements and label
+evidence into `core.phot` and `core.label` remains required before feature
+extraction; downstream modeling will not read raw catalogue tables directly.
 
 ## Decisions and remaining uncertainty
 
