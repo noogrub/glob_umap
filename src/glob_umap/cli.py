@@ -26,6 +26,11 @@ def _parser() -> argparse.ArgumentParser:
         "match", help="generate all configured sky-match candidates"
     )
     match_parser.add_argument("--config", required=True)
+
+    funnel_parser = commands.add_parser(
+        "funnel", help="count each configured sample-preparation stage"
+    )
+    funnel_parser.add_argument("--config", required=True)
     return parser
 
 
@@ -76,5 +81,13 @@ def main(argv: Sequence[str] | None = None) -> None:
                 match_catalogues(args.config, report=print)
             except DatabaseError as error:
                 raise RuntimeError(f"PostgreSQL crossmatch failed: {error}") from error
+        elif args.command == "funnel":
+            from glob_umap.funnel import build_funnel
+            from psycopg import Error as DatabaseError
+
+            try:
+                build_funnel(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(f"PostgreSQL sample funnel failed: {error}") from error
     except (OSError, RuntimeError, ValueError) as error:
         raise SystemExit(f"glob-umap: error: {error}") from None

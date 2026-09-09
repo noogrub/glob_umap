@@ -1,0 +1,79 @@
+sample:
+  name: clean_reciprocal
+  description: Conservative FDS-DES population using reciprocal nearest neighbors
+  match_run: fds_des_1arcsec
+  match_policy: reciprocal_nearest
+  reference_catalog: fds_aa_639_a136
+  target_catalog: des_dr2_fornax
+  report_path: data/interim/clean_funnel.json
+
+sources:
+  reference_table: raw.fds
+  target_table: raw.des
+  master_table: raw.gc_master
+  spec_table: raw.spec
+
+quality:
+  max_magnitude_error: 0.5
+  measurements:
+    - band: u
+      source: reference
+      magnitude_column: u_mag
+      error_column: u_mag_err
+    - band: g
+      source: target
+      magnitude_column: g_mag_ap5
+      error_column: g_mag_ap5_err
+    - band: r
+      source: target
+      magnitude_column: r_mag_ap5
+      error_column: r_mag_ap5_err
+    - band: i
+      source: target
+      magnitude_column: i_mag_ap5
+      error_column: i_mag_ap5_err
+    - band: z
+      source: target
+      magnitude_column: z_mag_ap5
+      error_column: z_mag_ap5_err
+    - band: y
+      source: target
+      magnitude_column: y_mag_ap5
+      error_column: y_mag_ap5_err
+
+labels:
+  reference_source_column: source_id
+  master:
+    source_column: source_id
+    probability_column: p_gc
+    probability_min_exclusive: 0.75
+    photometric_flag_column: photometric_flag
+    spectroscopic_flag_column: spectroscopic_flag
+    yes_value: "Yes"
+  spec:
+    source_column: fds_id
+    snr_column: signal_to_noise
+    snr_min: 3.0
+    class_column: source_class
+    accepted_classes: [A, B]
+  contaminants:
+    extended_class_column: extended_class_coadd
+    galaxy:
+      extended_class_value: 3
+      magnitude_column: i_mag_auto_dered
+      magnitude_min: 19.0
+      magnitude_max: 22.5
+    star:
+      extended_class_value: 0
+      magnitude_column: i_mag_auto_dered
+      magnitude_min: 18.0
+      magnitude_max: 20.0
+
+paper_counts:
+  target_records: 395813
+  complete_photometry: 190281
+  error_qualified: 105318
+  globular_clusters: 1440
+  galaxies: 49579
+  stars: 3726
+  labeled: 54745

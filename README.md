@@ -14,6 +14,7 @@ files in full:
 1. [P609_E584_Rubin_project.md](P609_E584_Rubin_project.md)
 2. [database_design.md](database_design.md)
 3. [policy.md](policy.md)
+4. [data_preparation.md](data_preparation.md)
 
 These files define the project scope, collaboration boundary, database
 architecture, evaluation policy, graphing standard, and naming requirements.
@@ -122,3 +123,23 @@ are selected, but every DES candidate remains unselected until ambiguity has
 been inspected. The command records candidate ranks, separations, multiplicity,
 the resolved YAML configuration, and summary counts in
 `data/interim/fds_des_match.json`.
+
+## Audit the sample funnels
+
+Count every selection stage under the conservative reciprocal-nearest policy:
+
+```bash
+glob-umap funnel --config config/samples/clean.yaml
+```
+
+Repeat the same measurements using the nearest DES source for every FDS
+record, our paper-like sensitivity policy:
+
+```bash
+glob-umap funnel --config config/samples/paper.yaml
+```
+
+These commands are read-only. They report matched, complete, error-qualified,
+and labeled populations, compare available stages with the paper's counts,
+and write provenance manifests beneath `data/interim/`. The evidence and
+decision trail are maintained in `data_preparation.md`.
