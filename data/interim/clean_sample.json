@@ -1,0 +1,169 @@
+{
+  "class_counts": {
+    "galaxy": 49667,
+    "globular_cluster": 1402,
+    "star": 3730
+  },
+  "configuration": {
+    "path": "config/materialize/clean.yaml",
+    "resolved": {
+      "materialization": {
+        "initial_split": "unassigned",
+        "member_weight": 1.0,
+        "report_path": "data/interim/clean_sample.json",
+        "sample_config": "config/samples/clean.yaml",
+        "target_classes": {
+          "galaxy": "galaxy",
+          "globular_cluster": "globular_cluster",
+          "star": "star"
+        }
+      }
+    },
+    "sha256": "9ba5071c6f7135fdefadab19e489ee8d4d3ac5a3351dad3d037427c34c2ef507"
+  },
+  "created_at": "2026-09-09T13:20:47.547315+00:00",
+  "funnel_counts": {
+    "complete_photometry": 191123,
+    "error_qualified": 106008,
+    "galaxies": 49667,
+    "globular_clusters": 1402,
+    "labeled": 54799,
+    "matched": 212621,
+    "stars": 3730,
+    "target_records": 395813
+  },
+  "git_commit": "44e3b311b0401e3d6f05c0a80a45d1be77eae471",
+  "initial_split": "unassigned",
+  "member_count": 54799,
+  "member_weight": 1.0,
+  "sample": "clean_reciprocal",
+  "sample_configuration": {
+    "path": "config/samples/clean.yaml",
+    "resolved": {
+      "labels": {
+        "contaminants": {
+          "extended_class_column": "extended_class_coadd",
+          "galaxy": {
+            "extended_class_value": 3,
+            "magnitude_column": "i_mag_auto_dered",
+            "magnitude_max": 22.5,
+            "magnitude_min": 19.0
+          },
+          "star": {
+            "extended_class_value": 0,
+            "magnitude_column": "i_mag_auto_dered",
+            "magnitude_max": 20.0,
+            "magnitude_min": 18.0
+          }
+        },
+        "master": {
+          "photometric_flag_column": "photometric_flag",
+          "probability_column": "p_gc",
+          "probability_min_exclusive": 0.75,
+          "source_column": "source_id",
+          "spectroscopic_flag_column": "spectroscopic_flag",
+          "yes_value": "Yes"
+        },
+        "reference_source_column": "source_id",
+        "spec": {
+          "accepted_classes": [
+            "A",
+            "B"
+          ],
+          "class_column": "source_class",
+          "snr_column": "signal_to_noise",
+          "snr_min": 3.0,
+          "source_column": "fds_id"
+        }
+      },
+      "paper_counts": {
+        "complete_photometry": 190281,
+        "error_qualified": 105318,
+        "galaxies": 49579,
+        "globular_clusters": 1440,
+        "labeled": 54745,
+        "stars": 3726,
+        "target_records": 395813
+      },
+      "quality": {
+        "max_magnitude_error": 0.5,
+        "measurements": [
+          {
+            "band": "u",
+            "error_column": "u_mag_err",
+            "magnitude_column": "u_mag",
+            "missing_magnitude_values": [],
+            "source": "reference"
+          },
+          {
+            "band": "g",
+            "error_column": "g_mag_ap5_err",
+            "magnitude_column": "g_mag_ap5",
+            "missing_magnitude_values": [
+              99.0
+            ],
+            "source": "target"
+          },
+          {
+            "band": "r",
+            "error_column": "r_mag_ap5_err",
+            "magnitude_column": "r_mag_ap5",
+            "missing_magnitude_values": [
+              99.0
+            ],
+            "source": "target"
+          },
+          {
+            "band": "i",
+            "error_column": "i_mag_ap5_err",
+            "magnitude_column": "i_mag_ap5",
+            "missing_magnitude_values": [
+              99.0
+            ],
+            "source": "target"
+          },
+          {
+            "band": "z",
+            "error_column": "z_mag_ap5_err",
+            "magnitude_column": "z_mag_ap5",
+            "missing_magnitude_values": [
+              99.0
+            ],
+            "source": "target"
+          },
+          {
+            "band": "y",
+            "error_column": "y_mag_ap5_err",
+            "magnitude_column": "y_mag_ap5",
+            "missing_magnitude_values": [
+              99.0
+            ],
+            "source": "target"
+          }
+        ]
+      },
+      "sample": {
+        "description": "Conservative FDS-DES population using reciprocal nearest neighbors",
+        "match_policy": "reciprocal_nearest",
+        "match_run": "fds_des_1arcsec",
+        "name": "clean_reciprocal",
+        "reference_catalog": "fds_aa_639_a136",
+        "report_path": "data/interim/clean_funnel.json",
+        "target_catalog": "des_dr2_fornax"
+      },
+      "sources": {
+        "master_table": "raw.gc_master",
+        "reference_table": "raw.fds",
+        "spec_table": "raw.spec",
+        "target_table": "raw.des"
+      }
+    },
+    "sha256": "e5dddd85201666d5eecddc9245b521beff5b90a13753bd7dd8fa22ebf96c45ad"
+  },
+  "sample_id": 1,
+  "software": {
+    "PyYAML": "6.0.3",
+    "psycopg": "3.3.5",
+    "python": "3.10.12"
+  }
+}
