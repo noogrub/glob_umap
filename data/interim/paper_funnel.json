@@ -1,0 +1,181 @@
+{
+  "configuration": {
+    "path": "config/samples/paper.yaml",
+    "resolved": {
+      "labels": {
+        "contaminants": {
+          "extended_class_column": "extended_class_coadd",
+          "galaxy": {
+            "extended_class_value": 3,
+            "magnitude_column": "i_mag_auto_dered",
+            "magnitude_max": 22.5,
+            "magnitude_min": 19.0
+          },
+          "star": {
+            "extended_class_value": 0,
+            "magnitude_column": "i_mag_auto_dered",
+            "magnitude_max": 20.0,
+            "magnitude_min": 18.0
+          }
+        },
+        "master": {
+          "photometric_flag_column": "photometric_flag",
+          "probability_column": "p_gc",
+          "probability_min_exclusive": 0.75,
+          "source_column": "source_id",
+          "spectroscopic_flag_column": "spectroscopic_flag",
+          "yes_value": "Yes"
+        },
+        "reference_source_column": "source_id",
+        "spec": {
+          "accepted_classes": [
+            "A",
+            "B"
+          ],
+          "class_column": "source_class",
+          "snr_column": "signal_to_noise",
+          "snr_min": 3.0,
+          "source_column": "fds_id"
+        }
+      },
+      "paper_counts": {
+        "complete_photometry": 190281,
+        "error_qualified": 105318,
+        "galaxies": 49579,
+        "globular_clusters": 1440,
+        "labeled": 54745,
+        "stars": 3726,
+        "target_records": 395813
+      },
+      "quality": {
+        "max_magnitude_error": 0.5,
+        "measurements": [
+          {
+            "band": "u",
+            "error_column": "u_mag_err",
+            "magnitude_column": "u_mag",
+            "missing_magnitude_values": [],
+            "source": "reference"
+          },
+          {
+            "band": "g",
+            "error_column": "g_mag_ap5_err",
+            "magnitude_column": "g_mag_ap5",
+            "missing_magnitude_values": [
+              99.0
+            ],
+            "source": "target"
+          },
+          {
+            "band": "r",
+            "error_column": "r_mag_ap5_err",
+            "magnitude_column": "r_mag_ap5",
+            "missing_magnitude_values": [
+              99.0
+            ],
+            "source": "target"
+          },
+          {
+            "band": "i",
+            "error_column": "i_mag_ap5_err",
+            "magnitude_column": "i_mag_ap5",
+            "missing_magnitude_values": [
+              99.0
+            ],
+            "source": "target"
+          },
+          {
+            "band": "z",
+            "error_column": "z_mag_ap5_err",
+            "magnitude_column": "z_mag_ap5",
+            "missing_magnitude_values": [
+              99.0
+            ],
+            "source": "target"
+          },
+          {
+            "band": "y",
+            "error_column": "y_mag_ap5_err",
+            "magnitude_column": "y_mag_ap5",
+            "missing_magnitude_values": [
+              99.0
+            ],
+            "source": "target"
+          }
+        ]
+      },
+      "sample": {
+        "description": "Paper-like FDS-seeded population using the nearest DES source",
+        "match_policy": "reference_nearest",
+        "match_run": "fds_des_1arcsec",
+        "name": "paper_like_nearest",
+        "reference_catalog": "fds_aa_639_a136",
+        "report_path": "data/interim/paper_funnel.json",
+        "target_catalog": "des_dr2_fornax"
+      },
+      "sources": {
+        "master_table": "raw.gc_master",
+        "reference_table": "raw.fds",
+        "spec_table": "raw.spec",
+        "target_table": "raw.des"
+      }
+    },
+    "sha256": "29a61a4fcb188b67aff508d1c8c69158a00a8c201f0a32ef9f0a98f99ec84887"
+  },
+  "counts": {
+    "complete_photometry": 191297,
+    "error_qualified": 106121,
+    "galaxies": 49722,
+    "globular_clusters": 1402,
+    "labeled": 54854,
+    "matched": 212802,
+    "stars": 3730,
+    "target_records": 395813
+  },
+  "created_at": "2026-09-09T13:04:20.883367+00:00",
+  "description": "Paper-like FDS-seeded population using the nearest DES source",
+  "git_commit": "357ca4fa6da3e6895ccbb096e8786913bfb856de",
+  "paper_comparison": {
+    "complete_photometry": {
+      "difference": 1016,
+      "observed": 191297,
+      "paper": 190281
+    },
+    "error_qualified": {
+      "difference": 803,
+      "observed": 106121,
+      "paper": 105318
+    },
+    "galaxies": {
+      "difference": 143,
+      "observed": 49722,
+      "paper": 49579
+    },
+    "globular_clusters": {
+      "difference": -38,
+      "observed": 1402,
+      "paper": 1440
+    },
+    "labeled": {
+      "difference": 109,
+      "observed": 54854,
+      "paper": 54745
+    },
+    "stars": {
+      "difference": 4,
+      "observed": 3730,
+      "paper": 3726
+    },
+    "target_records": {
+      "difference": 0,
+      "observed": 395813,
+      "paper": 395813
+    }
+  },
+  "sample": "paper_like_nearest",
+  "software": {
+    "PyYAML": "6.0.3",
+    "psycopg": "3.3.5",
+    "python": "3.10.12"
+  }
+}
