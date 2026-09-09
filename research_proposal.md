@@ -71,8 +71,9 @@ Our conservative reciprocal-nearest crossmatch produces:
 
 The published final sample contains 54,745 objects. Our independently defined
 sample differs by 54 objects, approximately 0.1%, despite several unpublished
-crossmatching and preprocessing details. A second, paper-like nearest-neighbor
-policy will quantify the effect of that choice.
+crossmatching and preprocessing details. A second analysis using the nearest
+DES match for each FDS source will measure how sensitive the results are to the
+crossmatching policy.
 
 ## Computational experiment
 
@@ -141,8 +142,73 @@ measurements are required.
 - a final research paper and class presentation.
 
 Optional visualization and detector-reliability extensions will remain
-modular. They may support a separate E584 group project, but they will not
-delay or redefine the individual P609 experiment.
+modular.
+
+## Publication objective
+
+The intended outcome is a manuscript suitable for submission to a
+peer-reviewed astronomy journal. The provisional target is *The Astronomical
+Journal*, with the final venue determined by whether the principal contribution
+is an astronomical result, an analysis methodology, or both.
+
+The paper will be framed as an astronomy study supported by rigorous
+computational physics. Its scientific claim will concern globular-cluster
+selection and the information carried by Rubin-like multiband photometry. The
+numerical analysis will establish how reliably that claim can be made.
+
+## Appendix A: Relevance to this class
+
+The computational core of this project is the numerical stability and
+uncertainty propagation of linear and nonlinear representations of physical
+measurements. It directly supports the P609 learning outcomes of evaluating
+numerical algorithms, choosing methods under computational constraints,
+presenting results effectively, building reusable research functions, and
+practicing sound software design.
+
+Four distinct sources of uncertainty will be measured rather than conflated:
+
+- **Measurement uncertainty:** reported photometric errors propagated through
+  colors, embeddings, and classifications using Monte Carlo perturbations.
+- **Sampling uncertainty:** variation across train/test partitions and
+  bootstrap samples.
+- **Algorithmic uncertainty:** variation across UMAP seeds, approximate-neighbor
+  searches, and hyperparameters.
+- **Numerical error:** effects caused by finite-precision representation and
+  numerical implementation.
+
+The relationship between the project and the P609 syllabus is:
+
+| P609 topic or outcome | Project application |
+|---|---|
+| Representing numbers and sources of error | `float32` versus `float64`, roundoff, conditioning, and separation of measurement, sampling, algorithmic, and numerical uncertainty |
+| Linear algebra | PCA covariance matrix, eigendecomposition, rank deficiency, and correlated colors |
+| Nonlinear equations and algorithms | UMAP's nonlinear embedding and optimization |
+| Monte Carlo techniques | Photometric perturbations, repeated embeddings, and bootstrap confidence intervals |
+| Algorithm selection | PCA versus UMAP versus autoencoder under accuracy, stability, runtime, and memory constraints |
+| Effective presentation | Precision-recall curves, uncertainty plots, embedding diagnostics, and concise scientific figures |
+| Reusable research functions | General modules for perturbation, conditioning, evaluation, provenance, and visualization |
+
+Specific numerical investigations will include:
+
+- computing sub-arcsecond angular separations without avoidable precision loss;
+- measuring the rank and conditioning of 15 pairwise colors derived from only
+  six magnitudes;
+- examining the stability of PCA eigenvalues and eigenvectors;
+- comparing `float32` and `float64` representations;
+- preserving correlated errors when one magnitude contributes to multiple
+  colors;
+- measuring whether nonlinear embeddings amplify observational noise;
+- testing nearest-neighbor stability under small perturbations; and
+- separating repeatable manifold structure from stochastic UMAP variation.
+
+The project does not artificially introduce differential equations,
+quadrature, or other course topics that are not required by the scientific
+problem. Its central computational question is:
+
+> How reliably do linear and nonlinear dimensionality-reduction algorithms
+> preserve physically meaningful class information when their inputs contain
+> measurement uncertainty, algebraic redundancy, finite-precision effects,
+> and sampling variation?
 
 ## References
 
