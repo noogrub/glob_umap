@@ -11,6 +11,7 @@ class Measurement:
     source: str
     magnitude_column: str
     error_column: str
+    missing_magnitude_values: tuple[float, ...]
 
 
 @dataclass(frozen=True)
@@ -161,6 +162,9 @@ def _measurement(value: Any, path: Path) -> Measurement:
         source=source,
         magnitude_column=_identifier(value, "magnitude_column", path),
         error_column=_identifier(value, "error_column", path),
+        missing_magnitude_values=_number_list(
+            value, "missing_magnitude_values", path
+        ),
     )
 
 
@@ -237,3 +241,13 @@ def _nonnegative_number(data: dict[str, Any], key: str, path: Path) -> float:
     if value < 0:
         raise ValueError(f"{key} must be nonnegative: {path}")
     return value
+
+
+def _number_list(data: dict[str, Any], key: str, path: Path) -> tuple[float, ...]:
+    values = data.get(key)
+    if not isinstance(values, list) or any(
+        isinstance(value, bool) or not isinstance(value, (int, float))
+        for value in values
+    ):
+        raise ValueError(f"{key} must be a list of numbers: {path}")
+    return tuple(float(value) for value in values)

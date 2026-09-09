@@ -20,26 +20,32 @@ quality:
       source: reference
       magnitude_column: u_mag
       error_column: u_mag_err
+      missing_magnitude_values: []
     - band: g
       source: target
       magnitude_column: g_mag_ap5
       error_column: g_mag_ap5_err
+      missing_magnitude_values: [99.0]
     - band: r
       source: target
       magnitude_column: r_mag_ap5
       error_column: r_mag_ap5_err
+      missing_magnitude_values: [99.0]
     - band: i
       source: target
       magnitude_column: i_mag_ap5
       error_column: i_mag_ap5_err
+      missing_magnitude_values: [99.0]
     - band: z
       source: target
       magnitude_column: z_mag_ap5
       error_column: z_mag_ap5_err
+      missing_magnitude_values: [99.0]
     - band: y
       source: target
       magnitude_column: y_mag_ap5
       error_column: y_mag_ap5_err
+      missing_magnitude_values: [99.0]
 
 labels:
   reference_source_column: source_id

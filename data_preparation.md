@@ -291,7 +291,8 @@ Both match policies use:
 
 - FDS PSF `u_mag` and `u_mag_err`;
 - DES `MAG_APER_5` `grizY` magnitudes and errors;
-- all six magnitudes present;
+- all six magnitudes present, treating the documented DES value `99` as
+  missing rather than as a physical magnitude;
 - all six errors present and no greater than 0.5 mag.
 
 The initial diagnostic query produced:
@@ -345,11 +346,11 @@ WITH candidates AS (
 ), complete AS (
     SELECT *,
            u_mag IS NOT NULL
-           AND g_mag_ap5 IS NOT NULL
-           AND r_mag_ap5 IS NOT NULL
-           AND i_mag_ap5 IS NOT NULL
-           AND z_mag_ap5 IS NOT NULL
-           AND y_mag_ap5 IS NOT NULL AS has_ugrizy
+           AND g_mag_ap5 IS NOT NULL AND g_mag_ap5 <> 99
+           AND r_mag_ap5 IS NOT NULL AND r_mag_ap5 <> 99
+           AND i_mag_ap5 IS NOT NULL AND i_mag_ap5 <> 99
+           AND z_mag_ap5 IS NOT NULL AND z_mag_ap5 <> 99
+           AND y_mag_ap5 IS NOT NULL AND y_mag_ap5 <> 99 AS has_ugrizy
     FROM joined
 )
 SELECT policy,
@@ -371,6 +372,20 @@ ORDER BY policy;
 
 Neither reasonable policy reproduces the paper exactly. We will report that
 difference rather than tune an undocumented choice until a count agrees.
+
+### Numeric-sentinel correction
+
+The raw DES export uses `99` as a missing-magnitude sentinel, as recorded in
+`data/metadata/DATA_INVENTORY.md`. The raw schema preserves that source value
+deliberately instead of converting it during ingestion.
+
+The first executable funnel run on 2026-09-09 checked only SQL `NULL` and
+therefore incorrectly reported all 212,621 reciprocal matches as having
+complete photometry. The error threshold still reduced the population to the
+correct 106,008 records because sentinel-bearing measurements could not pass
+the 0.5-mag error rule. Before any sample was materialized, the sample YAML and
+funnel query were corrected to interpret the configured DES sentinel as
+missing. This event is retained here as part of the experimental audit trail.
 
 ## Label rules
 
@@ -443,7 +458,7 @@ Still to be confirmed with the authors or tested explicitly:
 
 - the paper's precise FDS-DES crossmatch direction and ambiguity policy;
 - the exact sky-coordinate columns used;
-- the exact missing-value and numeric-sentinel handling;
+- whether the authors used the same documented DES numeric-sentinel handling;
 - the complete reddening coefficients and timing;
 - the Chaturvedi `296 -> 292 -> 268` reduction;
 - availability of the prepared merged catalogue or paper-specific code.

@@ -69,12 +69,18 @@ def _query_counts(connection: Any, config: SampleConfig) -> dict[str, int]:
 
 
 def _count_query(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
-    magnitude_complete = _and(
-        sql.SQL("{} IS NOT NULL").format(
-            _column(item.source, item.magnitude_column)
+    magnitude_clauses = []
+    magnitude_parameters = []
+    for item in config.measurements:
+        column = _column(item.source, item.magnitude_column)
+        clauses = [sql.SQL("{} IS NOT NULL").format(column)]
+        clauses.extend(
+            sql.SQL("{} <> %s").format(column)
+            for _ in item.missing_magnitude_values
         )
-        for item in config.measurements
-    )
+        magnitude_clauses.append(_and(clauses))
+        magnitude_parameters.extend(item.missing_magnitude_values)
+    magnitude_complete = _and(magnitude_clauses)
     error_qualified = _and(
         sql.SQL("{} IS NOT NULL AND {} <= %s").format(
             _column(item.source, item.error_column),
@@ -114,11 +120,11 @@ def _count_query(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
         pairs AS (
             SELECT * FROM candidates WHERE {}
         ),
-        population AS (
+        measured AS (
             SELECT p.object_id,
                    {},
                    {} AS magnitude_complete,
-                   ({} AND {}) AS error_qualified,
+                   {} AS errors_within_limit,
                    {} AS is_gc,
                    {} AS is_galaxy_candidate,
                    {} AS is_star_candidate
@@ -130,6 +136,11 @@ def _count_query(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
             JOIN core.record AS tr ON tr.record_id = p.target_record_id
             JOIN {} AS target ON target.ingest_id = tr.raw_ingest_id
             WHERE rc.code = %s
+        ),
+        population AS (
+            SELECT *,
+                   magnitude_complete AND errors_within_limit AS error_qualified
+            FROM measured
         )
         SELECT count(*) AS matched,
                count(*) FILTER (WHERE magnitude_complete) AS complete_photometry,
@@ -153,7 +164,6 @@ def _count_query(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
         policy,
         sql.SQL("p.angular_sep_arcsec"),
         magnitude_complete,
-        magnitude_complete,
         error_qualified,
         gc_expression,
         galaxy_expression,
@@ -164,6 +174,7 @@ def _count_query(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
     parameters = [
         config.match_run,
         config.target_catalog,
+        *magnitude_parameters,
         *error_parameters,
         *gc_parameters,
         *galaxy_parameters,

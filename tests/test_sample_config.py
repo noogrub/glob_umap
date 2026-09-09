@@ -19,6 +19,14 @@ class SampleConfigTest(unittest.TestCase):
             {"u", "g", "r", "i", "z", "y"},
         )
         self.assertEqual(clean.max_magnitude_error, 0.5)
+        self.assertEqual(clean.measurements[0].missing_magnitude_values, ())
+        self.assertTrue(
+            all(
+                measurement.missing_magnitude_values == (99.0,)
+                for measurement in clean.measurements
+                if measurement.source == "target"
+            )
+        )
         self.assertEqual(clean.galaxy.extended_class_value, 3)
         self.assertEqual(clean.star.extended_class_value, 0)
 
@@ -28,6 +36,7 @@ class SampleConfigTest(unittest.TestCase):
         paper_sql = paper_query.as_string()
         self.assertIn("target_rank = 1", clean_sql)
         self.assertNotIn("target_rank = 1", paper_sql)
+        self.assertEqual(clean_sql.count("<> %s"), 5)
         self.assertEqual(clean_sql.count("%s"), len(clean_parameters))
         self.assertEqual(paper_sql.count("%s"), len(paper_parameters))
 
