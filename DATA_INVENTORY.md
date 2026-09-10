@@ -1,4 +1,4 @@
-# Fornax LSST-like source data inventory
+# Fornax Legacy Survey of Space and Time (LSST)-like source data inventory
 
 ## Adopted field
 
@@ -7,7 +7,7 @@
 - This center reproduces the paper's stated DES count of `395,813` objects exactly.
 - The paper does not state the center numerically, so this value is an inference from the reported count and should be confirmed with the authors.
 
-## FDS source catalog
+## Fornax Deep Survey (FDS) source catalog
 
 - Catalog: `J/A+A/639/A136/fds`
 - Source: VizieR / CDS, Cantiello et al. (2020)
@@ -38,7 +38,7 @@ Primary analysis fields:
 Authoritative descriptions and fixed-width formats are in
 `data/metadata/fds_J_AA_639_A136_ReadMe.txt`.
 
-## DES DR2 source catalog
+## Dark Energy Survey Data Release 2 (DES DR2) source catalog
 
 - Catalogs: `des_dr2.main` joined to `des_dr2.mag` on `coadd_object_id`
 - Source: NOIRLab Astro Data Lab
