@@ -1,0 +1,5 @@
+binding:
+  name: clean_catalogue_records
+  materialization_config: config/materialize/clean.yaml
+  on_existing: fail
+  report_path: data/interim/clean_records.json

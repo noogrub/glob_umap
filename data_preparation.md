@@ -566,6 +566,39 @@ cross-validation folds. The test population remains untouched until the
 preprocessing, representation, classifier, hyperparameters, and decision
 threshold are fixed.
 
+## Exact sample-record bindings
+
+Sample membership fixes the astronomical objects and modeling targets, but
+each six-band feature vector combines measurements from two catalogue rows.
+The FDS row supplies `u`; the selected DES row supplies `grizY`. Reconstructing
+the DES choice from the match table during every later query would leave the
+feature inputs vulnerable to an unnoticed policy or query change.
+
+Apply the migration and bind the records once:
+
+```bash
+psql --file=sql/41_member_record.sql
+glob-umap bind --config config/bindings/clean.yaml
+```
+
+The binding configuration points to the existing materialization definition.
+It therefore inherits the sample name, catalogue codes, match run, and
+reciprocal-nearest policy instead of restating them. The command inserts one
+`reference` and one `target` record for every member and fails unless both role
+counts equal the complete sample count.
+
+The binding digest uses stable catalogue codes and source row numbers, plus
+the target class, frozen split, and record role. It does not depend on
+PostgreSQL-generated identifiers or absolute local file paths. Catalogue
+checksums, resolved configurations, role counts, distinct-record counts, and
+the digest are recorded in `ml.sample.definition.records` and
+`data/interim/clean_records.json`.
+
+All subsequent photometry normalization and feature construction must use
+`ml.member_record`. Crossmatch queries remain available for audit and
+sensitivity populations, but no longer choose the primary sample's feature
+inputs.
+
 ## Decisions and remaining uncertainty
 
 Confirmed decisions:

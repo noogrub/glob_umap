@@ -199,3 +199,25 @@ The exact class counts, resolved configuration, algorithm, and SHA-256 digest
 of all assignments are stored in both the sample definition and
 `data/interim/clean_split.json`. A second invocation fails rather than replacing
 the frozen split.
+
+## Bind exact catalogue records
+
+Apply the member-record migration once to an existing database:
+
+```bash
+psql --file=sql/41_member_record.sql
+```
+
+Then bind every sample member to the exact FDS reference record and DES target
+record selected during sample preparation:
+
+```bash
+glob-umap bind --config config/bindings/clean.yaml
+```
+
+The command inherits catalogue names and match policy from the materialization
+definition, requires an empty binding set for the sample, and verifies one
+reference and one target record per member. It stores the binding definition
+and checksum in `ml.sample.definition.records` and writes
+`data/interim/clean_records.json`. Later feature extraction reads these fixed
+records rather than reconstructing the crossmatch.

@@ -7,6 +7,7 @@ BEGIN;
 \ir 31_object_origin.sql
 \ir 32_label_evidence.sql
 \ir 40_ml.sql
+\ir 41_member_record.sql
 COMMIT;
 
 \ir 90_verify.sql

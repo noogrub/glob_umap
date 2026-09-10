@@ -46,6 +46,11 @@ def _parser() -> argparse.ArgumentParser:
         "split", help="assign a frozen development/test partition"
     )
     split_parser.add_argument("--config", required=True)
+
+    bind_parser = commands.add_parser(
+        "bind", help="bind sample members to exact catalogue records"
+    )
+    bind_parser.add_argument("--config", required=True)
     return parser
 
 
@@ -133,6 +138,16 @@ def main(argv: Sequence[str] | None = None) -> None:
             except DatabaseError as error:
                 raise RuntimeError(
                     f"PostgreSQL sample split failed: {error}"
+                ) from error
+        elif args.command == "bind":
+            from glob_umap.binding import bind_records
+            from psycopg import Error as DatabaseError
+
+            try:
+                bind_records(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(
+                    f"PostgreSQL record binding failed: {error}"
                 ) from error
     except (OSError, RuntimeError, ValueError) as error:
         raise SystemExit(f"glob-umap: error: {error}") from None

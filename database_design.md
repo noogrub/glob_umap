@@ -145,6 +145,7 @@ multiple-candidate cases are counted before a resolution policy is chosen.
 |---|---|
 | `ml.sample` | Versioned population definition |
 | `ml.member` | Object membership, split, target, and explicit weight |
+| `ml.member_record` | Exact source records used by each sample member |
 | `ml.run` | Resolved experiment configuration and Git provenance |
 | `ml.embed` | Normalized embedding coordinates of arbitrary dimension |
 | `ml.metric` | Evaluation values, thresholds, intervals, and scope |
@@ -163,6 +164,18 @@ folds are derived within that population for each experiment and are not
 written into `ml.member`. The `test` population remains fixed across all fair
 method comparisons.
 
+`ml.member_record` binds each sample member to one FDS `reference` record and
+one DES `target` record. The foreign key to `ml.member` prevents bindings for
+objects outside the sample. The primary key permits only one record of each
+role per member. Record identifiers remain normalized foreign keys to
+`core.record`; source values are not copied into the ML schema.
+
+The binding stage inherits catalogue and match choices from the sample
+materialization configuration. It records the exact mapping, catalogue
+checksums, resolved configuration, role counts, distinct-record counts, and a
+stable binding digest in `ml.sample.definition.records` and its manifest.
+Feature extraction must use these bindings rather than rerun crossmatching.
+
 The Rubin temporal and detector-reliability extension is deliberately absent
 from this first migration. It will extend the schema after the real Rubin data
 products and their fields have been inspected.
@@ -177,6 +190,10 @@ transaction, then verifies the result. Exact commands and prerequisites are in
 `sql/31_object_origin.sql` adds explicit source-record provenance to canonical
 objects. Existing databases created before this migration must apply it once
 before running the crossmatch.
+
+`sql/41_member_record.sql` adds exact source-record bindings for materialized
+sample members. Existing databases must apply it once before running the
+binding stage.
 
 
 ## Raw catalogue immutability

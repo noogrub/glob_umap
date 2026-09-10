@@ -20,6 +20,7 @@ BEGIN
             ('core.label'),
             ('ml.sample'),
             ('ml.member'),
+            ('ml.member_record'),
             ('ml.run'),
             ('ml.embed'),
             ('ml.metric'),

@@ -96,6 +96,20 @@ It prevents the same source record from contributing the same evidence to the
 same object more than once. Distinct photometric and spectroscopic evidence
 from one catalogue record remain separate rows.
 
+## Bind sample members to source records
+
+Existing databases require this migration before freezing the catalogue rows
+used by each materialized sample:
+
+```bash
+psql --file=sql/41_member_record.sql
+```
+
+It adds `ml.member_record`, whose composite foreign key restricts bindings to
+existing sample members. Each member may have one reference and one target
+record. The migration does not populate the table; use the configured
+`glob-umap bind` stage after applying it.
+
 ## Audit the source contract
 
 First verify the source files themselves:
@@ -125,6 +139,7 @@ be true. `gc_can_create` and every `gc_raw_owner` capability should be false.
 | `31_object_origin.sql` | Link each canonical object to its originating record |
 | `32_label_evidence.sql` | Prevent duplicate source-evidence rows |
 | `40_ml.sql` | Create samples, runs, embeddings, metrics, and artifacts |
+| `41_member_record.sql` | Bind sample members to exact source records |
 | `50_lock_raw.sql` | Transfer raw ownership and grant `gc` read-only access |
 | `90_verify.sql` | Verify the expected tables and list them |
 | `91_audit_raw.sql` | Audit raw source lineage, ownership, and permissions |
