@@ -1,0 +1,146 @@
+{
+  "configuration": {
+    "labels": {
+      "path": "config/core/labels.yaml",
+      "sha256": "0e18c6e2a43c0afaf85f7fcfb0edfcd009d328fb547f7d604688b560e2973e62"
+    },
+    "materialization": {
+      "path": "config/materialize/clean.yaml",
+      "sha256": "9ba5071c6f7135fdefadab19e489ee8d4d3ac5a3351dad3d037427c34c2ef507"
+    },
+    "resolved": {
+      "catalogs": {
+        "master": "fds_gc_master",
+        "spec": "chaturvedi_aa_657_a93"
+      },
+      "evidence": {
+        "des_morphology": "des_extended_class",
+        "master_photometric": "acsfcs_photometric",
+        "master_spectroscopic": "catalogue_spectroscopic",
+        "spec_spectroscopic": "chaturvedi_spectroscopic"
+      },
+      "labels": {
+        "materialization_config": "config/materialize/clean.yaml",
+        "name": "fornax_label_evidence",
+        "on_existing": "fail",
+        "report_path": "data/interim/label_manifest.json"
+      },
+      "provenance": {
+        "des": "des_dr2_fornax",
+        "master": "fds_gc_master",
+        "spec": "chaturvedi_aa_657_a93"
+      }
+    },
+    "sample": {
+      "path": "config/samples/clean.yaml",
+      "sha256": "e5dddd85201666d5eecddc9245b521beff5b90a13753bd7dd8fa22ebf96c45ad"
+    }
+  },
+  "created_at": "2026-09-10T06:02:42.939225+00:00",
+  "evidence_summary": [
+    {
+      "class": "galaxy",
+      "evidence": "des_extended_class",
+      "evidence_rows": 52570,
+      "objects": 52570,
+      "provenance": "des_dr2_fornax"
+    },
+    {
+      "class": "globular_cluster",
+      "evidence": "acsfcs_photometric",
+      "evidence_rows": 1631,
+      "objects": 1631,
+      "provenance": "fds_gc_master"
+    },
+    {
+      "class": "globular_cluster",
+      "evidence": "catalogue_spectroscopic",
+      "evidence_rows": 1342,
+      "objects": 1342,
+      "provenance": "fds_gc_master"
+    },
+    {
+      "class": "globular_cluster",
+      "evidence": "chaturvedi_spectroscopic",
+      "evidence_rows": 715,
+      "objects": 715,
+      "provenance": "chaturvedi_aa_657_a93"
+    },
+    {
+      "class": "star",
+      "evidence": "des_extended_class",
+      "evidence_rows": 3828,
+      "objects": 3828,
+      "provenance": "des_dr2_fornax"
+    }
+  ],
+  "git_commit": "5d8086d2b592d51aa8fc787ef8ec45d776ee001a",
+  "inputs": [
+    {
+      "catalog_code": "chaturvedi_aa_657_a93",
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 851,
+      "local_path": "data/raw/chaturvedi/catalog.dat",
+      "sha256": "3dbbba22daeaa33511cd8072a1b08d648dc5216cc53ed90c55b9a3bcd307982d"
+    },
+    {
+      "catalog_code": "des_dr2_fornax",
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 395813,
+      "local_path": "data/raw/des/des_dr2_ngc1399_1deg.csv",
+      "sha256": "906b3225b198b10e5657d67a3332392e2e8d58d4bce41cb63b746fce4c3dc355"
+    },
+    {
+      "catalog_code": "fds_aa_639_a136",
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 239158,
+      "local_path": "data/raw/fds/fds_ngc1399_1deg.csv",
+      "sha256": "089a6a990f867addedb56a3a2ae169a12d133a702607554a31f9037e063c3ccc"
+    },
+    {
+      "catalog_code": "fds_gc_master",
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 3263,
+      "local_path": "data/raw/fds/mastergc.dat",
+      "sha256": "57f396460a0dc233133512ba3bcd701c20c23f65bb66f38833ce94648950942e"
+    }
+  ],
+  "inserted": {
+    "acsfcs_photometric": 1631,
+    "catalogue_spectroscopic": 1342,
+    "chaturvedi_spectroscopic": 715,
+    "des_extended_class:galaxy": 52570,
+    "des_extended_class:star": 3828
+  },
+  "sample": {
+    "name": "clean_reciprocal",
+    "sample_id": 1
+  },
+  "sample_support": [
+    {
+      "members": 49667,
+      "supported": 49667,
+      "target_class": "galaxy",
+      "unsupported": 0
+    },
+    {
+      "members": 1402,
+      "supported": 1402,
+      "target_class": "globular_cluster",
+      "unsupported": 0
+    },
+    {
+      "members": 3730,
+      "supported": 3730,
+      "target_class": "star",
+      "unsupported": 0
+    }
+  ],
+  "software": {
+    "PyYAML": "6.0.3",
+    "psycopg": "3.3.5",
+    "python": "3.10.12"
+  },
+  "stage": "fornax_label_evidence",
+  "total_evidence_rows": 60086
+}
