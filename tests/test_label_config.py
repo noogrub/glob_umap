@@ -78,7 +78,11 @@ class LabelConfigTest(unittest.TestCase):
             with patch("glob_umap.label._execute_insert", return_value=0) as execute:
                 function()
             query, parameters = execute.call_args.args[1:]
-            self.assertEqual(query.as_string().count("%s"), len(parameters))
+            sql_text = query.as_string()
+            self.assertEqual(sql_text.count("%s"), len(parameters))
+            if "jsonb_build_object" in sql_text and "match_run" in sql_text:
+                self.assertIn("'match_run', %s::text", sql_text)
+                self.assertIn("'match_policy', %s::text", sql_text)
 
 
 if __name__ == "__main__":

@@ -264,8 +264,8 @@ def _insert_des_class(
                jsonb_build_object(
                    'extended_class', target.{extended_class},
                    'magnitude', target.{magnitude},
-                   'match_run', %s,
-                   'match_policy', %s,
+                   'match_run', %s::text,
+                   'match_policy', %s::text,
                    'angular_sep_arcsec', p.angular_sep_arcsec
                )
         FROM pairs AS p
