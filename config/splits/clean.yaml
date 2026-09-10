@@ -1,0 +1,10 @@
+split:
+  name: clean_holdout
+  sample: clean_reciprocal
+  on_existing: fail
+  source: unassigned
+  development: train
+  test: test
+  test_fraction: 0.20
+  seed: 20260910
+  report_path: data/interim/clean_split.json

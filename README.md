@@ -178,3 +178,24 @@ source, preserves source probabilities only where supplied, refuses to write
 into a nonempty `core.label` table, and verifies that every materialized sample
 member has supporting evidence for its assigned target class. It writes
 `data/interim/label_manifest.json` after the database transaction commits.
+
+## Freeze the development/test split
+
+After label evidence has been normalized, assign the configured stratified
+holdout once:
+
+```bash
+glob-umap split --config config/splits/clean.yaml
+```
+
+The command requires every member to remain `unassigned` and to have label
+evidence supporting its target class. Within each class, it orders stable
+catalogue identities by a seeded hash and assigns the nearest integer to the
+configured 20 percent test population. The remaining members form the
+development population stored as `train`; later cross-validation folds are
+temporary experiment-level partitions of that development population.
+
+The exact class counts, resolved configuration, algorithm, and SHA-256 digest
+of all assignments are stored in both the sample definition and
+`data/interim/clean_split.json`. A second invocation fails rather than replacing
+the frozen split.

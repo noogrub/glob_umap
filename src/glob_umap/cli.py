@@ -41,6 +41,11 @@ def _parser() -> argparse.ArgumentParser:
         "labels", help="normalize provenance-bearing classification evidence"
     )
     label_parser.add_argument("--config", required=True)
+
+    split_parser = commands.add_parser(
+        "split", help="assign a frozen development/test partition"
+    )
+    split_parser.add_argument("--config", required=True)
     return parser
 
 
@@ -118,6 +123,16 @@ def main(argv: Sequence[str] | None = None) -> None:
             except DatabaseError as error:
                 raise RuntimeError(
                     f"PostgreSQL label normalization failed: {error}"
+                ) from error
+        elif args.command == "split":
+            from glob_umap.split import assign_split
+            from psycopg import Error as DatabaseError
+
+            try:
+                assign_split(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(
+                    f"PostgreSQL sample split failed: {error}"
                 ) from error
     except (OSError, RuntimeError, ValueError) as error:
         raise SystemExit(f"glob-umap: error: {error}") from None

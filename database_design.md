@@ -151,6 +151,18 @@ multiple-candidate cases are counted before a resolution policy is chosen.
 | `ml.stage_count` | Required row-count ledger for every filtering stage |
 | `ml.artifact` | Generated figure, manifest, and export provenance |
 
+`ml.member.split` stores one frozen outer partition for each materialized
+sample. The first clean sample uses a stratified 80 percent development and 20
+percent test partition. Its stable seeded assignment is based on the origin
+catalogue code and source row rather than database identity values. The exact
+configuration, allocation rule, class counts, and assignment digest are stored
+under `ml.sample.definition.split` and in the corresponding manifest.
+
+The value `train` denotes the complete development population. Cross-validation
+folds are derived within that population for each experiment and are not
+written into `ml.member`. The `test` population remains fixed across all fair
+method comparisons.
+
 The Rubin temporal and detector-reliability extension is deliberately absent
 from this first migration. It will extend the schema after the real Rubin data
 products and their fields have been inspected.

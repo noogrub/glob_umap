@@ -536,6 +536,36 @@ glob-umap labels --config config/core/labels.yaml
 
 The resulting manifest is `data/interim/label_manifest.json`.
 
+## Frozen development/test partition
+
+The primary sample receives one outer holdout before feature construction or
+model fitting. `config/splits/clean.yaml` declares the sample, source and
+destination split names, test fraction, seed, failure policy, and manifest
+path. Run:
+
+```bash
+glob-umap split --config config/splits/clean.yaml
+```
+
+The splitter works independently within each target class. It hashes the
+origin catalogue code, immutable source row, and configured seed, ranks those
+stable identities, and assigns the nearest integer to the test population.
+This avoids dependence on query order, PostgreSQL identity values, or Python
+random-number-library behavior. The other members form the development
+population recorded as `train`.
+
+The command requires every member to remain `unassigned` and verifies that
+each target has supporting normalized evidence. It then records the exact
+assignment counts and a SHA-256 digest over every stable identity, target, and
+split. The same split definition is stored in `ml.sample.definition`; the full
+manifest is `data/interim/clean_split.json`. The command cannot silently
+replace an existing assignment.
+
+Only the development population participates in model selection and temporary
+cross-validation folds. The test population remains untouched until the
+preprocessing, representation, classifier, hyperparameters, and decision
+threshold are fixed.
+
 ## Decisions and remaining uncertainty
 
 Confirmed decisions:
