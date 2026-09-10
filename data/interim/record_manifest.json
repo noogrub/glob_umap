@@ -1,0 +1,110 @@
+{
+  "catalogues": [
+    {
+      "catalog_code": "fds_aa_639_a136",
+      "catalog_id": 3,
+      "inserted_rows": 239158,
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 239158,
+      "local_path": "data/raw/fds/fds_ngc1399_1deg.csv",
+      "raw_table": "raw.fds",
+      "sha256": "089a6a990f867addedb56a3a2ae169a12d133a702607554a31f9037e063c3ccc"
+    },
+    {
+      "catalog_code": "des_dr2_fornax",
+      "catalog_id": 4,
+      "inserted_rows": 395813,
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 395813,
+      "local_path": "data/raw/des/des_dr2_ngc1399_1deg.csv",
+      "raw_table": "raw.des",
+      "sha256": "906b3225b198b10e5657d67a3332392e2e8d58d4bce41cb63b746fce4c3dc355"
+    },
+    {
+      "catalog_code": "fds_gc_master",
+      "catalog_id": 5,
+      "inserted_rows": 3263,
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 3263,
+      "local_path": "data/raw/fds/mastergc.dat",
+      "raw_table": "raw.gc_master",
+      "sha256": "57f396460a0dc233133512ba3bcd701c20c23f65bb66f38833ce94648950942e"
+    },
+    {
+      "catalog_code": "chaturvedi_aa_657_a93",
+      "catalog_id": 6,
+      "inserted_rows": 851,
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 851,
+      "local_path": "data/raw/chaturvedi/catalog.dat",
+      "raw_table": "raw.spec",
+      "sha256": "3dbbba22daeaa33511cd8072a1b08d648dc5216cc53ed90c55b9a3bcd307982d"
+    }
+  ],
+  "configuration": {
+    "path": "config/core/records.yaml",
+    "resolved": {
+      "records": {
+        "manifest_path": "data/interim/record_manifest.json",
+        "name": "fornax_catalogue_records",
+        "on_existing": "fail"
+      },
+      "sources": [
+        {
+          "catalog_code": "fds_aa_639_a136",
+          "dec_column": "dec_j2000",
+          "key_columns": [
+            "source_file",
+            "source_row"
+          ],
+          "ra_column": "ra_j2000",
+          "raw_ingest_column": "ingest_id",
+          "raw_table": "raw.fds"
+        },
+        {
+          "catalog_code": "des_dr2_fornax",
+          "dec_column": "dec_window",
+          "key_columns": [
+            "source_file",
+            "source_row"
+          ],
+          "ra_column": "ra_window",
+          "raw_ingest_column": "ingest_id",
+          "raw_table": "raw.des"
+        },
+        {
+          "catalog_code": "fds_gc_master",
+          "dec_column": "dec_deg",
+          "key_columns": [
+            "source_file",
+            "source_row"
+          ],
+          "ra_column": "ra_deg",
+          "raw_ingest_column": "ingest_id",
+          "raw_table": "raw.gc_master"
+        },
+        {
+          "catalog_code": "chaturvedi_aa_657_a93",
+          "dec_column": "dec_deg",
+          "key_columns": [
+            "source_file",
+            "source_row"
+          ],
+          "ra_column": "ra_deg",
+          "raw_ingest_column": "ingest_id",
+          "raw_table": "raw.spec"
+        }
+      ]
+    },
+    "sha256": "c0af96e5a026eae2d3724f3e0282b2fd934cdf1c54501b9f16ad22eb8279b77e"
+  },
+  "created_at": "2026-09-09T00:25:26.420349+00:00",
+  "git_commit": "3293603efba3692a64e39a22b4399cb8413e6ddd",
+  "software": {
+    "PyYAML": "6.0.3",
+    "psycopg": "3.3.5",
+    "python": "3.10.12"
+  },
+  "stage": "fornax_catalogue_records",
+  "total_records": 639085
+}

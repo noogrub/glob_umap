@@ -1,0 +1,61 @@
+{
+  "configuration": {
+    "path": "config/matches/fds_des.yaml",
+    "resolved": {
+      "match": {
+        "chunk_rows": 50000,
+        "method": "unit_sphere_ckdtree",
+        "name": "fds_des_1arcsec",
+        "on_existing": "fail",
+        "progress_interval_seconds": 10,
+        "reference_catalog": "fds_aa_639_a136",
+        "report_path": "data/interim/fds_des_match.json",
+        "search_radius_arcsec": 1.0,
+        "selection": "none",
+        "target_catalog": "des_dr2_fornax",
+        "workers": -1
+      }
+    },
+    "sha256": "f3987b166c21f1579bd596330a950585398a78420bbffcf66ed72182685c8fbf"
+  },
+  "counts": {
+    "candidate_pairs": 213094,
+    "reference_records": 239158,
+    "reference_with_multiple_targets": 292,
+    "reference_with_targets": 212802,
+    "separation_max_arcsec": 0.9998755490048242,
+    "separation_median_arcsec": 0.20818575540146145,
+    "separation_min_arcsec": 0.00022321682922242267,
+    "target_records": 395813,
+    "target_with_candidates": 212907,
+    "target_with_multiple_candidates": 187,
+    "target_with_one_candidate": 212720,
+    "target_without_candidates": 182906
+  },
+  "created_at": "2026-09-09T00:26:58.414040+00:00",
+  "git_commit": "3293603efba3692a64e39a22b4399cb8413e6ddd",
+  "inputs": [
+    {
+      "catalog_code": "des_dr2_fornax",
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 395813,
+      "local_path": "data/raw/des/des_dr2_ngc1399_1deg.csv",
+      "sha256": "906b3225b198b10e5657d67a3332392e2e8d58d4bce41cb63b746fce4c3dc355"
+    },
+    {
+      "catalog_code": "fds_aa_639_a136",
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 239158,
+      "local_path": "data/raw/fds/fds_ngc1399_1deg.csv",
+      "sha256": "089a6a990f867addedb56a3a2ae169a12d133a702607554a31f9037e063c3ccc"
+    }
+  ],
+  "match": "fds_des_1arcsec",
+  "software": {
+    "PyYAML": "6.0.3",
+    "numpy": "2.2.6",
+    "psycopg": "3.3.5",
+    "python": "3.10.12",
+    "scipy": "1.15.3"
+  }
+}
