@@ -222,3 +222,7 @@ __marimo__/
 /data/raw/**
 !/data/raw/**/
 !/data/raw/**/.gitkeep
+
+# glob_umap slides
+slides/*
+/slides
