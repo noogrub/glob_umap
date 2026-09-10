@@ -1,0 +1,73 @@
+{
+  "algorithm": {
+    "allocation": "nearest_integer_per_class",
+    "identity": "origin_catalog_code_and_source_row",
+    "name": "stratified_stable_hash"
+  },
+  "assignment_sha256": "07913d9c48e8fe54c85c94c2eb693fd160140b4ce4d257a830403d77441ede33",
+  "configuration": {
+    "path": "config/splits/clean.yaml",
+    "resolved": {
+      "split": {
+        "development": "train",
+        "name": "clean_holdout",
+        "on_existing": "fail",
+        "report_path": "data/interim/clean_split.json",
+        "sample": "clean_reciprocal",
+        "seed": 20260910,
+        "source": "unassigned",
+        "test": "test",
+        "test_fraction": 0.2
+      }
+    },
+    "sha256": "6ed3c1c3512c3d32bd8785574e512ecfd1bacd6d48a7795c14177380e068c4ef"
+  },
+  "created_at": "2026-09-10T12:32:12.393542+00:00",
+  "git_commit": "6e9ec390ce2d28b0393c3be62ec10d29a2b87c93",
+  "member_count": 54799,
+  "sample": {
+    "name": "clean_reciprocal",
+    "sample_id": 1
+  },
+  "software": {
+    "PyYAML": "6.0.3",
+    "psycopg": "3.3.5",
+    "python": "3.10.12"
+  },
+  "source_counts": {
+    "unassigned": 54799
+  },
+  "split_counts": [
+    {
+      "members": 9933,
+      "split": "test",
+      "target_class": "galaxy"
+    },
+    {
+      "members": 280,
+      "split": "test",
+      "target_class": "globular_cluster"
+    },
+    {
+      "members": 746,
+      "split": "test",
+      "target_class": "star"
+    },
+    {
+      "members": 39734,
+      "split": "train",
+      "target_class": "galaxy"
+    },
+    {
+      "members": 1122,
+      "split": "train",
+      "target_class": "globular_cluster"
+    },
+    {
+      "members": 2984,
+      "split": "train",
+      "target_class": "star"
+    }
+  ],
+  "stage": "clean_holdout"
+}
