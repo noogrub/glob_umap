@@ -5,6 +5,7 @@ BEGIN;
 \ir 20_raw.sql
 \ir 30_core.sql
 \ir 31_object_origin.sql
+\ir 32_label_evidence.sql
 \ir 40_ml.sql
 COMMIT;
 

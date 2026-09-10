@@ -48,6 +48,14 @@ BEGIN
 END
 $$;
 
+DO $$
+BEGIN
+    IF to_regclass('core.label_source_evidence_idx') IS NULL THEN
+        RAISE EXCEPTION 'Missing index: core.label_source_evidence_idx';
+    END IF;
+END
+$$;
+
 SELECT schemaname, tablename
 FROM pg_tables
 WHERE schemaname IN ('raw', 'core', 'ml')

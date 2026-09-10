@@ -157,3 +157,24 @@ single transaction. It refuses to overwrite an existing named sample, verifies
 the materialized count against a freshly evaluated funnel, leaves all data
 splits explicitly `unassigned`, and writes
 `data/interim/clean_sample.json`.
+
+## Normalize label evidence
+
+Apply the evidence-identity migration to an existing database:
+
+```bash
+psql --file=sql/32_label_evidence.sql
+```
+
+Then normalize the distinct photometric, spectroscopic, and DES morphology
+evidence without changing sample membership or assigning data splits:
+
+```bash
+glob-umap labels --config config/core/labels.yaml
+```
+
+The command retains separate evidence rows when an object has more than one
+source, preserves source probabilities only where supplied, refuses to write
+into a nonempty `core.label` table, and verifies that every materialized sample
+member has supporting evidence for its assigned target class. It writes
+`data/interim/label_manifest.json` after the database transaction commits.

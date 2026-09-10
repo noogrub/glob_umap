@@ -507,6 +507,35 @@ ORDER BY m.target_class;
 The verified total is 54,799 members. The complete run manifest is
 `data/interim/clean_sample.json`, committed in `126c238`.
 
+## Label-evidence normalization
+
+Sample membership does not convert heterogeneous catalogue evidence into a
+single unquestioned truth. Before any train/test assignment, the configured
+`glob-umap labels` stage writes separate `core.label` rows for:
+
+- ACSFCS photometric GC identification, retaining `p_gc` as confidence;
+- Cantiello catalogue spectroscopic identification, without inventing a
+  numeric confidence;
+- Chaturvedi spectroscopic identification, retaining class and signal-to-noise
+  ratio in `details`;
+- DES high-confidence galaxy or star morphology, tied to the exact DES record
+  selected by the reciprocal-nearest policy.
+
+An object may retain multiple or conflicting evidence rows. The clean sample's
+GC-precedence rule determines its modeling target; it does not erase the
+underlying evidence. The normalization command refuses to overwrite existing
+labels and verifies that every materialized member has at least one evidence
+row supporting its assigned target class.
+
+Apply the idempotent uniqueness migration and run the stage with:
+
+```bash
+psql --file=sql/32_label_evidence.sql
+glob-umap labels --config config/core/labels.yaml
+```
+
+The resulting manifest is `data/interim/label_manifest.json`.
+
 ## Decisions and remaining uncertainty
 
 Confirmed decisions:

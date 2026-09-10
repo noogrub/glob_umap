@@ -1,0 +1,20 @@
+labels:
+  name: fornax_label_evidence
+  materialization_config: config/materialize/clean.yaml
+  on_existing: fail
+  report_path: data/interim/label_manifest.json
+
+catalogs:
+  master: fds_gc_master
+  spec: chaturvedi_aa_657_a93
+
+evidence:
+  master_photometric: acsfcs_photometric
+  master_spectroscopic: catalogue_spectroscopic
+  spec_spectroscopic: chaturvedi_spectroscopic
+  des_morphology: des_extended_class
+
+provenance:
+  master: fds_gc_master
+  spec: chaturvedi_aa_657_a93
+  des: des_dr2_fornax

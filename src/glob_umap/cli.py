@@ -36,6 +36,11 @@ def _parser() -> argparse.ArgumentParser:
         "sample", help="materialize a configured machine-learning population"
     )
     sample_parser.add_argument("--config", required=True)
+
+    label_parser = commands.add_parser(
+        "labels", help="normalize provenance-bearing classification evidence"
+    )
+    label_parser.add_argument("--config", required=True)
     return parser
 
 
@@ -103,6 +108,16 @@ def main(argv: Sequence[str] | None = None) -> None:
             except DatabaseError as error:
                 raise RuntimeError(
                     f"PostgreSQL sample materialization failed: {error}"
+                ) from error
+        elif args.command == "labels":
+            from glob_umap.label import populate_labels
+            from psycopg import Error as DatabaseError
+
+            try:
+                populate_labels(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(
+                    f"PostgreSQL label normalization failed: {error}"
                 ) from error
     except (OSError, RuntimeError, ValueError) as error:
         raise SystemExit(f"glob-umap: error: {error}") from None

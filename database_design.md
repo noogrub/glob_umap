@@ -121,6 +121,12 @@ unchanged.
 unique index permits at most one selected object for each source record while
 retaining ambiguous alternatives.
 
+`core.label` preserves distinct evidence rather than collapsing it into one
+ground-truth assertion. A partial unique index on object, source record,
+evidence type, and provenance prevents accidental duplicate normalization
+while allowing one source record to contribute separate photometric and
+spectroscopic evidence.
+
 An object's `origin_record_id` identifies the catalogue record from which its
 initial identity and adopted position were created. For the first Fornax
 crossmatch, each FDS source seeds one canonical object. This origin is explicit

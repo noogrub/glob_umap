@@ -84,6 +84,18 @@ It adds `core.object.origin_record_id`, its foreign key to `core.record`, and a
 unique index. The migration is idempotent and does not alter the locked raw
 catalogues.
 
+## Protect normalized label evidence
+
+Existing databases require this migration before label normalization:
+
+```bash
+psql --file=sql/32_label_evidence.sql
+```
+
+It prevents the same source record from contributing the same evidence to the
+same object more than once. Distinct photometric and spectroscopic evidence
+from one catalogue record remain separate rows.
+
 ## Audit the source contract
 
 First verify the source files themselves:
@@ -111,6 +123,7 @@ be true. `gc_can_create` and every `gc_raw_owner` capability should be false.
 | `20_raw.sql` | Create source-faithful catalogue staging tables |
 | `30_core.sql` | Create normalized astronomical tables |
 | `31_object_origin.sql` | Link each canonical object to its originating record |
+| `32_label_evidence.sql` | Prevent duplicate source-evidence rows |
 | `40_ml.sql` | Create samples, runs, embeddings, metrics, and artifacts |
 | `50_lock_raw.sql` | Transfer raw ownership and grant `gc` read-only access |
 | `90_verify.sql` | Verify the expected tables and list them |
