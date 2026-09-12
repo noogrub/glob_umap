@@ -448,7 +448,8 @@ def _feature_sha256(
             JOIN ml.member AS m
               ON m.sample_id = %s
              AND m.object_id = f.object_id
-            JOIN core.object AS o USING (object_id)
+            JOIN core.object AS o
+              ON o.object_id = f.object_id
             JOIN core.record AS origin
               ON origin.record_id = o.origin_record_id
             JOIN core.catalog AS catalog
