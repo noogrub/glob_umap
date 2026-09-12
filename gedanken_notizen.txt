@@ -1,0 +1,18 @@
+Good. Then we can verify the database stages directly on Elonius as soon as the code is ready, including the final feature counts and hashes. I’ll build the remaining pipeline first; then I’ll give you one short command sequence at a time.
+
+The design point I’m resolving now is important: normalized photometry should remain catalogue-level and reusable, while feature construction must use the sample’s frozen FDS/DES bindings. That keeps core independent of this one experiment and prevents the ML stage from silently rematching objects.
+Searched catalogs for extinction corrections
+
+The reddening decision cannot be guessed. The downloaded aperture magnitudes are not already dereddened, so I’m checking the authors’ public code and the survey documentation for the exact coefficients before encoding the policy.
+
+Perfect—that means after I finish and push the four gates, we can validate the database stages directly on Elonius and take the PostgreSQL backup once the derived dataset is frozen. I’ll continue with the code review first, then hand you the execution commands in small, inspectable steps.
+
+The binding code itself is present as the first unpublished commit. My initial test run hit only an environment mismatch in this temporary checkout—psycopg is not installed here—so I’m installing the project’s declared test dependencies before judging any code result.
+
+The binding gate passes all 28 existing tests and matches the project’s fail-fast pattern. I’m moving to photometry now. The key scientific choice is extinction correction: I will only encode coefficients if they are traceable to the catalogue/paper documentation; otherwise the canonical table will preserve observed magnitudes and mark dereddening as a separately gated sensitivity treatment.
+
+The documentation resolves the policy cleanly: DES publishes exact grizY coefficients and confirms catalogue magnitudes are observed by default, but the Schweder-Souza paper does not state the exact u coefficient used for the FDS filter, and its public code contains no correction logic or prepared data. I’m therefore implementing both capabilities but freezing this first feature set as observed photometry. That gives us an auditable preliminary experiment without smuggling in an assumed u-band correction; dereddening remains a named sensitivity variant once its coefficient is sourced or confirmed.
+
+Photometry and feature materialization are now separated deliberately: core.phot holds source measurements and uncertainties; ml.feature_set records the exact six-band selection and derives six magnitudes plus all 15 colors. The feature audit will verify complete coverage, finite values, the five-dimensional numerical rank, and every color identity before any model is allowed to run.
+
+The evaluation protocol is now explicit rather than aspirational: the five independent adjacent colors are the primary input; all 15 pairwise colors are the redundancy sensitivity test; identity, PCA, and unsupervised UMAP share the same preprocessing, split, and fixed random-forest classifier; UMAP stability is measured across recorded seeds. The headline test quantity is contamination at 30% GC recall, with the operating threshold chosen only from out-of-fold development predictions and then locked for the final test.
