@@ -1,4 +1,4 @@
-# `glob_umap` Core Computational Physics Architecture
+# glob_umap Core Computational Physics Architecture
 
 ## Introduction
 
@@ -79,19 +79,19 @@ as independent.
 Implement and test these files in order. Do not begin final-test evaluation
 until the development selection artifact has been reviewed and committed.
 
-### 1. `pyproject.toml`
+### 1. pyproject.toml
 
 Add bounded runtime dependencies for scikit-learn and `umap-learn`. Do not add a
 data-frame dependency unless a demonstrated need appears.
 
-### 2. `config/exp/core.yaml`
+### 2. config/exp/core.yaml
 
 Extend the frozen experiment definition with numerical dtype, SVD and rank
 tolerances, deterministic selection tie handling, photometric Monte Carlo
 assumptions and seeds, stability neighborhood sizes, result paths, and progress
 intervals. This remains the sole source of experiment settings.
 
-### 3. `src/glob_umap/experiment_config.py`
+### 3. src/glob_umap/experiment_config.py
 
 - `load_experiment_config(path)` — Extend the existing loader to return every
   resolved numerical and robustness setting.
@@ -102,7 +102,7 @@ intervals. This remains the sole source of experiment settings.
 - `_validate_stability(value, path)` — Validate UMAP seed and neighborhood
   comparisons.
 
-### 4. `src/glob_umap/compute/types.py`
+### 4. src/glob_umap/compute/types.py
 
 Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 `Candidate`, `FittedPipeline`, `OOFResult`, `Selection`, and `PredictionSet`.
@@ -112,7 +112,7 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `subset(data, indices)` — Return an aligned immutable subset without changing
   row order inside the selected indices.
 
-### 5. `src/glob_umap/compute/data.py`
+### 5. src/glob_umap/compute/data.py
 
 - `load_development(connection, config, feature_group)` — Query only the frozen
   development split in stable object and feature order.
@@ -123,14 +123,14 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `verify_alignment(left, right)` — Require identical object IDs, classes, and
   ordering across feature and magnitude matrices.
 
-### 6. `src/glob_umap/compute/fold.py`
+### 6. src/glob_umap/compute/fold.py
 
 - `make_folds(labels, folds, seed, shuffle)` — Return stable stratified
   fold-training and fold-validation index pairs.
 - `validate_folds(fold_indices, row_count)` — Prove disjoint training and
   validation rows and exactly one validation prediction per development object.
 
-### 7. `src/glob_umap/compute/scale.py`
+### 7. src/glob_umap/compute/scale.py
 
 - `fit_standardizer(values, zero_scale_policy)` — Compute fold-training means
   and scales in `float64` and reject unusable columns under the configured
@@ -138,7 +138,7 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `transform_standardizer(values, state)` — Apply stored training statistics
   without refitting or consulting validation data.
 
-### 8. `src/glob_umap/compute/pca.py`
+### 8. src/glob_umap/compute/pca.py
 
 - `fit_pca(values, dimensions, rank_tolerance)` — Center the fold-training
   matrix, compute its reduced SVD, and retain the requested orthonormal basis.
@@ -147,7 +147,7 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `pca_diagnostics(state, sample_count)` — Report singular values, explained
   variance, explained-variance ratios, numerical rank, and condition estimate.
 
-### 9. `src/glob_umap/compute/umap.py`
+### 9. src/glob_umap/compute/umap.py
 
 - `build_umap(dimensions, parameters, seed)` — Construct a library UMAP object
   solely from the resolved candidate specification.
@@ -155,7 +155,7 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `transform_umap(values, model)` — Transform validation or test rows with the
   already-fitted representation.
 
-### 10. `src/glob_umap/compute/model.py`
+### 10. src/glob_umap/compute/model.py
 
 - `build_classifier(spec, seed)` — Construct the configured random-forest or
   nearest-neighbor classifier.
@@ -164,7 +164,7 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `predict_pipeline(data, pipeline, class_order)` — Transform new rows and
   return probability columns in the declared class order.
 
-### 11. `src/glob_umap/compute/metric.py`
+### 11. src/glob_umap/compute/metric.py
 
 - `focal_targets(labels, focal_class)` — Convert multiclass labels to the
   declared one-versus-rest target without changing the underlying task.
@@ -179,7 +179,7 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `confusion(labels, probabilities, class_order)` — Calculate the multiclass
   confusion matrix using the declared class order.
 
-### 12. `src/glob_umap/compute/cv.py`
+### 12. src/glob_umap/compute/cv.py
 
 - `expand_candidates(config)` — Produce the deterministic Cartesian candidate
   list from YAML representation and classifier grids.
@@ -192,7 +192,7 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `select_candidate(results, metric, tie_rule)` — Select one candidate
   deterministically without accessing final-test data.
 
-### 13. `src/glob_umap/compute/uncert.py`
+### 13. src/glob_umap/compute/uncert.py
 
 - `draw_magnitudes(values, uncertainties, rng, model)` — Draw one six-band
   realization under the explicitly configured measurement model.
@@ -203,7 +203,7 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `summarize_realizations(results, confidence_level)` — Summarize the resulting
   metric distribution without hiding failed or nonfinite realizations.
 
-### 14. `src/glob_umap/compute/bootstrap.py`
+### 14. src/glob_umap/compute/bootstrap.py
 
 - `stratified_indices(labels, rng)` — Resample object indices within classes
   while preserving paired method comparisons.
@@ -212,7 +212,7 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `confidence_interval(values, confidence_level, method)` — Calculate the
   configured interval and report its finite replicate count.
 
-### 15. `src/glob_umap/compute/stability.py`
+### 15. src/glob_umap/compute/stability.py
 
 - `neighbor_indices(values, neighbors)` — Construct a deterministic nearest-
   neighbor index set for every object.
@@ -223,13 +223,13 @@ Define frozen dataclasses for `MatrixData`, `Standardizer`, `PCAState`,
 - `summarize_seed_stability(embeddings, neighbor_sizes)` — Summarize pairwise
   stability across the YAML-defined UMAP seed ensemble.
 
-### 16. `sql/43_prediction.sql`
+### 16. sql/43_prediction.sql
 
 Add a normalized `ml.prediction` table for per-object, per-class out-of-fold and
 final-test probabilities. Its keys must identify run, object, evaluation phase,
 fold, and scored class without duplicating labels already stored elsewhere.
 
-### 17. `src/glob_umap/compute/store.py`
+### 17. src/glob_umap/compute/store.py
 
 - `start_run(connection, config, candidate, phase)` — Create one fully resolved
   `ml.run` record before numerical work begins.
@@ -246,7 +246,7 @@ fold, and scored class without duplicating labels already stored elsewhere.
 - `fail_run(connection, run_id, error)` — Mark a failed run without presenting
   partial outputs as complete.
 
-### 18. `src/glob_umap/compute/run.py`
+### 18. src/glob_umap/compute/run.py
 
 - `tune(config_path, report)` — Run development-only cross-validation, select
   each method, choose its operating threshold, and write the frozen selection
@@ -257,7 +257,7 @@ fold, and scored class without duplicating labels already stored elsewhere.
 - `robust(config_path, selection_path, report)` — Run locked photometric Monte
   Carlo, UMAP seed stability, and paired bootstrap comparisons.
 
-### 19. `src/glob_umap/cli.py`
+### 19. src/glob_umap/cli.py
 
 - Add `tune`, `evaluate`, and `robust` subcommands that call the three stage
   functions. Keep argument parsing and error reporting here; keep numerical work

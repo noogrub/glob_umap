@@ -1,7 +1,7 @@
 # Project
 PROJECT_NAME           = "glob_umap P609 Core"
 PROJECT_BRIEF          = "Core computational physics methods for globular-cluster classification"
-OUTPUT_DIRECTORY       = build/doxygen
+OUTPUT_DIRECTORY       = build
 CREATE_SUBDIRS         = NO
 
 # Input: the architecture and John-authored computational package only
@@ -35,7 +35,8 @@ WARN_NO_PARAMDOC       = YES
 
 # Minimal output
 GENERATE_HTML          = YES
-HTML_OUTPUT            = html
+HTML_OUTPUT            = doxygen
+HTML_EXTRA_STYLESHEET  = docs/doxygen-dark.css
 SEARCHENGINE            = YES
 GENERATE_TREEVIEW      = NO
 SOURCE_BROWSER         = NO
