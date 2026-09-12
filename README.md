@@ -343,15 +343,23 @@ checksum every output:
 umask 077
 snapshot_dir="/home/jwb/postgres-snapshots/gc_ml/$(date -u +%Y%m%dT%H%M%SZ)"
 mkdir -p "$snapshot_dir"
-pg_dump --format=custom --compress=9 --dbname=gc_ml \
-  --file="$snapshot_dir/gc_ml.dump"
-(cd /tmp && sudo -u postgres pg_dumpall --globals-only --no-role-passwords) \
+
+(cd /tmp && sudo -u postgres \
+  pg_dump --format=custom --compress=9 --dbname=gc_ml) \
+  > "$snapshot_dir/gc_ml.dump"
+
+(cd /tmp && sudo -u postgres \
+  pg_dumpall --globals-only --no-role-passwords) \
   > "$snapshot_dir/globals.sql"
+
 pg_restore --list "$snapshot_dir/gc_ml.dump" \
   > "$snapshot_dir/gc_ml.list"
-sha256sum "$snapshot_dir/gc_ml.dump" "$snapshot_dir/globals.sql" \
-  "$snapshot_dir/gc_ml.list" > "$snapshot_dir/SHA256SUMS"
-sha256sum --check "$snapshot_dir/SHA256SUMS"
+
+(
+  cd "$snapshot_dir"
+  sha256sum gc_ml.dump globals.sql gc_ml.list > SHA256SUMS
+  sha256sum --check SHA256SUMS
+)
 ```
 
 Copy the complete timestamped directory to a separate physical drive while
