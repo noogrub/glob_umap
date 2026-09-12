@@ -1,0 +1,78 @@
+{
+  "binding_sha256": "fba8f9005483657ed103d66723c5ccf249e3828fb6efc45cb55ccc0d79fbf2da",
+  "binding_summary": [
+    {
+      "bindings": 54799,
+      "catalog_code": "fds_aa_639_a136",
+      "distinct_records": 54799,
+      "source_role": "reference"
+    },
+    {
+      "bindings": 54799,
+      "catalog_code": "des_dr2_fornax",
+      "distinct_records": 54799,
+      "source_role": "target"
+    }
+  ],
+  "catalogues": [
+    {
+      "catalog_code": "des_dr2_fornax",
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 395813,
+      "local_path": "data/raw/des/des_dr2_ngc1399_1deg.csv",
+      "sha256": "906b3225b198b10e5657d67a3332392e2e8d58d4bce41cb63b746fce4c3dc355"
+    },
+    {
+      "catalog_code": "fds_aa_639_a136",
+      "loaded_at": "2026-09-06T21:45:06.526977-04:00",
+      "loaded_rows": 239158,
+      "local_path": "data/raw/fds/fds_ngc1399_1deg.csv",
+      "sha256": "089a6a990f867addedb56a3a2ae169a12d133a702607554a31f9037e063c3ccc"
+    }
+  ],
+  "configuration": {
+    "binding": {
+      "path": "config/bindings/clean.yaml",
+      "sha256": "9cdff7bab7de6ccf937eea2d8572525820b54bb26078272f7fae40404d3f3eff"
+    },
+    "materialization": {
+      "path": "config/materialize/clean.yaml",
+      "sha256": "9ba5071c6f7135fdefadab19e489ee8d4d3ac5a3351dad3d037427c34c2ef507"
+    },
+    "resolved": {
+      "binding": {
+        "materialization_config": "config/materialize/clean.yaml",
+        "name": "clean_catalogue_records",
+        "on_existing": "fail",
+        "report_path": "data/interim/clean_records.json"
+      }
+    },
+    "sample": {
+      "path": "config/samples/clean.yaml",
+      "sha256": "e5dddd85201666d5eecddc9245b521beff5b90a13753bd7dd8fa22ebf96c45ad"
+    }
+  },
+  "created_at": "2026-09-12T13:09:35.655771+00:00",
+  "git_commit": "72492a1d1e732dc01e2fe5958328b657fdb56772",
+  "inserted": {
+    "reference": 54799,
+    "target": 54799
+  },
+  "member_count": 54799,
+  "sample": {
+    "name": "clean_reciprocal",
+    "sample_id": 1
+  },
+  "selection": {
+    "match_policy": "reciprocal_nearest",
+    "match_run": "fds_des_1arcsec",
+    "reference_catalog": "fds_aa_639_a136",
+    "target_catalog": "des_dr2_fornax"
+  },
+  "software": {
+    "PyYAML": "6.0.3",
+    "psycopg": "3.3.5",
+    "python": "3.10.12"
+  },
+  "stage": "clean_catalogue_records"
+}

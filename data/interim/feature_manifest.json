@@ -1,0 +1,619 @@
+{
+  "audit": {
+    "color_matrix": {
+      "algebraic_tolerance": 1e-10,
+      "columns": 15,
+      "expected_rank": 5,
+      "maximum_identity_residual": 0.0,
+      "numerical_rank": 5,
+      "rank_tolerance": 6.81718714412708e-09,
+      "rows": 54799,
+      "singular_values": [
+        560.2635355025758,
+        227.17168952753025,
+        96.51337626922916,
+        73.31100097514066,
+        41.358215868181546,
+        6.704958489525448e-12,
+        6.866993568094601e-14,
+        2.8733285528250024e-14,
+        2.1315796758961897e-14,
+        1.0429743591039043e-14,
+        9.163786372431801e-15,
+        8.104362991113203e-15,
+        6.999316771632336e-15,
+        6.36909163864299e-15,
+        4.909920106028071e-15
+      ]
+    },
+    "population": [
+      {
+        "members": 9933,
+        "split": "test",
+        "target_class": "galaxy"
+      },
+      {
+        "members": 280,
+        "split": "test",
+        "target_class": "globular_cluster"
+      },
+      {
+        "members": 746,
+        "split": "test",
+        "target_class": "star"
+      },
+      {
+        "members": 39734,
+        "split": "train",
+        "target_class": "galaxy"
+      },
+      {
+        "members": 1122,
+        "split": "train",
+        "target_class": "globular_cluster"
+      },
+      {
+        "members": 2984,
+        "split": "train",
+        "target_class": "star"
+      }
+    ],
+    "statistics": [
+      {
+        "count": 54799,
+        "maximum": 5.434080999999999,
+        "maximum_uncertainty": 0.49906995113184727,
+        "mean": 1.435819156499199,
+        "minimum": -1.9522070000000014,
+        "minimum_uncertainty": 0.0007230927263231314,
+        "name": "g_i",
+        "standard_deviation": 0.6066408302947965
+      },
+      {
+        "count": 54799,
+        "maximum": 2.9389819999999993,
+        "maximum_uncertainty": 0.5453172785933653,
+        "mean": 0.932902075640066,
+        "minimum": -2.7284910000000018,
+        "minimum_uncertainty": 0.0007237618842263881,
+        "name": "g_r",
+        "standard_deviation": 0.3940204908904374
+      },
+      {
+        "count": 54799,
+        "maximum": 7.441284,
+        "maximum_uncertainty": 0.6760994109818883,
+        "mean": 1.7965027313636954,
+        "minimum": -1.3445110000000007,
+        "minimum_uncertainty": 0.0012934686910984472,
+        "name": "g_y",
+        "standard_deviation": 0.7919646168107765
+      },
+      {
+        "count": 54799,
+        "maximum": 6.934435000000001,
+        "maximum_uncertainty": 0.5352005268909583,
+        "mean": 1.725269017098863,
+        "minimum": -1.3946670000000019,
+        "minimum_uncertainty": 0.0007783316494646809,
+        "name": "g_z",
+        "standard_deviation": 0.7290478612643365
+      },
+      {
+        "count": 54799,
+        "maximum": 3.5813619999999986,
+        "maximum_uncertainty": 0.5240778233610371,
+        "mean": 0.3606835748645042,
+        "minimum": -1.1062569999999994,
+        "minimum_uncertainty": 0.001189553510141166,
+        "name": "i_y",
+        "standard_deviation": 0.28404489585685305
+      },
+      {
+        "count": 54799,
+        "maximum": 2.0405209999999983,
+        "maximum_uncertainty": 0.4072206354301099,
+        "mean": 0.28944986059964845,
+        "minimum": -1.0945140000000002,
+        "minimum_uncertainty": 0.0005897257457459779,
+        "name": "i_z",
+        "standard_deviation": 0.17538439506352668
+      },
+      {
+        "count": 54799,
+        "maximum": 26.109598,
+        "maximum_uncertainty": 0.49779782,
+        "mean": 23.006527876001456,
+        "minimum": 17.120687,
+        "minimum_uncertainty": 0.0006248547,
+        "name": "mag_g",
+        "standard_deviation": 1.0028067921370778
+      },
+      {
+        "count": 54799,
+        "maximum": 24.259043,
+        "maximum_uncertainty": 0.253142,
+        "mean": 21.57070871950222,
+        "minimum": 15.996843,
+        "minimum_uncertainty": 0.00036389517,
+        "name": "mag_i",
+        "standard_deviation": 1.0049403407850162
+      },
+      {
+        "count": 54799,
+        "maximum": 24.900585,
+        "maximum_uncertainty": 0.27462602,
+        "mean": 22.07362580036127,
+        "minimum": 16.35086,
+        "minimum_uncertainty": 0.00036522304,
+        "name": "mag_r",
+        "standard_deviation": 1.0014731625451132
+      },
+      {
+        "count": 54799,
+        "maximum": 25.672,
+        "maximum_uncertainty": 0.5,
+        "mean": 23.86311567729338,
+        "minimum": 17.544,
+        "minimum_uncertainty": 0.004,
+        "name": "mag_u",
+        "standard_deviation": 0.8537594746346926
+      },
+      {
+        "count": 54799,
+        "maximum": 23.274477,
+        "maximum_uncertainty": 0.49998158,
+        "mean": 21.210025144637846,
+        "minimum": 15.637332,
+        "minimum_uncertainty": 0.0011325272,
+        "name": "mag_y",
+        "standard_deviation": 1.0521055310047436
+      },
+      {
+        "count": 54799,
+        "maximum": 23.90668,
+        "maximum_uncertainty": 0.399201,
+        "mean": 21.28125885890254,
+        "minimum": 15.727509,
+        "minimum_uncertainty": 0.00046406547,
+        "name": "mag_z",
+        "standard_deviation": 1.0315989183134513
+      },
+      {
+        "count": 54799,
+        "maximum": 2.7385009999999994,
+        "maximum_uncertainty": 0.2908208810273465,
+        "mean": 0.5029170808591382,
+        "minimum": -0.7561040000000006,
+        "minimum_uncertainty": 0.0005155652855809539,
+        "name": "r_i",
+        "standard_deviation": 0.2901417006366406
+      },
+      {
+        "count": 54799,
+        "maximum": 4.631522,
+        "maximum_uncertainty": 0.5169073798525998,
+        "mean": 0.8636006557236562,
+        "minimum": -0.8470150000000025,
+        "minimum_uncertainty": 0.0011899603891250673,
+        "name": "r_y",
+        "standard_deviation": 0.5024643908057773
+      },
+      {
+        "count": 54799,
+        "maximum": 4.1559740000000005,
+        "maximum_uncertainty": 0.40758694853160166,
+        "mean": 0.7923669414587833,
+        "minimum": -1.0690339999999985,
+        "minimum_uncertainty": 0.0005905460434150436,
+        "name": "r_z",
+        "standard_deviation": 0.4255447304257468
+      },
+      {
+        "count": 54799,
+        "maximum": 7.436312999999998,
+        "maximum_uncertainty": 0.6954211638801411,
+        "mean": 0.8565878012920041,
+        "minimum": -1.9496819999999992,
+        "minimum_uncertainty": 0.004061942773709369,
+        "name": "u_g",
+        "standard_deviation": 0.6370461239904185
+      },
+      {
+        "count": 54799,
+        "maximum": 8.560156999999998,
+        "maximum_uncertainty": 0.5192331883542778,
+        "mean": 2.2924069577911976,
+        "minimum": -1.4599459999999986,
+        "minimum_uncertainty": 0.004137436054324254,
+        "name": "u_i",
+        "standard_deviation": 1.000586515437501
+      },
+      {
+        "count": 54799,
+        "maximum": 8.206139999999998,
+        "maximum_uncertainty": 0.5368595615052205,
+        "mean": 1.7894898769320504,
+        "minimum": -1.0830829999999985,
+        "minimum_uncertainty": 0.004076663784245957,
+        "name": "u_r",
+        "standard_deviation": 0.8621205354822288
+      },
+      {
+        "count": 54799,
+        "maximum": 8.919667999999998,
+        "maximum_uncertainty": 0.6896480789680778,
+        "mean": 2.6530905326557024,
+        "minimum": -1.930098000000001,
+        "minimum_uncertainty": 0.005621917857087917,
+        "name": "u_y",
+        "standard_deviation": 1.1328960049260997
+      },
+      {
+        "count": 54799,
+        "maximum": 8.829490999999999,
+        "maximum_uncertainty": 0.5651649161712579,
+        "mean": 2.5818568183908663,
+        "minimum": -1.769601999999999,
+        "minimum_uncertainty": 0.00435488673192354,
+        "name": "u_z",
+        "standard_deviation": 1.0871603973056423
+      },
+      {
+        "count": 54799,
+        "maximum": 2.8566740000000017,
+        "maximum_uncertainty": 0.6111081815924824,
+        "mean": 0.0712337142648597,
+        "minimum": -1.1568629999999978,
+        "minimum_uncertainty": 0.0012239177338310614,
+        "name": "z_y",
+        "standard_deviation": 0.205796849234832
+      }
+    ],
+    "uncertainty_model": "independent_quadrature"
+  },
+  "configuration": {
+    "features": {
+      "path": "config/features/clean.yaml",
+      "sha256": "aae25b45c562d8a91743fbeadd7fd6d6a54dda5414f121f65728a48b1c138430"
+    },
+    "photometry": {
+      "path": "config/core/phot.yaml",
+      "sha256": "edb6b2000cced7a627a2665fa7650cac388345f464b0ff12534dd00283a8dc73"
+    },
+    "resolved": {
+      "audit": {
+        "algebraic_tolerance": 1e-10,
+        "expected_color_rank": 5
+      },
+      "bands": [
+        {
+          "band": "u",
+          "dereddened": false,
+          "measure": "psf",
+          "source_role": "reference"
+        },
+        {
+          "band": "g",
+          "dereddened": false,
+          "measure": "aperture_5",
+          "source_role": "target"
+        },
+        {
+          "band": "r",
+          "dereddened": false,
+          "measure": "aperture_5",
+          "source_role": "target"
+        },
+        {
+          "band": "i",
+          "dereddened": false,
+          "measure": "aperture_5",
+          "source_role": "target"
+        },
+        {
+          "band": "z",
+          "dereddened": false,
+          "measure": "aperture_5",
+          "source_role": "target"
+        },
+        {
+          "band": "y",
+          "dereddened": false,
+          "measure": "aperture_5",
+          "source_role": "target"
+        }
+      ],
+      "construction": {
+        "color_order": [
+          "u",
+          "g",
+          "r",
+          "i",
+          "z",
+          "y"
+        ],
+        "color_separator": "_",
+        "color_uncertainty": "independent_quadrature",
+        "colors": "all_pairs",
+        "magnitude_prefix": "mag_"
+      },
+      "features": {
+        "name": "clean_observed",
+        "on_existing": "fail",
+        "photometry_config": "config/core/phot.yaml",
+        "report_path": "data/interim/feature_manifest.json",
+        "sample": "clean_reciprocal"
+      },
+      "groups": {
+        "adjacent_colors": [
+          "u_g",
+          "g_r",
+          "r_i",
+          "i_z",
+          "z_y"
+        ],
+        "all_colors": [
+          "u_g",
+          "u_r",
+          "u_i",
+          "u_z",
+          "u_y",
+          "g_r",
+          "g_i",
+          "g_z",
+          "g_y",
+          "r_i",
+          "r_z",
+          "r_y",
+          "i_z",
+          "i_y",
+          "z_y"
+        ],
+        "magnitudes": [
+          "mag_u",
+          "mag_g",
+          "mag_r",
+          "mag_i",
+          "mag_z",
+          "mag_y"
+        ]
+      }
+    }
+  },
+  "created_at": "2026-09-12T13:29:35.192199+00:00",
+  "feature_counts": {
+    "g_i": 54799,
+    "g_r": 54799,
+    "g_y": 54799,
+    "g_z": 54799,
+    "i_y": 54799,
+    "i_z": 54799,
+    "mag_g": 54799,
+    "mag_i": 54799,
+    "mag_r": 54799,
+    "mag_u": 54799,
+    "mag_y": 54799,
+    "mag_z": 54799,
+    "r_i": 54799,
+    "r_y": 54799,
+    "r_z": 54799,
+    "u_g": 54799,
+    "u_i": 54799,
+    "u_r": 54799,
+    "u_y": 54799,
+    "u_z": 54799,
+    "z_y": 54799
+  },
+  "feature_set_id": 2,
+  "feature_sha256": "94d6cd78995ba188d7640519f16d2a5c3999b136ebcf3174c3a9e242e4647d31",
+  "git_commit": "9342c1bef40b953434dea4d0ec5bbae82b3f7404",
+  "groups": {
+    "adjacent_colors": [
+      "u_g",
+      "g_r",
+      "r_i",
+      "i_z",
+      "z_y"
+    ],
+    "all_colors": [
+      "u_g",
+      "u_r",
+      "u_i",
+      "u_z",
+      "u_y",
+      "g_r",
+      "g_i",
+      "g_z",
+      "g_y",
+      "r_i",
+      "r_z",
+      "r_y",
+      "i_z",
+      "i_y",
+      "z_y"
+    ],
+    "magnitudes": [
+      "mag_u",
+      "mag_g",
+      "mag_r",
+      "mag_i",
+      "mag_z",
+      "mag_y"
+    ]
+  },
+  "photometry_dependency": {
+    "configuration": {
+      "path": "config/core/phot.yaml",
+      "resolved": {
+        "photometry": {
+          "name": "clean_observed_photometry",
+          "on_existing": "fail",
+          "reddening_policy": {
+            "mode": "observed",
+            "note": "Preserve the downloaded observed magnitudes. The comparison paper says that it corrected both surveys for reddening but does not state the FDS u-band coefficient. A separately named sensitivity configuration will apply corrections only after that coefficient is sourced or confirmed.",
+            "uncertainty": "catalogue_only"
+          },
+          "report_path": "data/interim/phot_manifest.json",
+          "sample": "clean_reciprocal"
+        },
+        "sources": [
+          {
+            "aperture_diameter_px": null,
+            "catalog": "fds_aa_639_a136",
+            "measure": "psf",
+            "measurements": [
+              {
+                "band": "u",
+                "error_column": "u_mag_err",
+                "magnitude_column": "u_mag",
+                "missing_magnitude_values": []
+              }
+            ],
+            "reddening_column": "ebv",
+            "source_role": "reference",
+            "table": "raw.fds"
+          },
+          {
+            "aperture_diameter_px": 11.11,
+            "catalog": "des_dr2_fornax",
+            "measure": "aperture_5",
+            "measurements": [
+              {
+                "band": "g",
+                "error_column": "g_mag_ap5_err",
+                "magnitude_column": "g_mag_ap5",
+                "missing_magnitude_values": [
+                  99.0
+                ]
+              },
+              {
+                "band": "r",
+                "error_column": "r_mag_ap5_err",
+                "magnitude_column": "r_mag_ap5",
+                "missing_magnitude_values": [
+                  99.0
+                ]
+              },
+              {
+                "band": "i",
+                "error_column": "i_mag_ap5_err",
+                "magnitude_column": "i_mag_ap5",
+                "missing_magnitude_values": [
+                  99.0
+                ]
+              },
+              {
+                "band": "z",
+                "error_column": "z_mag_ap5_err",
+                "magnitude_column": "z_mag_ap5",
+                "missing_magnitude_values": [
+                  99.0
+                ]
+              },
+              {
+                "band": "y",
+                "error_column": "y_mag_ap5_err",
+                "magnitude_column": "y_mag_ap5",
+                "missing_magnitude_values": [
+                  99.0
+                ]
+              }
+            ],
+            "reddening_column": "ebv_sfd98",
+            "source_role": "target",
+            "table": "raw.des"
+          }
+        ]
+      },
+      "sha256": "edb6b2000cced7a627a2665fa7650cac388345f464b0ff12534dd00283a8dc73"
+    },
+    "measurements": [
+      {
+        "aperture_diameter_px": null,
+        "band": "u",
+        "catalog": "fds_aa_639_a136",
+        "dereddened": false,
+        "eligible_records": 54799,
+        "extinction_coefficient": null,
+        "inserted": 54799,
+        "measure": "psf",
+        "missing_or_sentinel": 0,
+        "source_role": "reference"
+      },
+      {
+        "aperture_diameter_px": 11.11,
+        "band": "g",
+        "catalog": "des_dr2_fornax",
+        "dereddened": false,
+        "eligible_records": 54799,
+        "extinction_coefficient": null,
+        "inserted": 54799,
+        "measure": "aperture_5",
+        "missing_or_sentinel": 0,
+        "source_role": "target"
+      },
+      {
+        "aperture_diameter_px": 11.11,
+        "band": "r",
+        "catalog": "des_dr2_fornax",
+        "dereddened": false,
+        "eligible_records": 54799,
+        "extinction_coefficient": null,
+        "inserted": 54799,
+        "measure": "aperture_5",
+        "missing_or_sentinel": 0,
+        "source_role": "target"
+      },
+      {
+        "aperture_diameter_px": 11.11,
+        "band": "i",
+        "catalog": "des_dr2_fornax",
+        "dereddened": false,
+        "eligible_records": 54799,
+        "extinction_coefficient": null,
+        "inserted": 54799,
+        "measure": "aperture_5",
+        "missing_or_sentinel": 0,
+        "source_role": "target"
+      },
+      {
+        "aperture_diameter_px": 11.11,
+        "band": "z",
+        "catalog": "des_dr2_fornax",
+        "dereddened": false,
+        "eligible_records": 54799,
+        "extinction_coefficient": null,
+        "inserted": 54799,
+        "measure": "aperture_5",
+        "missing_or_sentinel": 0,
+        "source_role": "target"
+      },
+      {
+        "aperture_diameter_px": 11.11,
+        "band": "y",
+        "catalog": "des_dr2_fornax",
+        "dereddened": false,
+        "eligible_records": 54799,
+        "extinction_coefficient": null,
+        "inserted": 54799,
+        "measure": "aperture_5",
+        "missing_or_sentinel": 0,
+        "source_role": "target"
+      }
+    ],
+    "photometry_sha256": "71ffc6857084611a1a483c6a2fa2a3248edce3867f20931f6dcbe510cec6c61e"
+  },
+  "sample": {
+    "members": 54799,
+    "name": "clean_reciprocal",
+    "sample_id": 1
+  },
+  "software": {
+    "PyYAML": "6.0.3",
+    "numpy": "2.2.6",
+    "psycopg": "3.3.5",
+    "python": "3.10.12"
+  },
+  "stage": "clean_observed"
+}

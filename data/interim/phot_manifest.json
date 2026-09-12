@@ -1,0 +1,179 @@
+{
+  "configuration": {
+    "path": "config/core/phot.yaml",
+    "resolved": {
+      "photometry": {
+        "name": "clean_observed_photometry",
+        "on_existing": "fail",
+        "reddening_policy": {
+          "mode": "observed",
+          "note": "Preserve the downloaded observed magnitudes. The comparison paper says that it corrected both surveys for reddening but does not state the FDS u-band coefficient. A separately named sensitivity configuration will apply corrections only after that coefficient is sourced or confirmed.",
+          "uncertainty": "catalogue_only"
+        },
+        "report_path": "data/interim/phot_manifest.json",
+        "sample": "clean_reciprocal"
+      },
+      "sources": [
+        {
+          "aperture_diameter_px": null,
+          "catalog": "fds_aa_639_a136",
+          "measure": "psf",
+          "measurements": [
+            {
+              "band": "u",
+              "error_column": "u_mag_err",
+              "magnitude_column": "u_mag",
+              "missing_magnitude_values": []
+            }
+          ],
+          "reddening_column": "ebv",
+          "source_role": "reference",
+          "table": "raw.fds"
+        },
+        {
+          "aperture_diameter_px": 11.11,
+          "catalog": "des_dr2_fornax",
+          "measure": "aperture_5",
+          "measurements": [
+            {
+              "band": "g",
+              "error_column": "g_mag_ap5_err",
+              "magnitude_column": "g_mag_ap5",
+              "missing_magnitude_values": [
+                99.0
+              ]
+            },
+            {
+              "band": "r",
+              "error_column": "r_mag_ap5_err",
+              "magnitude_column": "r_mag_ap5",
+              "missing_magnitude_values": [
+                99.0
+              ]
+            },
+            {
+              "band": "i",
+              "error_column": "i_mag_ap5_err",
+              "magnitude_column": "i_mag_ap5",
+              "missing_magnitude_values": [
+                99.0
+              ]
+            },
+            {
+              "band": "z",
+              "error_column": "z_mag_ap5_err",
+              "magnitude_column": "z_mag_ap5",
+              "missing_magnitude_values": [
+                99.0
+              ]
+            },
+            {
+              "band": "y",
+              "error_column": "y_mag_ap5_err",
+              "magnitude_column": "y_mag_ap5",
+              "missing_magnitude_values": [
+                99.0
+              ]
+            }
+          ],
+          "reddening_column": "ebv_sfd98",
+          "source_role": "target",
+          "table": "raw.des"
+        }
+      ]
+    },
+    "sha256": "edb6b2000cced7a627a2665fa7650cac388345f464b0ff12534dd00283a8dc73"
+  },
+  "created_at": "2026-09-12T13:19:21.084056+00:00",
+  "git_commit": "4394f178108134af26ec279ef9ff5cb34018bc96",
+  "measurements": [
+    {
+      "aperture_diameter_px": null,
+      "band": "u",
+      "catalog": "fds_aa_639_a136",
+      "dereddened": false,
+      "eligible_records": 54799,
+      "extinction_coefficient": null,
+      "inserted": 54799,
+      "measure": "psf",
+      "missing_or_sentinel": 0,
+      "source_role": "reference"
+    },
+    {
+      "aperture_diameter_px": 11.11,
+      "band": "g",
+      "catalog": "des_dr2_fornax",
+      "dereddened": false,
+      "eligible_records": 54799,
+      "extinction_coefficient": null,
+      "inserted": 54799,
+      "measure": "aperture_5",
+      "missing_or_sentinel": 0,
+      "source_role": "target"
+    },
+    {
+      "aperture_diameter_px": 11.11,
+      "band": "r",
+      "catalog": "des_dr2_fornax",
+      "dereddened": false,
+      "eligible_records": 54799,
+      "extinction_coefficient": null,
+      "inserted": 54799,
+      "measure": "aperture_5",
+      "missing_or_sentinel": 0,
+      "source_role": "target"
+    },
+    {
+      "aperture_diameter_px": 11.11,
+      "band": "i",
+      "catalog": "des_dr2_fornax",
+      "dereddened": false,
+      "eligible_records": 54799,
+      "extinction_coefficient": null,
+      "inserted": 54799,
+      "measure": "aperture_5",
+      "missing_or_sentinel": 0,
+      "source_role": "target"
+    },
+    {
+      "aperture_diameter_px": 11.11,
+      "band": "z",
+      "catalog": "des_dr2_fornax",
+      "dereddened": false,
+      "eligible_records": 54799,
+      "extinction_coefficient": null,
+      "inserted": 54799,
+      "measure": "aperture_5",
+      "missing_or_sentinel": 0,
+      "source_role": "target"
+    },
+    {
+      "aperture_diameter_px": 11.11,
+      "band": "y",
+      "catalog": "des_dr2_fornax",
+      "dereddened": false,
+      "eligible_records": 54799,
+      "extinction_coefficient": null,
+      "inserted": 54799,
+      "measure": "aperture_5",
+      "missing_or_sentinel": 0,
+      "source_role": "target"
+    }
+  ],
+  "photometry_sha256": "71ffc6857084611a1a483c6a2fa2a3248edce3867f20931f6dcbe510cec6c61e",
+  "reddening": {
+    "mode": "observed",
+    "uncertainty": "catalogue_only"
+  },
+  "sample": {
+    "members": 54799,
+    "name": "clean_reciprocal",
+    "sample_id": 1
+  },
+  "software": {
+    "PyYAML": "6.0.3",
+    "psycopg": "3.3.5",
+    "python": "3.10.12"
+  },
+  "stage": "clean_observed_photometry"
+}

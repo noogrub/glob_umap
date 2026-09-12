@@ -1,0 +1,300 @@
+{
+  "configuration": {
+    "experiment": {
+      "path": "config/exp/core.yaml",
+      "sha256": "9fc1ebb43f837d26358a0d00c3075d999eea64e5b8486e8072e2f9c73949efc3"
+    },
+    "features": {
+      "path": "config/features/clean.yaml",
+      "sha256": "aae25b45c562d8a91743fbeadd7fd6d6a54dda5414f121f65728a48b1c138430"
+    },
+    "resolved": {
+      "classifiers": [
+        {
+          "name": "random_forest",
+          "parameters": {
+            "class_weight": "balanced_subsample",
+            "max_depth": null,
+            "max_features": "sqrt",
+            "min_samples_leaf": 1,
+            "n_estimators": 500,
+            "random_state": 60921
+          },
+          "role": "primary"
+        },
+        {
+          "name": "k_nearest_neighbors",
+          "parameters": {
+            "metric": [
+              "euclidean"
+            ],
+            "n_neighbors": [
+              5,
+              15,
+              31,
+              63
+            ],
+            "weights": [
+              "distance"
+            ]
+          },
+          "role": "neighborhood_diagnostic"
+        }
+      ],
+      "development": {
+        "cross_validation": {
+          "folds": 5,
+          "method": "stratified_k_fold",
+          "repeats": 1,
+          "seeds": [
+            60901
+          ],
+          "shuffle": true
+        },
+        "selection_metric": "average_precision",
+        "selection_target": "globular_cluster_one_vs_rest"
+      },
+      "evaluation": {
+        "final_comparisons": [
+          "umap_adjacent_minus_pca_adjacent",
+          "umap_pairwise_minus_pca_pairwise"
+        ],
+        "metrics": [
+          "average_precision",
+          "precision_recall_curve",
+          "contamination_at_recall",
+          "precision_at_locked_threshold",
+          "recall_at_locked_threshold",
+          "f1_at_locked_threshold",
+          "confusion_matrix"
+        ],
+        "uncertainty": {
+          "confidence_level": 0.95,
+          "method": "paired_stratified_bootstrap",
+          "replicates": 2000,
+          "seed": 60931
+        }
+      },
+      "experiment": {
+        "feature_config": "config/features/clean.yaml",
+        "feature_set": "clean_observed",
+        "name": "clean_representation_comparison",
+        "report_path": "data/interim/evaluation_plan.json",
+        "sample": "clean_reciprocal"
+      },
+      "operating_point": {
+        "application": "fixed_threshold_on_final_test",
+        "target_recall": 0.3,
+        "threshold_source": "out_of_fold_development_predictions"
+      },
+      "partition": {
+        "development_split": "train",
+        "final_test_policy": "locked_until_model_selection_complete",
+        "final_test_split": "test"
+      },
+      "preprocessing": {
+        "fit_scope": "fold_training_only",
+        "missing_values": "reject",
+        "scaling": "standard"
+      },
+      "representations": [
+        {
+          "dimensions": [
+            5
+          ],
+          "feature_group": "adjacent_colors",
+          "method": "identity",
+          "name": "raw_adjacent",
+          "parameters": {},
+          "stage": "primary"
+        },
+        {
+          "dimensions": [
+            2,
+            4,
+            5
+          ],
+          "feature_group": "adjacent_colors",
+          "method": "pca",
+          "name": "pca_adjacent",
+          "parameters": {
+            "whiten": [
+              false
+            ]
+          },
+          "stage": "primary"
+        },
+        {
+          "dimensions": [
+            2,
+            4,
+            5
+          ],
+          "feature_group": "adjacent_colors",
+          "method": "umap",
+          "name": "umap_adjacent",
+          "parameters": {
+            "metric": [
+              "euclidean",
+              "cosine"
+            ],
+            "min_dist": [
+              0.0,
+              0.1,
+              0.5
+            ],
+            "n_neighbors": [
+              15,
+              50,
+              150
+            ],
+            "stability_seeds": [
+              60911,
+              60912,
+              60913,
+              60914,
+              60915
+            ],
+            "tuning_seed": 60911
+          },
+          "stage": "primary"
+        },
+        {
+          "dimensions": [
+            15
+          ],
+          "feature_group": "all_colors",
+          "method": "identity",
+          "name": "raw_pairwise",
+          "parameters": {},
+          "stage": "redundancy_sensitivity"
+        },
+        {
+          "dimensions": [
+            2,
+            4,
+            15
+          ],
+          "feature_group": "all_colors",
+          "method": "pca",
+          "name": "pca_pairwise",
+          "parameters": {
+            "whiten": [
+              false
+            ]
+          },
+          "stage": "redundancy_sensitivity"
+        },
+        {
+          "dimensions": [
+            2,
+            4,
+            5
+          ],
+          "feature_group": "all_colors",
+          "method": "umap",
+          "name": "umap_pairwise",
+          "parameters": {
+            "metric": [
+              "euclidean",
+              "cosine"
+            ],
+            "min_dist": [
+              0.0,
+              0.1,
+              0.5
+            ],
+            "n_neighbors": [
+              15,
+              50,
+              150
+            ],
+            "stability_seeds": [
+              60911,
+              60912,
+              60913,
+              60914,
+              60915
+            ],
+            "tuning_seed": 60911
+          },
+          "stage": "redundancy_sensitivity"
+        }
+      ],
+      "task": {
+        "classes": [
+          "globular_cluster",
+          "galaxy",
+          "star"
+        ],
+        "focal_class": "globular_cluster",
+        "type": "multiclass"
+      }
+    }
+  },
+  "created_at": "2026-09-12T13:30:24.742132+00:00",
+  "feature_set": {
+    "config_sha256": "aae25b45c562d8a91743fbeadd7fd6d6a54dda5414f121f65728a48b1c138430",
+    "feature_set_id": 2,
+    "feature_sha256": "94d6cd78995ba188d7640519f16d2a5c3999b136ebcf3174c3a9e242e4647d31",
+    "name": "clean_observed",
+    "sample_id": 1
+  },
+  "git_commit": "9342c1bef40b953434dea4d0ec5bbae82b3f7404",
+  "population": {
+    "counts": [
+      {
+        "members": 9933,
+        "split": "test",
+        "target_class": "galaxy"
+      },
+      {
+        "members": 280,
+        "split": "test",
+        "target_class": "globular_cluster"
+      },
+      {
+        "members": 746,
+        "split": "test",
+        "target_class": "star"
+      },
+      {
+        "members": 39734,
+        "split": "train",
+        "target_class": "galaxy"
+      },
+      {
+        "members": 1122,
+        "split": "train",
+        "target_class": "globular_cluster"
+      },
+      {
+        "members": 2984,
+        "split": "train",
+        "target_class": "star"
+      }
+    ],
+    "development_members": 43840,
+    "final_test_members": 10959
+  },
+  "sample": {
+    "binding_sha256": "fba8f9005483657ed103d66723c5ccf249e3828fb6efc45cb55ccc0d79fbf2da",
+    "config_sha256": "9ba5071c6f7135fdefadab19e489ee8d4d3ac5a3351dad3d037427c34c2ef507",
+    "name": "clean_reciprocal",
+    "photometry_sha256": "71ffc6857084611a1a483c6a2fa2a3248edce3867f20931f6dcbe510cec6c61e",
+    "sample_id": 1,
+    "split_sha256": "07913d9c48e8fe54c85c94c2eb693fd160140b4ce4d257a830403d77441ede33"
+  },
+  "software": {
+    "PyYAML": "6.0.3",
+    "psycopg": "3.3.5",
+    "python": "3.10.12"
+  },
+  "stage": "clean_representation_comparison",
+  "test_lock": {
+    "policy": "locked_until_model_selection_complete",
+    "split": "test",
+    "threshold_application": "fixed_threshold_on_final_test",
+    "threshold_source": "out_of_fold_development_predictions"
+  }
+}
