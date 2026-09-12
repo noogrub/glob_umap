@@ -1,0 +1,48 @@
+# Project
+PROJECT_NAME           = "glob_umap P609 Core"
+PROJECT_BRIEF          = "Core computational physics methods for globular-cluster classification"
+OUTPUT_DIRECTORY       = build/doxygen
+CREATE_SUBDIRS         = NO
+
+# Input: the architecture and John-authored computational package only
+INPUT                  = core_architecture.md src/glob_umap/compute
+FILE_PATTERNS          = *.py *.md
+RECURSIVE              = YES
+USE_MDFILE_AS_MAINPAGE = core_architecture.md
+FULL_PATH_NAMES        = NO
+STRIP_FROM_PATH        = src
+
+# Python documentation
+OPTIMIZE_OUTPUT_JAVA   = YES
+PYTHON_DOCSTRING       = NO
+JAVADOC_AUTOBRIEF      = YES
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = NO
+HIDE_UNDOC_MEMBERS     = YES
+HIDE_UNDOC_CLASSES     = YES
+SORT_MEMBER_DOCS       = NO
+
+# Course authorship marker
+ALIASES               += jburgoon="\par P609 implementation:^^John Burgoon"
+
+# Documentation checks
+QUIET                  = YES
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_NO_PARAMDOC       = YES
+
+# Minimal output
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+SEARCHENGINE            = YES
+GENERATE_TREEVIEW      = NO
+SOURCE_BROWSER         = NO
+INLINE_SOURCES         = NO
+HAVE_DOT               = NO
+GENERATE_LATEX         = NO
+GENERATE_RTF           = NO
+GENERATE_MAN           = NO
+GENERATE_XML           = NO
+GENERATE_DOCBOOK       = NO
