@@ -12,6 +12,12 @@ dependencies = [
     "psycopg[binary]>=3.2,<4",
     "PyYAML>=6,<7",
     "scipy>=1.10,<2",
+    # Python 3.10 support ends after scikit-learn 1.7:
+    # https://pypi.org/project/scikit-learn/1.7.2/
+    "scikit-learn>=1.7.2,<1.8",
+
+    # https://pypi.org/project/umap-learn/0.5.12/
+    "umap-learn>=0.5.12,<0.6",
 ]
 
 [project.optional-dependencies]
