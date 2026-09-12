@@ -306,7 +306,8 @@ def _phot_sha256(connection: Any, config: PhotConfig, sample_id: int) -> str:
     parameters: list[Any] = [sample_id]
     for identity in identities:
         parameters.extend(identity)
-    query = """
+    query = (
+        """
         SELECT c.code,
                r.source_key::jsonb ->> 1 AS source_row,
                p.band,
@@ -320,8 +321,11 @@ def _phot_sha256(connection: Any, config: PhotConfig, sample_id: int) -> str:
         JOIN core.catalog AS c USING (catalog_id)
         JOIN ml.member_record AS mr USING (record_id)
         WHERE mr.sample_id = %s AND (
-    """ + " OR ".join(clauses) + ") ORDER BY c.code, " \\
-        "(r.source_key::jsonb ->> 1)::bigint, p.band, p.measure"
+        """
+        + " OR ".join(clauses)
+        + ") ORDER BY c.code, "
+        + "(r.source_key::jsonb ->> 1)::bigint, p.band, p.measure"
+    )
     digest = sha256()
     with connection.cursor() as cursor:
         cursor.execute(query, parameters)
