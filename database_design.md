@@ -39,6 +39,8 @@ A preliminary normalized model would include:
 | `core` | `label` | Classification evidence and provenance |
 | `ml` | `sample` | Defined experimental population |
 | `ml` | `member` | Objects included in a sample |
+| `ml` | `feature_set` | Versioned feature definition and checksum |
+| `ml` | `feature` | Object-level feature values and uncertainties |
 | `ml` | `run` | One resolved experiment execution |
 | `ml` | `embed` | PCA or UMAP coordinates |
 | `ml` | `metric` | Evaluation results |
@@ -146,6 +148,8 @@ multiple-candidate cases are counted before a resolution policy is chosen.
 | `ml.sample` | Versioned population definition |
 | `ml.member` | Object membership, split, target, and explicit weight |
 | `ml.member_record` | Exact source records used by each sample member |
+| `ml.feature_set` | Resolved feature construction and stable result digest |
+| `ml.feature` | Normalized magnitudes and colors with uncertainties |
 | `ml.run` | Resolved experiment configuration and Git provenance |
 | `ml.embed` | Normalized embedding coordinates of arbitrary dimension |
 | `ml.metric` | Evaluation values, thresholds, intervals, and scope |
@@ -176,6 +180,26 @@ checksums, resolved configuration, role counts, distinct-record counts, and a
 stable binding digest in `ml.sample.definition.records` and its manifest.
 Feature extraction must use these bindings rather than rerun crossmatching.
 
+`core.phot` contains normalized catalogue measurements, not derived colors.
+For the clean sample it records FDS PSF `u` and DES aperture-5 `grizY`
+measurements from the exact rows in `ml.member_record`. The `dereddened` flag
+states whether an extinction correction was applied; no correction coefficient
+is implicit in Python. `aperture_px` records the configured aperture diameter
+in source pixels when the catalogue defines one.
+
+The first feature set, `clean_observed`, uses FDS PSF `u` and DES aperture-5
+`grizY`. It stores six magnitude features and all 15 pairwise colors in
+`ml.feature`. Its definition names the five adjacent colors as the independent
+primary group and the 15 colors as the paper-like redundancy group. Color
+uncertainty is the quadrature sum of the two reported magnitude errors under
+the explicitly stated independence approximation; the catalogues do not
+provide the covariance needed for a correlated-error calculation.
+
+`ml.feature_set.feature_sha256` binds the ordered feature values,
+uncertainties, targets, splits, and stable source identities. Its audit records
+per-feature ranges, the split/class ledger, numerical color-matrix rank, and
+the maximum residual from the exact pairwise-color identities.
+
 The Rubin temporal and detector-reliability extension is deliberately absent
 from this first migration. It will extend the schema after the real Rubin data
 products and their fields have been inspected.
@@ -194,6 +218,9 @@ before running the crossmatch.
 `sql/41_member_record.sql` adds exact source-record bindings for materialized
 sample members. Existing databases must apply it once before running the
 binding stage.
+
+`sql/42_feature.sql` adds versioned feature definitions and normalized feature
+values. Existing databases must apply it once before feature materialization.
 
 
 ## Raw catalogue immutability

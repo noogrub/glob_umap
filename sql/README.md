@@ -110,6 +110,19 @@ existing sample members. Each member may have one reference and one target
 record. The migration does not populate the table; use the configured
 `glob-umap bind` stage after applying it.
 
+## Store model features
+
+Existing databases require this migration before feature materialization:
+
+```bash
+psql --file=sql/42_feature.sql
+```
+
+It adds `ml.feature_set` for feature definitions and provenance and
+`ml.feature` for normalized object-level values and uncertainties. The
+migration does not populate either table; use the configured
+`glob-umap features` stage after record binding and photometry normalization.
+
 ## Audit the source contract
 
 First verify the source files themselves:
@@ -140,6 +153,7 @@ be true. `gc_can_create` and every `gc_raw_owner` capability should be false.
 | `32_label_evidence.sql` | Prevent duplicate source-evidence rows |
 | `40_ml.sql` | Create samples, runs, embeddings, metrics, and artifacts |
 | `41_member_record.sql` | Bind sample members to exact source records |
+| `42_feature.sql` | Store versioned feature sets, values, and uncertainties |
 | `50_lock_raw.sql` | Transfer raw ownership and grant `gc` read-only access |
 | `90_verify.sql` | Verify the expected tables and list them |
 | `91_audit_raw.sql` | Audit raw source lineage, ownership, and permissions |

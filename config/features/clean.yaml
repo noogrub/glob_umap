@@ -1,0 +1,63 @@
+features:
+  name: clean_observed
+  sample: clean_reciprocal
+  on_existing: fail
+  photometry_config: config/core/phot.yaml
+  report_path: data/interim/feature_manifest.json
+
+bands:
+  - band: u
+    source_role: reference
+    measure: psf
+    dereddened: false
+  - band: g
+    source_role: target
+    measure: aperture_5
+    dereddened: false
+  - band: r
+    source_role: target
+    measure: aperture_5
+    dereddened: false
+  - band: i
+    source_role: target
+    measure: aperture_5
+    dereddened: false
+  - band: z
+    source_role: target
+    measure: aperture_5
+    dereddened: false
+  - band: y
+    source_role: target
+    measure: aperture_5
+    dereddened: false
+
+construction:
+  magnitude_prefix: mag_
+  color_order: [u, g, r, i, z, y]
+  colors: all_pairs
+  color_separator: _
+  color_uncertainty: independent_quadrature
+
+groups:
+  magnitudes: [mag_u, mag_g, mag_r, mag_i, mag_z, mag_y]
+  adjacent_colors: [u_g, g_r, r_i, i_z, z_y]
+  all_colors:
+    - u_g
+    - u_r
+    - u_i
+    - u_z
+    - u_y
+    - g_r
+    - g_i
+    - g_z
+    - g_y
+    - r_i
+    - r_z
+    - r_y
+    - i_z
+    - i_y
+    - z_y
+
+audit:
+  algebraic_tolerance: 1.0e-10
+  expected_color_rank: 5

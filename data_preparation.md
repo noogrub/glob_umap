@@ -599,6 +599,110 @@ All subsequent photometry normalization and feature construction must use
 sensitivity populations, but no longer choose the primary sample's feature
 inputs.
 
+## Photometry normalization decision
+
+The downloaded DES DR2 aperture magnitudes and FDS PSF magnitudes are observed
+AB magnitudes. Both source catalogues provide a line-of-sight reddening value,
+but the magnitude columns selected here are not already corrected. DES DR2
+[3] publishes its coefficients explicitly: `3.186`, `2.140`, `1.569`, `1.196`,
+and `1.048` for `g`, `r`, `i`, `z`, and `Y`. Schweder-Souza et al. state that
+they corrected both surveys according to the SFD map and its
+Schlafly-Finkbeiner recalibration, but neither the paper nor its public
+`GC-Selector` repository states the exact coefficient used for the
+OmegaCAM/FDS `u` filter.
+
+We therefore do not silently substitute an SDSS-like `u` coefficient. The
+first reproducible feature set uses the observed magnitudes and records
+`dereddened = false` for every row. `config/core/phot.yaml` preserves this
+decision, the reason, and the uncertainty policy. The normalizer also supports
+a coefficient-driven mode, but that mode refuses to run unless every band
+coefficient is supplied in YAML. A dereddened feature set will be a separately
+named sensitivity treatment once the `u` coefficient is authoritatively
+sourced or confirmed.
+
+The normalization stage reads only the fixed bindings and records:
+
+- FDS PSF `u`;
+- DES aperture-5 `grizY`, with the documented 11.11-pixel diameter;
+- the catalogue magnitude error without imputation;
+- the source record, band, measurement type, correction state, and aperture;
+- inserted and missing counts for every catalogue/band combination;
+- a stable digest over all normalized values.
+
+Run:
+
+```bash
+glob-umap phot --config config/core/phot.yaml
+```
+
+The transaction fails for missing, negative, or nonfinite sample errors and
+records its result in `ml.sample.definition.photometry` and
+`data/interim/phot_manifest.json`.
+
+## Feature construction and numerical audit
+
+`config/features/clean.yaml` selects FDS `u` and DES `grizY` from
+`core.phot`. It materializes six magnitudes and every pairwise color. The five
+adjacent colors
+
+```text
+u-g, g-r, r-i, i-z, z-y
+```
+
+form the primary nonredundant input. All 15 pairwise colors reproduce the
+paper's column representation as a sensitivity treatment. For a color `a-b`,
+the stored uncertainty is
+
+```text
+sqrt(sigma_a^2 + sigma_b^2)
+```
+
+which assumes independent reported magnitude errors because the source
+catalogues do not supply inter-band covariance.
+
+Apply the schema migration and materialize the features with:
+
+```bash
+psql --file=sql/42_feature.sql
+glob-umap features --config config/features/clean.yaml
+```
+
+Before commit, the stage requires complete feature coverage, finite values,
+all pairwise-color identities within the YAML tolerance, and numerical rank
+five for the 15-color matrix. It records value and uncertainty ranges, the
+split/class ledger, singular values, algebraic residuals, configuration hashes,
+and a stable feature digest in `data/interim/feature_manifest.json`.
+
+## Frozen evaluation protocol
+
+`config/exp/core.yaml` fixes the first controlled experiment before any model
+result is inspected. The primary comparison supplies the same five adjacent
+colors to identity, PCA, and unsupervised UMAP representations. A parallel
+15-color comparison measures sensitivity to algebraic redundancy. Scaling and
+every learned representation are fitted only inside each development fold.
+
+The outer `test` members remain locked during selection. Five-fold stratified
+development predictions select representation parameters by GC
+one-versus-rest average precision. The primary random forest is fixed
+identically across representations; k-nearest neighbors is a neighborhood
+diagnostic. UMAP's parameter grid and stability seeds are all explicit in
+YAML.
+
+The headline quantity is contamination at 30 percent GC recall, matching the
+scientifically relevant regime behind the paper's approximately 30 percent
+contamination claim. An operational threshold is selected from out-of-fold
+development predictions, then applied unchanged to the final test scores.
+Precision-recall curves, average precision, fixed-threshold
+precision/recall/F1, confusion matrices, and paired stratified bootstrap
+intervals are also predeclared.
+
+After feature materialization, validate the database dependencies and write
+the frozen plan manifest with:
+
+```bash
+glob-umap plan --config config/exp/core.yaml
+```
+
 ## Decisions and remaining uncertainty
 
 Confirmed decisions:
@@ -617,7 +721,7 @@ Still to be confirmed with the authors or tested explicitly:
 - the paper's precise FDS-DES crossmatch direction and ambiguity policy;
 - the exact sky-coordinate columns used;
 - whether the authors used the same documented DES numeric-sentinel handling;
-- the complete reddening coefficients and timing;
+- the exact FDS `u` reddening coefficient and the paper's correction timing;
 - the Chaturvedi `296 -> 292 -> 268` reduction;
 - availability of the prepared merged catalogue or paper-specific code.
 
@@ -634,3 +738,12 @@ defined and reproducible.
    [doi:10.3847/1538-4357/ae7321](https://doi.org/10.3847/1538-4357/ae7321).
 2. Schweder-Souza, N. `GC-Selector`.
    [https://github.com/n-ssouza/GC-Selector](https://github.com/n-ssouza/GC-Selector).
+3. Abbott, T. M. C., Adamów, M., Aguena, M., et al. (2021). “The Dark Energy
+   Survey Data Release 2.” *The Astrophysical Journal Supplement Series*,
+   **255**(2), 20.
+   [doi:10.3847/1538-4365/ac00b3](https://doi.org/10.3847/1538-4365/ac00b3).
+4. Cantiello, M., Venhola, A., Grado, A., et al. (2020). “The Fornax Deep
+   Survey with VST. IX. The catalog of sources in the FDS area, with an example
+   study for globular clusters and background galaxies.” *Astronomy &
+   Astrophysics*, **639**, A136.
+   [doi:10.1051/0004-6361/202038137](https://doi.org/10.1051/0004-6361/202038137).

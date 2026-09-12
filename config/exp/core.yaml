@@ -1,0 +1,121 @@
+experiment:
+  name: clean_representation_comparison
+  sample: clean_reciprocal
+  feature_config: config/features/clean.yaml
+  feature_set: clean_observed
+  report_path: data/interim/evaluation_plan.json
+
+task:
+  type: multiclass
+  classes: [globular_cluster, galaxy, star]
+  focal_class: globular_cluster
+
+partition:
+  development_split: train
+  final_test_split: test
+  final_test_policy: locked_until_model_selection_complete
+
+preprocessing:
+  missing_values: reject
+  scaling: standard
+  fit_scope: fold_training_only
+
+development:
+  cross_validation:
+    method: stratified_k_fold
+    folds: 5
+    repeats: 1
+    seeds: [60901]
+    shuffle: true
+  selection_metric: average_precision
+  selection_target: globular_cluster_one_vs_rest
+
+representations:
+  - name: raw_adjacent
+    stage: primary
+    method: identity
+    feature_group: adjacent_colors
+    dimensions: [5]
+    parameters: {}
+  - name: pca_adjacent
+    stage: primary
+    method: pca
+    feature_group: adjacent_colors
+    dimensions: [2, 4, 5]
+    parameters:
+      whiten: [false]
+  - name: umap_adjacent
+    stage: primary
+    method: umap
+    feature_group: adjacent_colors
+    dimensions: [2, 4, 5]
+    parameters:
+      n_neighbors: [15, 50, 150]
+      min_dist: [0.0, 0.1, 0.5]
+      metric: [euclidean, cosine]
+      tuning_seed: 60911
+      stability_seeds: [60911, 60912, 60913, 60914, 60915]
+  - name: raw_pairwise
+    stage: redundancy_sensitivity
+    method: identity
+    feature_group: all_colors
+    dimensions: [15]
+    parameters: {}
+  - name: pca_pairwise
+    stage: redundancy_sensitivity
+    method: pca
+    feature_group: all_colors
+    dimensions: [2, 4, 15]
+    parameters:
+      whiten: [false]
+  - name: umap_pairwise
+    stage: redundancy_sensitivity
+    method: umap
+    feature_group: all_colors
+    dimensions: [2, 4, 5]
+    parameters:
+      n_neighbors: [15, 50, 150]
+      min_dist: [0.0, 0.1, 0.5]
+      metric: [euclidean, cosine]
+      tuning_seed: 60911
+      stability_seeds: [60911, 60912, 60913, 60914, 60915]
+
+classifiers:
+  - name: random_forest
+    role: primary
+    parameters:
+      n_estimators: 500
+      max_depth: null
+      min_samples_leaf: 1
+      max_features: sqrt
+      class_weight: balanced_subsample
+      random_state: 60921
+  - name: k_nearest_neighbors
+    role: neighborhood_diagnostic
+    parameters:
+      n_neighbors: [5, 15, 31, 63]
+      weights: [distance]
+      metric: [euclidean]
+
+operating_point:
+  target_recall: 0.30
+  threshold_source: out_of_fold_development_predictions
+  application: fixed_threshold_on_final_test
+
+evaluation:
+  metrics:
+    - average_precision
+    - precision_recall_curve
+    - contamination_at_recall
+    - precision_at_locked_threshold
+    - recall_at_locked_threshold
+    - f1_at_locked_threshold
+    - confusion_matrix
+  uncertainty:
+    method: paired_stratified_bootstrap
+    replicates: 2000
+    confidence_level: 0.95
+    seed: 60931
+  final_comparisons:
+    - umap_adjacent_minus_pca_adjacent
+    - umap_pairwise_minus_pca_pairwise

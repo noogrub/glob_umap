@@ -221,3 +221,61 @@ reference and one target record per member. It stores the binding definition
 and checksum in `ml.sample.definition.records` and writes
 `data/interim/clean_records.json`. Later feature extraction reads these fixed
 records rather than reconstructing the crossmatch.
+
+## Normalize photometry
+
+Normalize the measurements selected for the clean sample:
+
+```bash
+glob-umap phot --config config/core/phot.yaml
+```
+
+The configuration records FDS PSF `u` and DES aperture-5 `grizY`
+measurements for the exact bound catalogue rows. The first feature set uses
+observed magnitudes: DES publishes its `grizY` extinction coefficients, but
+the comparison paper does not state the FDS `u` coefficient it applied. The
+normalizer supports a coefficient-driven dereddened variant, but requires
+every coefficient to be stated explicitly in YAML. It never supplies one as
+an implicit default.
+
+Every normalized value retains its catalogue record, band, measurement type,
+reported uncertainty, correction state, and aperture diameter where
+applicable. The stage records a stable digest in the sample definition and
+`data/interim/phot_manifest.json`.
+
+## Build and audit model features
+
+Apply the feature migration once to an existing database, then build the
+configured feature set:
+
+```bash
+psql --file=sql/42_feature.sql
+glob-umap features --config config/features/clean.yaml
+```
+
+The stage materializes six magnitudes and all 15 pairwise colors in normalized
+long form. The five adjacent colors are a named nonredundant group; all 15
+colors remain available as the paper-like redundancy sensitivity group.
+Color uncertainties use the explicitly configured independent-error
+quadrature approximation. The audit requires one finite value per feature and
+sample member, verifies every algebraic color identity, and confirms numerical
+rank five before committing. Its manifest is
+`data/interim/feature_manifest.json`.
+
+## Freeze the evaluation plan
+
+After the feature audit succeeds, bind the database state to the predeclared
+evaluation protocol:
+
+```bash
+glob-umap plan --config config/exp/core.yaml
+```
+
+The plan compares identity, PCA, and unsupervised UMAP on the same development
+population, feature groups, fold-local scaling, and classifiers. The final
+test set remains locked through representation and parameter selection. The
+operating threshold is chosen from out-of-fold development predictions to
+target 30 percent GC recall, then applied unchanged to the test set. The plan
+also declares UMAP stability seeds and paired stratified bootstrap uncertainty.
+The command is read-only and writes `data/interim/evaluation_plan.json` only
+after verifying the sample, split, bindings, photometry, and feature digest.

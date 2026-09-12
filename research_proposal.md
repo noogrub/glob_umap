@@ -87,8 +87,9 @@ The work will proceed in four stages.
    splits, and downstream classifiers. Supervised UMAP will be reported
    separately because it uses label information during representation
    learning.
-3. **Measure uncertainty and stability.** Repeat train/test splits and UMAP
-   seeds, perturb photometry according to reported uncertainties, and test
+3. **Measure uncertainty and stability.** Repeat development-fold assignments
+   and UMAP seeds while preserving one frozen final holdout, perturb photometry
+   according to reported uncertainties, and test
    sensitivity to UMAP parameters, redundant colors, the `u` band, and
    crossmatch policy.
 4. **Examine difficult cases.** Study globular-cluster versus galaxy errors

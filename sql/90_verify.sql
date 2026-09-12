@@ -21,6 +21,8 @@ BEGIN
             ('ml.sample'),
             ('ml.member'),
             ('ml.member_record'),
+            ('ml.feature_set'),
+            ('ml.feature'),
             ('ml.run'),
             ('ml.embed'),
             ('ml.metric'),

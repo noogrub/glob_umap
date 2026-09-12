@@ -51,6 +51,21 @@ def _parser() -> argparse.ArgumentParser:
         "bind", help="bind sample members to exact catalogue records"
     )
     bind_parser.add_argument("--config", required=True)
+
+    phot_parser = commands.add_parser(
+        "phot", help="normalize configured sample photometry"
+    )
+    phot_parser.add_argument("--config", required=True)
+
+    feature_parser = commands.add_parser(
+        "features", help="materialize and audit configured model features"
+    )
+    feature_parser.add_argument("--config", required=True)
+
+    plan_parser = commands.add_parser(
+        "plan", help="validate and freeze the evaluation protocol"
+    )
+    plan_parser.add_argument("--config", required=True)
     return parser
 
 
@@ -148,6 +163,36 @@ def main(argv: Sequence[str] | None = None) -> None:
             except DatabaseError as error:
                 raise RuntimeError(
                     f"PostgreSQL record binding failed: {error}"
+                ) from error
+        elif args.command == "phot":
+            from glob_umap.phot import normalize_photometry
+            from psycopg import Error as DatabaseError
+
+            try:
+                normalize_photometry(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(
+                    f"PostgreSQL photometry normalization failed: {error}"
+                ) from error
+        elif args.command == "features":
+            from glob_umap.feature import build_features
+            from psycopg import Error as DatabaseError
+
+            try:
+                build_features(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(
+                    f"PostgreSQL feature construction failed: {error}"
+                ) from error
+        elif args.command == "plan":
+            from glob_umap.plan import freeze_plan
+            from psycopg import Error as DatabaseError
+
+            try:
+                freeze_plan(args.config, report=print)
+            except DatabaseError as error:
+                raise RuntimeError(
+                    f"PostgreSQL evaluation-plan validation failed: {error}"
                 ) from error
     except (OSError, RuntimeError, ValueError) as error:
         raise SystemExit(f"glob-umap: error: {error}") from None

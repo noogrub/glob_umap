@@ -1,0 +1,55 @@
+photometry:
+  name: clean_observed_photometry
+  sample: clean_reciprocal
+  on_existing: fail
+  report_path: data/interim/phot_manifest.json
+  reddening_policy:
+    mode: observed
+    uncertainty: catalogue_only
+    note: >-
+      Preserve the downloaded observed magnitudes. The comparison paper says
+      that it corrected both surveys for reddening but does not state the
+      FDS u-band coefficient. A separately named sensitivity configuration
+      will apply corrections only after that coefficient is sourced or
+      confirmed.
+
+sources:
+  - catalog: fds_aa_639_a136
+    source_role: reference
+    table: raw.fds
+    measure: psf
+    aperture_diameter_px: null
+    reddening_column: ebv
+    measurements:
+      - band: u
+        magnitude_column: u_mag
+        error_column: u_mag_err
+        missing_magnitude_values: []
+
+  - catalog: des_dr2_fornax
+    source_role: target
+    table: raw.des
+    measure: aperture_5
+    aperture_diameter_px: 11.11
+    reddening_column: ebv_sfd98
+    measurements:
+      - band: g
+        magnitude_column: g_mag_ap5
+        error_column: g_mag_ap5_err
+        missing_magnitude_values: [99.0]
+      - band: r
+        magnitude_column: r_mag_ap5
+        error_column: r_mag_ap5_err
+        missing_magnitude_values: [99.0]
+      - band: i
+        magnitude_column: i_mag_ap5
+        error_column: i_mag_ap5_err
+        missing_magnitude_values: [99.0]
+      - band: z
+        magnitude_column: z_mag_ap5
+        error_column: z_mag_ap5_err
+        missing_magnitude_values: [99.0]
+      - band: y
+        magnitude_column: y_mag_ap5
+        error_column: y_mag_ap5_err
+        missing_magnitude_values: [99.0]

@@ -8,6 +8,7 @@ BEGIN;
 \ir 32_label_evidence.sql
 \ir 40_ml.sql
 \ir 41_member_record.sql
+\ir 42_feature.sql
 COMMIT;
 
 \ir 90_verify.sql
