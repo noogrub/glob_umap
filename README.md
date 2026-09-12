@@ -19,6 +19,14 @@ files in full:
 These files define the project scope, collaboration boundary, database
 architecture, evaluation policy, graphing standard, and naming requirements.
 
+## Repository authority
+
+John has designated `noogrub/glob_umap` as the shared working repository for
+this project. Codex is authorized to create, modify, commit, and push ordinary
+project work here without requesting renewed permission for each push.
+Destructive operations, history rewrites, secrets, and actions outside this
+repository still require their normal safeguards.
+
 For database creation or schema work, also read
 [sql/README.md](sql/README.md).
 
