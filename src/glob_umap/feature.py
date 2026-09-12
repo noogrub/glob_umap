@@ -129,7 +129,8 @@ def _sample(connection: Any, name: str) -> tuple[int, int]:
             """
             SELECT s.sample_id, count(m.object_id)
             FROM ml.sample AS s
-            LEFT JOIN ml.member AS m USING (sample_id)
+            LEFT JOIN ml.member AS m
+              ON m.sample_id = s.sample_id
             WHERE s.name = %s
             GROUP BY s.sample_id
             """,
@@ -282,7 +283,8 @@ def _insert_color(
                        + right_band.mag_err * right_band.mag_err
                    )
             FROM left_band
-            JOIN right_band USING (object_id)
+            JOIN right_band
+              ON right_band.object_id = left_band.object_id
             ORDER BY left_band.object_id
             """,
             (

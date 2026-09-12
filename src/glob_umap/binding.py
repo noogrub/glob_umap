@@ -129,9 +129,11 @@ def _insert_reference(
             )
             SELECT m.sample_id, m.object_id, %s, o.origin_record_id
             FROM ml.member AS m
-            JOIN core.object AS o USING (object_id)
+            JOIN core.object AS o
+              ON o.object_id = m.object_id
             JOIN core.record AS r ON r.record_id = o.origin_record_id
-            JOIN core.catalog AS c USING (catalog_id)
+            JOIN core.catalog AS c
+              ON c.catalog_id = r.catalog_id
             WHERE m.sample_id = %s
               AND c.code = %s
             ORDER BY m.object_id
@@ -166,11 +168,13 @@ def _target_query(
                    row_number() OVER (
                        PARTITION BY m.object_id
                        ORDER BY m.angular_sep_arcsec, m.record_id
-                   ) AS reference_rank
+            ) AS reference_rank
             FROM core.match AS m
-            JOIN core.match_run AS mr USING (match_run_id)
+            JOIN core.match_run AS mr
+              ON mr.match_run_id = m.match_run_id
             JOIN core.record AS r ON r.record_id = m.record_id
-            JOIN core.catalog AS c USING (catalog_id)
+            JOIN core.catalog AS c
+              ON c.catalog_id = r.catalog_id
             WHERE mr.name = %s
               AND c.code = %s
         ), selected AS (
@@ -183,7 +187,8 @@ def _target_query(
         )
         SELECT members.sample_id, members.object_id, %s, selected.record_id
         FROM ml.member AS members
-        JOIN selected USING (object_id)
+        JOIN selected
+          ON selected.object_id = members.object_id
         WHERE members.sample_id = %s
         ORDER BY members.object_id
         """
@@ -208,8 +213,10 @@ def _binding_summary(
                    count(*) AS bindings,
                    count(DISTINCT mr.record_id) AS distinct_records
             FROM ml.member_record AS mr
-            JOIN core.record AS r USING (record_id)
-            JOIN core.catalog AS c USING (catalog_id)
+            JOIN core.record AS r
+              ON r.record_id = mr.record_id
+            JOIN core.catalog AS c
+              ON c.catalog_id = r.catalog_id
             WHERE mr.sample_id = %s
             GROUP BY mr.source_role, c.code
             ORDER BY mr.source_role, c.code
@@ -241,7 +248,8 @@ def _binding_sha256(connection: Any, sample_id: int) -> str:
                    bound_catalog.code,
                    bound.source_key::jsonb ->> 1 AS bound_source_row
             FROM ml.member AS m
-            JOIN core.object AS o USING (object_id)
+            JOIN core.object AS o
+              ON o.object_id = m.object_id
             JOIN core.record AS origin
               ON origin.record_id = o.origin_record_id
             JOIN core.catalog AS origin_catalog

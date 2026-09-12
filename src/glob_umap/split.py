@@ -157,10 +157,12 @@ def _split_query(
                        PARTITION BY m.target_class
                    ) AS class_count
             FROM ml.member AS m
-            JOIN core.object AS o USING (object_id)
+            JOIN core.object AS o
+              ON o.object_id = m.object_id
             JOIN core.record AS origin
               ON origin.record_id = o.origin_record_id
-            JOIN core.catalog AS c USING (catalog_id)
+            JOIN core.catalog AS c
+              ON c.catalog_id = origin.catalog_id
             WHERE m.sample_id = %s
               AND m.split = %s::text
         ), assigned AS (
@@ -204,10 +206,12 @@ def _assignment_sha256(connection: Any, sample_id: int) -> str:
                    m.target_class,
                    m.split
             FROM ml.member AS m
-            JOIN core.object AS o USING (object_id)
+            JOIN core.object AS o
+              ON o.object_id = m.object_id
             JOIN core.record AS origin
               ON origin.record_id = o.origin_record_id
-            JOIN core.catalog AS c USING (catalog_id)
+            JOIN core.catalog AS c
+              ON c.catalog_id = origin.catalog_id
             WHERE m.sample_id = %s
             ORDER BY c.code,
                      (origin.source_key::jsonb ->> 1)::bigint

@@ -78,3 +78,22 @@ artifacts/run_0042/
 The accompanying manifest records parameters, input checksums, timestamps, versions, and row counts. The filename does not need to become a miniature database.
 
 Finally, every filtering stage should produce a count ledger: records read, rejected, matched, ambiguous, missing bands, retained, labeled, and assigned to each sample. That ledger will help us reconstruct the paper’s unexplained count transitions—and ensure that we never create unexplained transitions of our own.
+
+## Database code and release policy
+
+SQL joins use explicit, qualified keys with `JOIN ... ON`. `NATURAL JOIN` and
+`JOIN ... USING` are not used in project code because they hide which relation
+supplies a shared column and can become ambiguous as a query grows.
+
+Database-writing stages are transactional and fail rather than silently
+replace an existing scientific artifact. Unit tests validate Python behavior
+and configuration contracts. A separate PostgreSQL integration test executes
+the production binding, photometry, feature, and plan configurations against a
+small disposable database named exactly `gc_ml_test`.
+
+A release marking a scientific-data milestone requires:
+
+- passing unit and PostgreSQL integration tests;
+- committed configuration and provenance manifests;
+- a verified PostgreSQL snapshot stored outside the repository; and
+- an unchanged final-test population that has not informed model selection.

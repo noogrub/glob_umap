@@ -241,3 +241,28 @@ source contract, row-key continuity, ownership, and privileges with
 `sql/91_audit_raw.sql`. The file checksum is independently verified by the
 `glob-umap preflight` command. Administrator-only recovery instructions are
 maintained in `sql/README.md`.
+
+## Database integration testing
+
+Python unit tests cannot establish that generated SQL is valid under
+PostgreSQL's name-resolution, type, constraint, and transaction rules. The
+database-backed test suite therefore uses a dedicated database named exactly
+`gc_ml_test`. It refuses another name, rebuilds only that database's project
+schemas, seeds six synthetic objects, and executes the real production
+configurations through binding, photometry normalization, feature construction,
+and evaluation-plan validation.
+
+Production SQL uses explicit qualified join predicates. This makes the
+relationship between normalized tables visible and prevents a later join from
+making an earlier unqualified column ambiguous.
+
+## Database snapshots
+
+The authoritative database remains `gc_ml`; `gc_ml_test` is disposable. A
+publication milestone receives a custom-format `pg_dump` archive, a
+`pg_dumpall --globals-only --no-role-passwords` export for the `gc` and
+`gc_raw_owner` roles, an
+archive-content listing, and SHA-256 checksums. While the RAID10 target is
+offline, timestamped snapshots are staged beneath
+`/home/jwb/postgres-snapshots/gc_ml/` and copied to a separate physical drive.
+Database archives are not stored in Git.

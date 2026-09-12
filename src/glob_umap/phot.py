@@ -78,7 +78,8 @@ def _sample(connection: Any, name: str) -> tuple[int, int]:
             """
             SELECT s.sample_id, count(m.object_id)
             FROM ml.sample AS s
-            LEFT JOIN ml.member AS m USING (sample_id)
+            LEFT JOIN ml.member AS m
+              ON m.sample_id = s.sample_id
             WHERE s.name = %s
             GROUP BY s.sample_id
             """,
@@ -128,9 +129,12 @@ def _require_absent(
         """
         SELECT count(*)
         FROM core.phot AS p
-        JOIN core.record AS r USING (record_id)
-        JOIN core.catalog AS c USING (catalog_id)
-        JOIN ml.member_record AS mr USING (record_id)
+        JOIN core.record AS r
+          ON r.record_id = p.record_id
+        JOIN core.catalog AS c
+          ON c.catalog_id = r.catalog_id
+        JOIN ml.member_record AS mr
+          ON mr.record_id = p.record_id
         WHERE mr.sample_id = %s AND ({predicate})
         """
     ).format(predicate=predicate)
@@ -161,8 +165,10 @@ def _insert_measurement(
         SELECT count(*)
         FROM {table} AS source
         JOIN core.record AS r ON r.raw_ingest_id = source.ingest_id
-        JOIN core.catalog AS c USING (catalog_id)
-        JOIN ml.member_record AS mr USING (record_id)
+        JOIN core.catalog AS c
+          ON c.catalog_id = r.catalog_id
+        JOIN ml.member_record AS mr
+          ON mr.record_id = r.record_id
         WHERE mr.sample_id = %s
           AND mr.source_role = %s
           AND c.code = %s
@@ -235,8 +241,10 @@ def _insert_measurement(
                %s
         FROM {table} AS source
         JOIN core.record AS r ON r.raw_ingest_id = source.ingest_id
-        JOIN core.catalog AS c USING (catalog_id)
-        JOIN ml.member_record AS mr USING (record_id)
+        JOIN core.catalog AS c
+          ON c.catalog_id = r.catalog_id
+        JOIN ml.member_record AS mr
+          ON mr.record_id = r.record_id
         WHERE mr.sample_id = %s
           AND mr.source_role = %s
           AND c.code = %s
@@ -317,9 +325,12 @@ def _phot_sha256(connection: Any, config: PhotConfig, sample_id: int) -> str:
                p.mag_err,
                p.aperture_px
         FROM core.phot AS p
-        JOIN core.record AS r USING (record_id)
-        JOIN core.catalog AS c USING (catalog_id)
-        JOIN ml.member_record AS mr USING (record_id)
+        JOIN core.record AS r
+          ON r.record_id = p.record_id
+        JOIN core.catalog AS c
+          ON c.catalog_id = r.catalog_id
+        JOIN ml.member_record AS mr
+          ON mr.record_id = p.record_id
         WHERE mr.sample_id = %s AND (
         """
         + " OR ".join(clauses)

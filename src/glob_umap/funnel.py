@@ -139,7 +139,8 @@ def population_ctes(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
                        ORDER BY m.angular_sep_arcsec, m.record_id
                    ) AS reference_rank
             FROM core.match AS m
-            JOIN core.match_run AS mr USING (match_run_id)
+            JOIN core.match_run AS mr
+              ON mr.match_run_id = m.match_run_id
             JOIN core.record AS tr ON tr.record_id = m.record_id
             JOIN core.catalog AS tc ON tc.catalog_id = tr.catalog_id
             WHERE mr.name = %s AND tc.code = %s
@@ -156,7 +157,8 @@ def population_ctes(config: SampleConfig) -> tuple[sql.Composed, list[Any]]:
                    {} AS is_galaxy_candidate,
                    {} AS is_star_candidate
             FROM pairs AS p
-            JOIN core.object AS o USING (object_id)
+            JOIN core.object AS o
+              ON o.object_id = p.object_id
             JOIN core.record AS rr ON rr.record_id = o.origin_record_id
             JOIN core.catalog AS rc ON rc.catalog_id = rr.catalog_id
             JOIN {} AS reference ON reference.ingest_id = rr.raw_ingest_id
@@ -199,9 +201,10 @@ def _catalog_record_count(connection: Any, catalog_code: str) -> int:
         cursor.execute(
             """
             SELECT count(*)
-            FROM core.record
-            JOIN core.catalog USING (catalog_id)
-            WHERE code = %s
+            FROM core.record AS r
+            JOIN core.catalog AS c
+              ON c.catalog_id = r.catalog_id
+            WHERE c.code = %s
             """,
             (catalog_code,),
         )

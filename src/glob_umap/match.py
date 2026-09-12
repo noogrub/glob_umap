@@ -68,11 +68,12 @@ def _records(
     with connection.cursor() as cursor:
         cursor.execute(
             """
-            SELECT record_id, ra_deg, dec_deg
-            FROM core.record
-            JOIN core.catalog USING (catalog_id)
-            WHERE code = %s
-            ORDER BY record_id
+            SELECT r.record_id, r.ra_deg, r.dec_deg
+            FROM core.record AS r
+            JOIN core.catalog AS c
+              ON c.catalog_id = r.catalog_id
+            WHERE c.code = %s
+            ORDER BY r.record_id
             """,
             (catalog_code,),
         )
@@ -140,11 +141,12 @@ def _seed_objects(connection: Any, catalog_code: str) -> np.ndarray:
         cursor.execute(
             """
             INSERT INTO core.object (origin_record_id, ra_deg, dec_deg)
-            SELECT record_id, ra_deg, dec_deg
-            FROM core.record
-            JOIN core.catalog USING (catalog_id)
-            WHERE code = %s
-            ORDER BY record_id
+            SELECT r.record_id, r.ra_deg, r.dec_deg
+            FROM core.record AS r
+            JOIN core.catalog AS c
+              ON c.catalog_id = r.catalog_id
+            WHERE c.code = %s
+            ORDER BY r.record_id
             RETURNING object_id, origin_record_id
             """,
             (catalog_code,),

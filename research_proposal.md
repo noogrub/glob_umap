@@ -75,6 +75,15 @@ crossmatching and preprocessing details. A second analysis using the nearest
 DES match for each FDS source will measure how sensitive the results are to the
 crossmatching policy.
 
+As of September 12, the complete analysis input is frozen. Every sample member
+is bound to exact FDS and DES source records; all 328,794 six-band photometric
+measurements are normalized; and six magnitudes plus all 15 pairwise colors
+are materialized. The 15-color matrix has numerical rank five and satisfies
+the expected color identities exactly at the recorded precision. The fixed
+outer partition contains 43,840 development objects and 10,959 untouched
+final-test objects. Stable digests for the split, bindings, photometry, and
+features are committed with the project.
+
 ## Computational experiment
 
 The work will proceed in four stages.

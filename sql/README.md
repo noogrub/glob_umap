@@ -162,3 +162,26 @@ be true. `gc_can_create` and every `gc_raw_owner` capability should be false.
 The files are safe to re-run for initial creation. `IF NOT EXISTS` does not
 upgrade an older table definition. Later schema changes require explicit,
 ordered migration files.
+
+## PostgreSQL integration test
+
+The unit tests do not execute SQL. Use a separate database named exactly
+`gc_ml_test` for the database-backed pipeline test:
+
+```bash
+cd /tmp
+sudo -u postgres createdb --owner=gc gc_ml_test
+
+cd /home/jwb/Code/glob_umap
+GC_ML_TEST_DATABASE=gc_ml_test \
+  python -m unittest discover -s integration_tests -v
+```
+
+Add an explicit `gc_ml_test` entry to `.pgpass` before running the test. The
+test refuses any other database name, rebuilds only the test database's
+project schemas, and runs the production configurations from exact record
+binding through evaluation-plan validation. The `gc_ml` database is not
+modified.
+
+Project SQL uses explicit qualified `JOIN ... ON` predicates. Do not introduce
+`NATURAL JOIN` or `JOIN ... USING` into executable project queries.

@@ -77,7 +77,6 @@ class FeatureConfigTest(unittest.TestCase):
         self.assertEqual(magnitude_count, 17)
         self.assertEqual(color_count, 17)
 
-
     def test_digest_joins_object_by_explicit_feature_key(self) -> None:
         source = inspect.getsource(_feature_sha256)
 

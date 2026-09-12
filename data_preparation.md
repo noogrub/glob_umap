@@ -703,6 +703,39 @@ the frozen plan manifest with:
 glob-umap plan --config config/exp/core.yaml
 ```
 
+## Frozen analysis input: September 12, 2026
+
+The conservative sample, exact record bindings, observed photometry, feature
+set, and evaluation protocol are now materialized and committed.
+
+| Contract | Result |
+|---|---:|
+| Sample members | 54,799 |
+| Globular clusters | 1,402 |
+| Galaxies | 49,667 |
+| Stars | 3,730 |
+| Development members | 43,840 |
+| Final-test members | 10,959 |
+| Reference-record bindings | 54,799 |
+| Target-record bindings | 54,799 |
+| Normalized photometry rows | 328,794 |
+| Magnitude features | 6 per member |
+| Pairwise-color features | 15 per member |
+| Numerical color rank | 5 |
+| Maximum color-identity residual | 0.000e+00 |
+
+Stable digests bind the principal contracts:
+
+| Contract | SHA-256 |
+|---|---|
+| Outer split | `07913d9c48e8fe54c85c94c2eb693fd160140b4ce4d257a830403d77441ede33` |
+| Catalogue-record bindings | `fba8f9005483657ed103d66723c5ccf249e3828fb6efc45cb55ccc0d79fbf2da` |
+| Normalized photometry | `71ffc6857084611a1a483c6a2fa2a3248edce3867f20931f6dcbe510cec6c61e` |
+| Feature set | `94d6cd78995ba188d7640519f16d2a5c3999b136ebcf3174c3a9e242e4647d31` |
+
+The final test set remains locked. No PCA, UMAP, classifier, or threshold
+result was inspected before this contract was frozen.
+
 ## Decisions and remaining uncertainty
 
 Confirmed decisions:

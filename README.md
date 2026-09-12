@@ -287,3 +287,72 @@ target 30 percent GC recall, then applied unchanged to the test set. The plan
 also declares UMAP stability seeds and paired stratified bootstrap uncertainty.
 The command is read-only and writes `data/interim/evaluation_plan.json` only
 after verifying the sample, split, bindings, photometry, and feature digest.
+
+## Frozen data-foundation milestone
+
+The first publication-grade analysis input was frozen on September 12, 2026.
+It contains 54,799 labeled objects: 1,402 globular clusters, 49,667 galaxies,
+and 3,730 stars. The fixed outer partition contains 43,840 development objects
+and 10,959 final-test objects. The final-test population has not been used for
+representation or model selection.
+
+Each member is bound to one exact FDS reference record and one exact DES target
+record. The observed-photometry layer contains one FDS PSF `u` measurement and
+five DES aperture-5 `grizY` measurements per member. The feature layer contains
+six magnitudes and all 15 pairwise colors per member; its color matrix has the
+expected numerical rank of five and zero maximum algebraic-identity residual at
+the recorded precision.
+
+The binding, split, photometry, and feature digests are recorded in the
+committed manifests under `data/interim/`. This milestone freezes inputs and
+evaluation policy, not model results.
+
+## PostgreSQL integration test
+
+Unit tests do not execute SQL against PostgreSQL. Before a release or database
+stage change, run the dedicated integration test against the disposable
+database named exactly `gc_ml_test`. The test refuses any other database name
+and never targets `gc_ml`.
+
+Create the database once as an administrator, add a matching `gc_ml_test` entry
+to `.pgpass`, then run:
+
+```bash
+cd /tmp
+sudo -u postgres createdb --owner=gc gc_ml_test
+
+cd /home/jwb/Code/glob_umap
+GC_ML_TEST_DATABASE=gc_ml_test \
+  python -m unittest discover -s integration_tests -v
+```
+
+The test rebuilds only the `raw`, `core`, and `ml` schemas in `gc_ml_test`,
+loads a six-object fixture, and executes the production configurations through
+record binding, photometry normalization, feature construction, and evaluation
+plan validation.
+
+## Database snapshot
+
+Until the RAID10 target is available, verified database snapshots reside on
+the Elonius system drive beneath `/home/jwb/postgres-snapshots/gc_ml/`. The
+snapshot directory itself is not committed. Create a custom-format database
+archive, preserve the required PostgreSQL roles, list the archive contents, and
+checksum every output:
+
+```bash
+umask 077
+snapshot_dir="/home/jwb/postgres-snapshots/gc_ml/$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir -p "$snapshot_dir"
+pg_dump --format=custom --compress=9 --dbname=gc_ml \
+  --file="$snapshot_dir/gc_ml.dump"
+(cd /tmp && sudo -u postgres pg_dumpall --globals-only --no-role-passwords) \
+  > "$snapshot_dir/globals.sql"
+pg_restore --list "$snapshot_dir/gc_ml.dump" \
+  > "$snapshot_dir/gc_ml.list"
+sha256sum "$snapshot_dir/gc_ml.dump" "$snapshot_dir/globals.sql" \
+  "$snapshot_dir/gc_ml.list" > "$snapshot_dir/SHA256SUMS"
+sha256sum --check "$snapshot_dir/SHA256SUMS"
+```
+
+Copy the complete timestamped directory to a separate physical drive while
+the RAID10 device is offline.

@@ -250,7 +250,8 @@ def _insert_des_class(
                    ) AS reference_rank,
                    m.angular_sep_arcsec
             FROM core.match AS m
-            JOIN core.match_run AS mr USING (match_run_id)
+            JOIN core.match_run AS mr
+              ON mr.match_run_id = m.match_run_id
             JOIN core.record AS tr ON tr.record_id = m.record_id
             JOIN core.catalog AS tc ON tc.catalog_id = tr.catalog_id
             WHERE mr.name = %s AND tc.code = %s

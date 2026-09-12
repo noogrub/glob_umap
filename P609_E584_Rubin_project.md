@@ -89,17 +89,17 @@ This supports several coordinated views:
 
 The most distinctive visualization follows the same object through:
 
-[
-	ext{detector position}
-ightarrow
-	ext{pixel artifact}
-ightarrow
-	ext{photometric change}
-ightarrow
-	ext{latent displacement}
-ightarrow
-	ext{classification outcome}.
-]
+$$
+\text{detector position}
+\rightarrow
+\text{pixel artifact}
+\rightarrow
+\text{photometric change}
+\rightarrow
+\text{latent displacement}
+\rightarrow
+\text{classification outcome}.
+$$
 
 ParaView exports may include:
 
@@ -184,6 +184,15 @@ Target outputs:
 - three-dimensional UMAP view colored by class evidence or probability.
 
 A small radiation pilot is desirable but secondary. It may perturb selected photometric vectors with one simple configured fault model and show their movement through the fixed latent space.
+
+### Status on September 12
+
+The catalogue foundation is complete. The 54,799-member conservative sample,
+80/20 outer split, exact FDS and DES record bindings, six-band observed
+photometry, six magnitudes, 15 colors, and evaluation plan are frozen and
+provenance-bearing. The development population contains 43,840 objects; the
+untouched final-test population contains 10,959. The next scientific stage is
+the development-only identity/PCA/UMAP comparison.
 
 The recruiting summary is:
 
