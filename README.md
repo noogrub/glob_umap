@@ -15,6 +15,7 @@ files in full:
 2. [database_design.md](database_design.md)
 3. [policy.md](policy.md)
 4. [data_preparation.md](data_preparation.md)
+5. [core_architecture.md](core_architecture.md)
 
 These files define the project scope, collaboration boundary, database
 architecture, evaluation policy, graphing standard, and naming requirements.
