@@ -1,10 +1,11 @@
+import inspect
 import shutil
 import tempfile
 import unittest
 from pathlib import Path
 
 from glob_umap.cli import _parser
-from glob_umap.feature import _insert_color, _insert_magnitude
+from glob_umap.feature import _feature_sha256, _insert_color, _insert_magnitude
 from glob_umap.feature_config import load_feature_config
 
 
@@ -75,6 +76,13 @@ class FeatureConfigTest(unittest.TestCase):
 
         self.assertEqual(magnitude_count, 17)
         self.assertEqual(color_count, 17)
+
+
+    def test_digest_joins_object_by_explicit_feature_key(self) -> None:
+        source = inspect.getsource(_feature_sha256)
+
+        self.assertIn("ON o.object_id = f.object_id", source)
+        self.assertNotIn("JOIN core.object AS o USING (object_id)", source)
 
 
 if __name__ == "__main__":
