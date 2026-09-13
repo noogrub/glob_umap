@@ -1,0 +1,211 @@
+Dev Notes
+jburgoon
+9-12-2026
+
+Goal: write the query to characterize our data set
+
+Our first desired matrix is:
+  sample: clean_reciprocal
+  split: train
+  feature set: clean_observed
+  columns, in order: u_g, g_r, r_i, i_z, z_y
+  one row per astronomical object
+  target label retained beside each row
+
+Start by verifying shape in PostgreSQL:
+psql -c "
+WITH development AS (
+    SELECT m.object_id,
+           m.target_class,
+           count(f.name) AS feature_count
+    FROM ml.sample AS s
+    JOIN ml.member AS m
+      ON m.sample_id = s.sample_id
+    JOIN ml.feature_set AS fs
+      ON fs.sample_id = s.sample_id
+    JOIN ml.feature AS f
+      ON f.feature_set_id = fs.feature_set_id
+     AND f.object_id = m.object_id
+    WHERE s.name = 'clean_reciprocal'
+      AND fs.name = 'clean_observed'
+      AND m.split = 'train'
+      AND f.name = ANY (
+          ARRAY['u_g', 'g_r', 'r_i', 'i_z', 'z_y']
+      )
+    GROUP BY m.object_id, m.target_class
+)
+SELECT target_class,
+       count(*) AS objects,
+       min(feature_count) AS minimum_features,
+       max(feature_count) AS maximum_features
+FROM development
+GROUP BY target_class
+ORDER BY target_class;"
+
+   target_class   | objects | minimum_features | maximum_features 
+------------------+---------+------------------+------------------
+ galaxy           |   39734 |                5 |                5
+ globular_cluster |    1122 |                5 |                5
+ star             |    2984 |                5 |                5
+(3 rows)
+
+Every target should have exactly 5 features. That was the point of our data preparation and filtering.
+
+We need to construct the query that returns each object’s five values in a guaranteed order and convert that result to NumPy arrays.
+The pathway for that is:
+- ml.sample identifies clean_reciprocal
+- ml.member identifies its objects, split, and target class.
+- ml.feature_set identifies clean_observed.
+- ml.feature stores each feature as one row: object, feature name, value, and uncertainty
+
+(.venv) jwb@elonius:~/Code/glob_umap$ psql -x -c "
+SELECT s.sample_id,
+       s.name,
+       s.config_sha256
+FROM ml.sample AS s
+WHERE s.name = 'clean_reciprocal';"
+
+-[ RECORD 1 ]-+-----------------------------------------------------------------
+sample_id     | 1
+name          | clean_reciprocal
+config_sha256 | 9ba5071c6f7135fdefadab19e489ee8d4d3ac5a3351dad3d037427c34c2ef507
+
+(.venv) jwb@elonius:~/Code/glob_umap$ psql -x -c "
+SELECT fs.feature_set_id,
+       fs.sample_id,
+       fs.name,
+       fs.feature_sha256
+FROM ml.feature_set AS fs
+WHERE fs.name = 'clean_observed';"
+
+-[ RECORD 1 ]--+-----------------------------------------------------------------
+feature_set_id | 2
+sample_id      | 1
+name           | clean_observed
+feature_sha256 | 94d6cd78995ba188d7640519f16d2a5c3999b136ebcf3174c3a9e242e4647d31
+
+Now follow the first development object to its five adjacent colors:
+psql -c "
+WITH chosen AS (
+    SELECT m.sample_id,
+           m.object_id,
+           m.split,
+           m.target_class
+    FROM ml.sample AS s
+    JOIN ml.member AS m
+      ON m.sample_id = s.sample_id
+    WHERE s.name = 'clean_reciprocal'
+      AND m.split = 'train'
+    ORDER BY m.object_id
+    LIMIT 1
+)
+SELECT chosen.object_id,
+       chosen.split,
+       chosen.target_class,
+       f.name,
+       f.value,
+       f.uncertainty
+FROM chosen
+JOIN ml.feature_set AS fs
+  ON fs.sample_id = chosen.sample_id
+JOIN ml.feature AS f
+  ON f.feature_set_id = fs.feature_set_id
+ AND f.object_id = chosen.object_id
+WHERE fs.name = 'clean_observed'
+  AND f.name = ANY (
+      ARRAY['u_g', 'g_r', 'r_i', 'i_z', 'z_y']
+  )
+ORDER BY array_position(
+    ARRAY['u_g', 'g_r', 'r_i', 'i_z', 'z_y'],
+    f.name
+);"
+
+ object_id | split | target_class | name |        value        |     uncertainty      
+-----------+-------+--------------+------+---------------------+----------------------
+         1 | train | galaxy       | u_g  | 0.27982700000000094 |  0.13231713497905434
+         1 | train | galaxy       | g_r  |  0.9794659999999986 | 0.058301391373912964
+         1 | train | galaxy       | r_i  | 0.26819599999999966 | 0.048749025292912154
+         1 | train | galaxy       | i_z  | 0.26435100000000133 |  0.07651274697011604
+         1 | train | galaxy       | z_y  |  0.1949949999999987 |  0.19651304816980802
+(5 rows)
+
+
+Here is a sample of three targets, ordered by their object_id and then by the 5 paramters in correct order:
+ object_id | split | target_class | name |         value         |     uncertainty      
+-----------+-------+--------------+------+-----------------------+----------------------
+         1 | train | galaxy       | u_g  |   0.27982700000000094 |  0.13231713497905434
+         1 | train | galaxy       | g_r  |    0.9794659999999986 | 0.058301391373912964
+         1 | train | galaxy       | r_i  |   0.26819599999999966 | 0.048749025292912154
+         1 | train | galaxy       | i_z  |   0.26435100000000133 |  0.07651274697011604
+         1 | train | galaxy       | z_y  |    0.1949949999999987 |  0.19651304816980802
+        14 | train | galaxy       | u_g  |    0.9383879999999998 |  0.11459335025596909
+        14 | train | galaxy       | g_r  |    0.5292740000000009 | 0.030497600979563378
+        14 | train | galaxy       | r_i  |   0.15756999999999977 |  0.03422335024504002
+        14 | train | galaxy       | i_z  |   0.08842299999999881 |  0.06156314811181788
+        14 | train | galaxy       | z_y  |   0.08512999999999948 |  0.15741832589731858
+        15 | train | galaxy       | u_g  |    0.6700990000000004 |   0.1784673712428199
+        15 | train | galaxy       | g_r  |    0.8649510000000014 |  0.05465805104921781
+        15 | train | galaxy       | r_i  |   0.15619999999999834 | 0.049628646756257715
+        15 | train | galaxy       | i_z  |    0.1465519999999998 |  0.08869346905998159
+        15 | train | galaxy       | z_y  | -0.019216000000000122 |  0.23898214754539512
+(15 rows)
+
+Numerical code needs one object per row and one feature per column. Let's perform that reshaping while treating feature order as explicit data:
+
+(.venv) jwb@elonius:~/Code/glob_umap$ psql -x -c "
+WITH requested AS (
+    SELECT item.name, item.position
+    FROM unnest(
+        ARRAY['u_g', 'g_r', 'r_i', 'i_z', 'z_y']::text[]
+    ) WITH ORDINALITY AS item(name, position)
+),
+chosen AS (
+    SELECT m.sample_id,
+           m.object_id,
+           m.target_class
+    FROM ml.sample AS s
+    JOIN ml.member AS m
+      ON m.sample_id = s.sample_id
+    WHERE s.name = 'clean_reciprocal'
+      AND m.split = 'train'
+    ORDER BY m.object_id
+    LIMIT 3
+)
+SELECT chosen.object_id,
+       chosen.target_class,
+       array_agg(f.value ORDER BY requested.position) AS values
+FROM chosen
+JOIN ml.feature_set AS fs
+  ON fs.sample_id = chosen.sample_id
+JOIN ml.feature AS f
+  ON f.feature_set_id = fs.feature_set_id
+ AND f.object_id = chosen.object_id
+JOIN requested
+  ON requested.name = f.name
+WHERE fs.name = 'clean_observed'
+GROUP BY chosen.object_id, chosen.target_class
+HAVING count(*) = (SELECT count(*) FROM requested)
+ORDER BY chosen.object_id;"
+-[ RECORD 1 ]+-----------------------------------------------------------------------------------------------------
+object_id    | 1
+target_class | galaxy
+values       | {0.27982700000000094,0.9794659999999986,0.26819599999999966,0.26435100000000133,0.1949949999999987}
+-[ RECORD 2 ]+-----------------------------------------------------------------------------------------------------
+object_id    | 14
+target_class | galaxy
+values       | {0.9383879999999998,0.5292740000000009,0.15756999999999977,0.08842299999999881,0.08512999999999948}
+-[ RECORD 3 ]+-----------------------------------------------------------------------------------------------------
+object_id    | 15
+target_class | galaxy
+values       | {0.6700990000000004,0.8649510000000014,0.15619999999999834,0.1465519999999998,-0.019216000000000122}
+
+************************
+The eventual Python function should obtain four choices from configuration:
+  sample name;
+  split name;
+  feature-set name;
+  ordered feature names.
+
+We just need to use that configuration to execute this query through psycopg and convert the returned arrays using numpy.
+
+
