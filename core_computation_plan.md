@@ -20,7 +20,7 @@ The core computation will work like this:
 | Setting | Why it exists | How the code uses it |
 |---|---|---|
 | `Numerical dtype` | Floating-point precision affects scaling, SVD, distances, and probability calculations | Database values become NumPy arrays of the declared type; every numerical boundary verifies that type |
-| `Finite-value policy` | NaN and infinity can arise from bad inputs, division by zero, overflow, or failed transformations | Validation runs after loading, scaling, embedding, and prediction; our initial policy will be reject
+| `Finite-value policy` | NaN and infinity can arise from bad inputs, division by zero, overflow, or failed transformations | Validation runs after loading, scaling, embedding, and prediction; our initial policy will be reject/halt immediately
 | `SVD driver` | PCA requires a singular-value decomposition | Our fit_pca() function calls scipy.linalg.svd() using the configured LAPACK driver |
 | `Rank tolerance` | Very small singular values may be numerical noise rather than meaningful dimensions | pca_diagnostics() compares singular values with the configured tolerance to determine numerical rank |
 | `Selection tie rule` | Two candidates can have equal or nearly equal evaluation scores | select_candidate() uses a stated tolerance and deterministic secondary rule |
