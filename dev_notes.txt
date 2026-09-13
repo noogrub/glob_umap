@@ -208,4 +208,96 @@ The eventual Python function should obtain four choices from configuration:
 
 We just need to use that configuration to execute this query through psycopg and convert the returned arrays using numpy.
 
+Before we do that, let's adjust our appraoach to use catalog identities instead of our internal database "object_id" value. Catalog identities are immutable. A rebuilt database could theoretically assign different object IDs. The catalog identity remains tied to the documented, checksummed source.
+
+(.venv) jwb@elonius:~/Code/glob_umap$ psql -c "
+SELECT m.object_id,
+       catalog.code AS origin_catalog,
+       origin.source_key,
+       m.target_class
+FROM ml.sample AS s
+JOIN ml.member AS m
+  ON m.sample_id = s.sample_id
+JOIN core.object AS o
+  ON o.object_id = m.object_id
+JOIN core.record AS origin
+  ON origin.record_id = o.origin_record_id
+JOIN core.catalog AS catalog
+  ON catalog.catalog_id = origin.catalog_id
+WHERE s.name = 'clean_reciprocal'
+  AND m.split = 'train'
+ORDER BY catalog.code,
+         (origin.source_key::jsonb ->> 1)::bigint
+LIMIT 5;"
+
+ object_id | origin_catalog  |                source_key                 | target_class 
+-----------+-----------------+-------------------------------------------+--------------
+         1 | fds_aa_639_a136 | ["data/raw/fds/fds_ngc1399_1deg.csv", 1]  | galaxy
+        14 | fds_aa_639_a136 | ["data/raw/fds/fds_ngc1399_1deg.csv", 14] | galaxy
+        15 | fds_aa_639_a136 | ["data/raw/fds/fds_ngc1399_1deg.csv", 15] | galaxy
+        23 | fds_aa_639_a136 | ["data/raw/fds/fds_ngc1399_1deg.csv", 23] | galaxy
+        29 | fds_aa_639_a136 | ["data/raw/fds/fds_ngc1399_1deg.csv", 29] | galaxy
+(5 rows)
+
+source_key contains the source file and the row number in that checksummed file. The database column is text containing a JSON array. 
+The expression "origin.source_key::jsonb ->> 1" means interpret the text as JSON; select array element 1—the second element; return it as text.
+Then we do "(origin.source_key::jsonb ->> 1)::bigint" to convert that to integer, insuring that we get proper ordering instead of lexical "1, 10, 100, 11" kinds of results.
+
+We're using psycopg3 to connect to Postgres. 
+
+(for brevity, I am omitting the temporary Python script that I used to develop this, but here's a synopsis of how I develop:
+  - I make a temporary file and start the business of implementing teh Postgres query into Python
+  - first I output just a few examples to see if the output is what I want
+(.venv) jwb@elonius:~/Code/glob_umap$ python /tmp/load_probe.py
+(1, 'fds_aa_639_a136', '["data/raw/fds/fds_ngc1399_1deg.csv", 1]', 'galaxy', [0.27982700000000094, 0.9794659999999986, 0.26819599999999966, 0.26435100000000133, 0.1949949999999987])
+(14, 'fds_aa_639_a136', '["data/raw/fds/fds_ngc1399_1deg.csv", 14]', 'galaxy', [0.9383879999999998, 0.5292740000000009, 0.15756999999999977, 0.08842299999999881, 0.08512999999999948])
+(15, 'fds_aa_639_a136', '["data/raw/fds/fds_ngc1399_1deg.csv", 15]', 'galaxy', [0.6700990000000004, 0.8649510000000014, 0.15619999999999834, 0.1465519999999998, -0.019216000000000122])
+
+  - then I refine that output into a crude report, still limiting the query to 3 results:
+object_ids: (3,) int64
+stable_keys: 3 ('fds_aa_639_a136', '["data/raw/fds/fds_ngc1399_1deg.csv", 1]')
+labels: (3,) <U6
+values: (3, 5) float64
+finite: True
+[[ 0.279827  0.979466  0.268196  0.264351  0.194995]
+ [ 0.938388  0.529274  0.15757   0.088423  0.08513 ]
+ [ 0.670099  0.864951  0.1562    0.146552 -0.019216]]
+
+  - finally I remove the LIMIT 3 statement and run the whole gob of data to make sure I have the expected number of unique rows, five columns, three classes, and no dupes, and sample the first and last record for good measure:
+(.venv) jwb@elonius:~/Code/glob_umap$ python /tmp/load_probe.py
+object_ids: (43840,) int64
+stable_keys: 43840
+labels: (43840,) <U16
+values: (43840, 5) float64
+finite: True
+unique object IDs: True
+unique stable keys: True
+class counts: {'galaxy': 39734, 'globular_cluster': 1122, 'star': 2984}
+first vector: [0.279827 0.979466 0.268196 0.264351 0.194995]
+last vector: [0.809924 1.097023 0.282265 0.367216 0.126132]
+)
+
+Doing it this way makes sure that the code version of the query is doing what I want. 
+
+The next step is to define the objects (StableKey) and (MatrixData) that will carry our key design and these arrays through the computation. This definition
+will belong in src/glob_umap/compute/types.py (item #4 in the code implementation plan)
+It shoudl carry
+  object_ids
+  stable_keys
+  labels
+  values
+  feature_names
+
+validate_matrix() will enforce the properties I just checked manually
+
+Once that works, move the proven query into data.py and have it return a validated MatrixData
+
+Then replace the temporary constants with values from core.yaml in order to move configuration out of the code itself. This will ease maintenance and configuration a LOT.
+
+
+
+
+
+
+
 
